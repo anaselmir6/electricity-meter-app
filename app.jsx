@@ -565,6 +565,9 @@ function EntryView({ data, store, user }) {
   const [drafts, setDrafts] = React.useState({});
   const [feeDrafts, setFeeDrafts] = React.useState({});
   const [toast, setToast] = React.useState("");
+  const [search, setSearch] = React.useState("");
+  const [remainingOnly, setRemainingOnly] = React.useState(false);
+  const inputRefs = React.useRef({});
   const dateStr = year + "-" + pad2(month) + "-01";
 
   const subs = React.useMemo(() => activeSubscribers(data).sort((a, b) => a.id - b.id), [data]);
@@ -587,12 +590,39 @@ function EntryView({ data, store, user }) {
     });
   }, [subs, data, dateStr, drafts, feeDrafts, year, month]);
 
+  const enteredCount = rows.filter(r => r.existing).length;
+
+  const displayRows = React.useMemo(() => {
+    const q = search.trim().toLowerCase();
+    return rows.filter(row => {
+      if (remainingOnly && row.existing) return false;
+      if (!q) return true;
+      return row.sub.name.toLowerCase().includes(q)
+        || String(row.sub.panel).toLowerCase().includes(q)
+        || String(row.sub.meter).toLowerCase().includes(q);
+    });
+  }, [rows, search, remainingOnly]);
+
   function setDraft(subId, val) {
     setDrafts(d => ({ ...d, [subId]: val }));
   }
 
   function setFeeDraft(subId, val) {
     setFeeDrafts(d => ({ ...d, [subId]: val }));
+  }
+
+  function focusReadingInput(subId) {
+    const el = inputRefs.current[subId];
+    if (el) { el.focus(); el.select(); }
+  }
+
+  function handleReadingKeyDown(e, row, idx) {
+    if (e.key !== "Enter") return;
+    e.preventDefault();
+    if (row.curr === "" || isNaN(row.curr)) return;
+    saveRow(row);
+    const next = displayRows[idx + 1];
+    if (next) requestAnimationFrame(() => focusReadingInput(next.sub.id));
   }
 
   function saveRow(row) {
@@ -645,7 +675,21 @@ function EntryView({ data, store, user }) {
       </div>
 
       <div className="panel-card">
-        <h3><span className="eyebrow-dot"></span>{monthLabel(year, month)} — {rows.length} active subscribers</h3>
+        <h3 style={{ justifyContent: "space-between", flexWrap: "wrap", gap: 10 }}>
+          <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <span className="eyebrow-dot"></span>{monthLabel(year, month)} — {enteredCount}/{rows.length} entered
+          </span>
+          <input
+            className="search-input"
+            placeholder="Search by name, panel or meter..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+          />
+        </h3>
+        <div className="chip-row">
+          <button className={"chip" + (!remainingOnly ? " active" : "")} onClick={() => setRemainingOnly(false)}>All ({rows.length})</button>
+          <button className={"chip" + (remainingOnly ? " active" : "")} onClick={() => setRemainingOnly(true)}>Remaining ({rows.length - enteredCount})</button>
+        </div>
         <div className="table-wrap">
           <table className="data-table">
             <thead>
@@ -663,7 +707,12 @@ function EntryView({ data, store, user }) {
               </tr>
             </thead>
             <tbody>
-              {rows.map(row => (
+              {displayRows.length === 0 && (
+                <tr><td colSpan={10} style={{ textAlign: "center", color: "var(--slate)", padding: "24px 12px" }}>
+                  {remainingOnly ? "All subscribers have a reading for this month." : "No subscribers match your search."}
+                </td></tr>
+              )}
+              {displayRows.map((row, idx) => (
                 <tr key={row.sub.id} className={row.existing ? "row-saved" : ""}>
                   <td className="num">{row.sub.id}</td>
                   <td>{row.sub.name}</td>
@@ -672,10 +721,13 @@ function EntryView({ data, store, user }) {
                   <td className="num">{row.prev.toLocaleString("en-US")}</td>
                   <td>
                     <input
+                      ref={el => inputRefs.current[row.sub.id] = el}
                       className="entry-input"
                       type="number"
+                      inputMode="decimal"
                       value={row.curr}
                       onChange={e => setDraft(row.sub.id, e.target.value)}
+                      onKeyDown={e => handleReadingKeyDown(e, row, idx)}
                       placeholder="Enter reading"
                     />
                   </td>

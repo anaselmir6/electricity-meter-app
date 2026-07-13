@@ -784,6 +784,9 @@ function EntryView({
   const [drafts, setDrafts] = React.useState({});
   const [feeDrafts, setFeeDrafts] = React.useState({});
   const [toast, setToast] = React.useState("");
+  const [search, setSearch] = React.useState("");
+  const [remainingOnly, setRemainingOnly] = React.useState(false);
+  const inputRefs = React.useRef({});
   const dateStr = year + "-" + pad2(month) + "-01";
   const subs = React.useMemo(() => activeSubscribers(data).sort((a, b) => a.id - b.id), [data]);
   const rows = React.useMemo(() => {
@@ -813,6 +816,15 @@ function EntryView({
       };
     });
   }, [subs, data, dateStr, drafts, feeDrafts, year, month]);
+  const enteredCount = rows.filter(r => r.existing).length;
+  const displayRows = React.useMemo(() => {
+    const q = search.trim().toLowerCase();
+    return rows.filter(row => {
+      if (remainingOnly && row.existing) return false;
+      if (!q) return true;
+      return row.sub.name.toLowerCase().includes(q) || String(row.sub.panel).toLowerCase().includes(q) || String(row.sub.meter).toLowerCase().includes(q);
+    });
+  }, [rows, search, remainingOnly]);
   function setDraft(subId, val) {
     setDrafts(d => ({
       ...d,
@@ -824,6 +836,21 @@ function EntryView({
       ...d,
       [subId]: val
     }));
+  }
+  function focusReadingInput(subId) {
+    const el = inputRefs.current[subId];
+    if (el) {
+      el.focus();
+      el.select();
+    }
+  }
+  function handleReadingKeyDown(e, row, idx) {
+    if (e.key !== "Enter") return;
+    e.preventDefault();
+    if (row.curr === "" || isNaN(row.curr)) return;
+    saveRow(row);
+    const next = displayRows[idx + 1];
+    if (next) requestAnimationFrame(() => focusReadingInput(next.sub.id));
   }
   function saveRow(row) {
     if (row.curr === "" || isNaN(row.curr)) return;
@@ -874,9 +901,34 @@ function EntryView({
     className: "demo-banner"
   }, "Currently in demo mode: readings are saved in browser memory for this session only. After connecting the site to Firebase, they'll be saved permanently and appear immediately for the owner."), /*#__PURE__*/React.createElement("div", {
     className: "panel-card"
-  }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement("h3", {
+    style: {
+      justifyContent: "space-between",
+      flexWrap: "wrap",
+      gap: 10
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 8
+    }
+  }, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow-dot"
-  }), monthLabel(year, month), " — ", rows.length, " active subscribers"), /*#__PURE__*/React.createElement("div", {
+  }), monthLabel(year, month), " — ", enteredCount, "/", rows.length, " entered"), /*#__PURE__*/React.createElement("input", {
+    className: "search-input",
+    placeholder: "Search by name, panel or meter...",
+    value: search,
+    onChange: e => setSearch(e.target.value)
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "chip-row"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "chip" + (!remainingOnly ? " active" : ""),
+    onClick: () => setRemainingOnly(false)
+  }, "All (", rows.length, ")"), /*#__PURE__*/React.createElement("button", {
+    className: "chip" + (remainingOnly ? " active" : ""),
+    onClick: () => setRemainingOnly(true)
+  }, "Remaining (", rows.length - enteredCount, ")")), /*#__PURE__*/React.createElement("div", {
     className: "table-wrap"
   }, /*#__PURE__*/React.createElement("table", {
     className: "data-table"
@@ -890,7 +942,14 @@ function EntryView({
     className: "num"
   }, "Fixed Fee"), /*#__PURE__*/React.createElement("th", {
     className: "num"
-  }, "Total"), /*#__PURE__*/React.createElement("th", null, "Save"))), /*#__PURE__*/React.createElement("tbody", null, rows.map(row => /*#__PURE__*/React.createElement("tr", {
+  }, "Total"), /*#__PURE__*/React.createElement("th", null, "Save"))), /*#__PURE__*/React.createElement("tbody", null, displayRows.length === 0 && /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", {
+    colSpan: 10,
+    style: {
+      textAlign: "center",
+      color: "var(--slate)",
+      padding: "24px 12px"
+    }
+  }, remainingOnly ? "All subscribers have a reading for this month." : "No subscribers match your search.")), displayRows.map((row, idx) => /*#__PURE__*/React.createElement("tr", {
     key: row.sub.id,
     className: row.existing ? "row-saved" : ""
   }, /*#__PURE__*/React.createElement("td", {
@@ -902,10 +961,13 @@ function EntryView({
   }, row.sub.meter), /*#__PURE__*/React.createElement("td", {
     className: "num"
   }, row.prev.toLocaleString("en-US")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+    ref: el => inputRefs.current[row.sub.id] = el,
     className: "entry-input",
     type: "number",
+    inputMode: "decimal",
     value: row.curr,
     onChange: e => setDraft(row.sub.id, e.target.value),
+    onKeyDown: e => handleReadingKeyDown(e, row, idx),
     placeholder: "Enter reading"
   })), /*#__PURE__*/React.createElement("td", {
     className: "num"
