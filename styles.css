@@ -165,6 +165,9 @@ button:focus-visible, input:focus-visible, select:focus-visible, [tabindex]:focu
   font-family: inherit; font-size: 13.5px; color: var(--ink);
 }
 
+.price-editor label { font-size: 12px; color: var(--slate); margin-bottom: 6px; display: block; }
+.price-editor input.entry-input { width: 90px; }
+
 /* ==================== CARDS / KPI ==================== */
 .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 26px; }
 @media (max-width: 1100px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }

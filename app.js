@@ -379,6 +379,49 @@ function MonthPicker({
     value: i + 1
   }, m))));
 }
+// ==================== KWH PRICE EDITOR ====================
+function PriceEditor({
+  year,
+  month,
+  data,
+  store
+}) {
+  const currentPrice = getPrice(data, year, month);
+  const [draft, setDraft] = React.useState(String(currentPrice));
+  const [saved, setSaved] = React.useState(false);
+  React.useEffect(() => {
+    setDraft(String(currentPrice));
+  }, [year, month, currentPrice]);
+  function apply() {
+    const val = Number(draft);
+    if (draft === "" || isNaN(val) || val < 0) return;
+    store.setPriceForMonth(year, month, val);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 1500);
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    className: "price-editor"
+  }, /*#__PURE__*/React.createElement("label", null, "kWh Price ($)"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 6
+    }
+  }, /*#__PURE__*/React.createElement("input", {
+    className: "entry-input",
+    type: "number",
+    step: "0.01",
+    min: "0",
+    value: draft,
+    onChange: e => setDraft(e.target.value),
+    onKeyDown: e => {
+      if (e.key === "Enter") apply();
+    },
+    onBlur: apply
+  }), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-sm",
+    onClick: apply
+  }, saved ? "Saved" : "Apply")));
+}
 // ==================== METER DIAL (signature element) ====================
 function MeterDial({
   value,
@@ -906,12 +949,24 @@ function EntryView({
     className: "page-title"
   }, "Monthly Reading Entry"), /*#__PURE__*/React.createElement("div", {
     className: "page-desc"
-  }, "Choose the month, enter the current meter reading for each subscriber — the rest is calculated automatically")), /*#__PURE__*/React.createElement(MonthPicker, {
+  }, "Choose the month, enter the current meter reading for each subscriber — Total = Consumption × kWh Price + Fixed Fee, rounded up to the next dollar")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 14,
+      alignItems: "flex-end",
+      flexWrap: "wrap"
+    }
+  }, /*#__PURE__*/React.createElement(PriceEditor, {
+    year: year,
+    month: month,
+    data: data,
+    store: store
+  }), /*#__PURE__*/React.createElement(MonthPicker, {
     year: year,
     month: month,
     setYear: setYear,
     setMonth: setMonth
-  })), /*#__PURE__*/React.createElement("div", {
+  }))), /*#__PURE__*/React.createElement("div", {
     className: "demo-banner"
   }, "Currently in demo mode: readings are saved in browser memory for this session only. After connecting the site to Firebase, they'll be saved permanently and appear immediately for the owner."), /*#__PURE__*/React.createElement("div", {
     className: "panel-card"

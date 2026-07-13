@@ -278,6 +278,41 @@ function MonthPicker({ year, month, setYear, setMonth, minYear = 2024, maxYear =
     </div>
   );
 }
+// ==================== KWH PRICE EDITOR ====================
+function PriceEditor({ year, month, data, store }) {
+  const currentPrice = getPrice(data, year, month);
+  const [draft, setDraft] = React.useState(String(currentPrice));
+  const [saved, setSaved] = React.useState(false);
+
+  React.useEffect(() => { setDraft(String(currentPrice)); }, [year, month, currentPrice]);
+
+  function apply() {
+    const val = Number(draft);
+    if (draft === "" || isNaN(val) || val < 0) return;
+    store.setPriceForMonth(year, month, val);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 1500);
+  }
+
+  return (
+    <div className="price-editor">
+      <label>kWh Price ($)</label>
+      <div style={{ display: "flex", gap: 6 }}>
+        <input
+          className="entry-input"
+          type="number"
+          step="0.01"
+          min="0"
+          value={draft}
+          onChange={e => setDraft(e.target.value)}
+          onKeyDown={e => { if (e.key === "Enter") apply(); }}
+          onBlur={apply}
+        />
+        <button className="btn btn-sm" onClick={apply}>{saved ? "Saved" : "Apply"}</button>
+      </div>
+    </div>
+  );
+}
 // ==================== METER DIAL (signature element) ====================
 function MeterDial({ value, max, label }) {
   const pct = max > 0 ? Math.min(1, Math.max(0, value / max)) : 0;
@@ -671,9 +706,12 @@ function EntryView({ data, store, user }) {
         <div>
           <div className="page-eyebrow">DATA ENTRY · {user.name}</div>
           <div className="page-title">Monthly Reading Entry</div>
-          <div className="page-desc">Choose the month, enter the current meter reading for each subscriber — the rest is calculated automatically</div>
+          <div className="page-desc">Choose the month, enter the current meter reading for each subscriber — Total = Consumption × kWh Price + Fixed Fee, rounded up to the next dollar</div>
         </div>
-        <MonthPicker year={year} month={month} setYear={setYear} setMonth={setMonth} />
+        <div style={{ display: "flex", gap: 14, alignItems: "flex-end", flexWrap: "wrap" }}>
+          <PriceEditor year={year} month={month} data={data} store={store} />
+          <MonthPicker year={year} month={month} setYear={setYear} setMonth={setMonth} />
+        </div>
       </div>
 
       <div className="demo-banner">
