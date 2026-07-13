@@ -605,7 +605,7 @@ function EntryView({ data, store, user }) {
   const inputRefs = React.useRef({});
   const dateStr = year + "-" + pad2(month) + "-01";
 
-  const subs = React.useMemo(() => [...data.subscribers].sort((a, b) => a.id - b.id), [data]);
+  const subs = React.useMemo(() => activeSubscribers(data).sort((a, b) => a.id - b.id), [data]);
 
   const rows = React.useMemo(() => {
     return subs.map(s => {
@@ -625,20 +625,16 @@ function EntryView({ data, store, user }) {
     });
   }, [subs, data, dateStr, drafts, feeDrafts, year, month]);
 
-  const activeRows = rows.filter(r => r.sub.active === "Active");
-  const enteredCount = activeRows.filter(r => r.existing).length;
+  const enteredCount = rows.filter(r => r.existing).length;
 
   const displayRows = React.useMemo(() => {
     const q = search.trim().toLowerCase();
     return rows.filter(row => {
-      if (remainingOnly && (row.sub.active !== "Active" || row.existing)) return false;
+      if (remainingOnly && row.existing) return false;
       if (!q) return true;
       return row.sub.name.toLowerCase().includes(q)
         || String(row.sub.panel).toLowerCase().includes(q)
         || String(row.sub.meter).toLowerCase().includes(q);
-    }).sort((a, b) => {
-      if (a.sub.active !== b.sub.active) return a.sub.active === "Active" ? -1 : 1;
-      return a.sub.id - b.sub.id;
     });
   }, [rows, search, remainingOnly]);
 
@@ -654,10 +650,6 @@ function EntryView({ data, store, user }) {
     store.updateSubscriber(row.sub.id, { A: Number(newAmp), fixedFee: data.tariff[newAmp] });
     // the fixed fee follows the new amp's tariff price, so drop any manual override for this row
     setFeeDrafts(d => { const next = { ...d }; delete next[row.sub.id]; return next; });
-  }
-
-  function toggleActive(row) {
-    store.updateSubscriber(row.sub.id, { active: row.sub.active === "Active" ? "Inactive" : "Active" });
   }
 
   function focusReadingInput(subId) {
@@ -698,7 +690,7 @@ function EntryView({ data, store, user }) {
 
   function saveAll() {
     let count = 0;
-    activeRows.forEach(row => {
+    rows.forEach(row => {
       if (row.curr !== "" && !isNaN(row.curr) && !row.existing) {
         saveRow(row);
         count++;
@@ -729,7 +721,7 @@ function EntryView({ data, store, user }) {
       <div className="panel-card">
         <h3 style={{ justifyContent: "space-between", flexWrap: "wrap", gap: 10 }}>
           <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span className="eyebrow-dot"></span>{monthLabel(year, month)} — {enteredCount}/{activeRows.length} entered
+            <span className="eyebrow-dot"></span>{monthLabel(year, month)} — {enteredCount}/{rows.length} entered
           </span>
           <input
             className="search-input"
@@ -739,8 +731,8 @@ function EntryView({ data, store, user }) {
           />
         </h3>
         <div className="chip-row">
-          <button className={"chip" + (!remainingOnly ? " active" : "")} onClick={() => setRemainingOnly(false)}>All ({activeRows.length})</button>
-          <button className={"chip" + (remainingOnly ? " active" : "")} onClick={() => setRemainingOnly(true)}>Remaining ({activeRows.length - enteredCount})</button>
+          <button className={"chip" + (!remainingOnly ? " active" : "")} onClick={() => setRemainingOnly(false)}>All ({rows.length})</button>
+          <button className={"chip" + (remainingOnly ? " active" : "")} onClick={() => setRemainingOnly(true)}>Remaining ({rows.length - enteredCount})</button>
         </div>
         <div className="table-wrap">
           <table className="data-table">
@@ -750,7 +742,6 @@ function EntryView({ data, store, user }) {
                 <th>Name</th>
                 <th>Panel No.</th>
                 <th>Meter No.</th>
-                <th>Active</th>
                 <th className="num">Previous Reading</th>
                 <th className="num">Current Reading</th>
                 <th className="num">Consumption</th>
@@ -762,73 +753,58 @@ function EntryView({ data, store, user }) {
             </thead>
             <tbody>
               {displayRows.length === 0 && (
-                <tr><td colSpan={12} style={{ textAlign: "center", color: "var(--slate)", padding: "24px 12px" }}>
+                <tr><td colSpan={11} style={{ textAlign: "center", color: "var(--slate)", padding: "24px 12px" }}>
                   {remainingOnly ? "All subscribers have a reading for this month." : "No subscribers match your search."}
                 </td></tr>
               )}
-              {displayRows.map((row, idx) => {
-                const isActive = row.sub.active === "Active";
-                return (
-                  <tr key={row.sub.id} className={!isActive ? "row-inactive" : (row.existing ? "row-saved" : "")}>
-                    <td className="num">{row.sub.id}</td>
-                    <td>{row.sub.name}</td>
-                    <td className="num">{row.sub.panel}</td>
-                    <td className="num">{row.sub.meter}</td>
-                    <td>
-                      <button
-                        className={"badge " + (isActive ? "active" : "inactive")}
-                        style={{ border: "none" }}
-                        onClick={() => toggleActive(row)}
-                      >
-                        {row.sub.active}
-                      </button>
-                    </td>
-                    <td className="num">{row.prev.toLocaleString("en-US")}</td>
-                    <td>
-                      <input
-                        ref={el => inputRefs.current[row.sub.id] = el}
-                        className="entry-input"
-                        type="number"
-                        inputMode="decimal"
-                        value={row.curr}
-                        onChange={e => setDraft(row.sub.id, e.target.value)}
-                        onKeyDown={e => handleReadingKeyDown(e, row, idx)}
-                        placeholder={isActive ? "Enter reading" : "Inactive"}
-                        disabled={!isActive}
-                      />
-                    </td>
-                    <td className="num">{row.consumption !== null ? row.consumption.toLocaleString("en-US") : "—"}</td>
-                    <td>
-                      <select
-                        className="entry-input"
-                        value={row.sub.A}
-                        onChange={e => changeAmp(row, e.target.value)}
-                        disabled={!isActive}
-                      >
-                        {Object.keys(data.tariff).map(a => <option key={a} value={a}>{a}A</option>)}
-                      </select>
-                    </td>
-                    <td>
-                      <input
-                        className="entry-input"
-                        type="number"
-                        step="0.01"
-                        value={feeDrafts[row.sub.id] !== undefined ? feeDrafts[row.sub.id] : row.fixedFee}
-                        onChange={e => setFeeDraft(row.sub.id, e.target.value)}
-                        disabled={!isActive}
-                        style={row.feeEdited ? { borderColor: "var(--filament)", background: "var(--filament-soft)" } : undefined}
-                        title={row.feeEdited ? "Fixed fee changed from the default subscription rate" : ""}
-                      />
-                    </td>
-                    <td className="num">{row.total !== null ? fmtMoney(Math.ceil(row.total)) : "—"}</td>
-                    <td>
-                      <button className="btn btn-sm" disabled={!isActive || row.curr === "" || isNaN(row.curr)} onClick={() => saveRow(row)}>
-                        {row.existing ? "Update" : "Save"}
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
+              {displayRows.map((row, idx) => (
+                <tr key={row.sub.id} className={row.existing ? "row-saved" : ""}>
+                  <td className="num">{row.sub.id}</td>
+                  <td>{row.sub.name}</td>
+                  <td className="num">{row.sub.panel}</td>
+                  <td className="num">{row.sub.meter}</td>
+                  <td className="num">{row.prev.toLocaleString("en-US")}</td>
+                  <td>
+                    <input
+                      ref={el => inputRefs.current[row.sub.id] = el}
+                      className="entry-input"
+                      type="number"
+                      inputMode="decimal"
+                      value={row.curr}
+                      onChange={e => setDraft(row.sub.id, e.target.value)}
+                      onKeyDown={e => handleReadingKeyDown(e, row, idx)}
+                      placeholder="Enter reading"
+                    />
+                  </td>
+                  <td className="num">{row.consumption !== null ? row.consumption.toLocaleString("en-US") : "—"}</td>
+                  <td>
+                    <select
+                      className="entry-input"
+                      value={row.sub.A}
+                      onChange={e => changeAmp(row, e.target.value)}
+                    >
+                      {Object.keys(data.tariff).map(a => <option key={a} value={a}>{a}A</option>)}
+                    </select>
+                  </td>
+                  <td>
+                    <input
+                      className="entry-input"
+                      type="number"
+                      step="0.01"
+                      value={feeDrafts[row.sub.id] !== undefined ? feeDrafts[row.sub.id] : row.fixedFee}
+                      onChange={e => setFeeDraft(row.sub.id, e.target.value)}
+                      style={row.feeEdited ? { borderColor: "var(--filament)", background: "var(--filament-soft)" } : undefined}
+                      title={row.feeEdited ? "Fixed fee changed from the default subscription rate" : ""}
+                    />
+                  </td>
+                  <td className="num">{row.total !== null ? fmtMoney(Math.ceil(row.total)) : "—"}</td>
+                  <td>
+                    <button className="btn btn-sm" disabled={row.curr === "" || isNaN(row.curr)} onClick={() => saveRow(row)}>
+                      {row.existing ? "Update" : "Save"}
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
