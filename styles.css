@@ -241,7 +241,9 @@ table.data-table td.num, table.data-table th.num { font-family: "IBM Plex Mono",
   font-family: "IBM Plex Mono", monospace; direction: ltr; text-align: left; font-size: 13px;
 }
 .entry-input:focus { border-color: var(--filament); }
+.entry-input:disabled { background: var(--paper-dim); color: var(--slate); cursor: not-allowed; }
 .row-saved { background: var(--teal-soft) !important; }
+.row-inactive td { color: var(--slate); }
 .toast {
   position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
   background: var(--ink); color: var(--filament); padding: 12px 22px; border-radius: 4px;

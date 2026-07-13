@@ -831,7 +831,7 @@ function EntryView({
   const [remainingOnly, setRemainingOnly] = React.useState(false);
   const inputRefs = React.useRef({});
   const dateStr = year + "-" + pad2(month) + "-01";
-  const subs = React.useMemo(() => activeSubscribers(data).sort((a, b) => a.id - b.id), [data]);
+  const subs = React.useMemo(() => [...data.subscribers].sort((a, b) => a.id - b.id), [data]);
   const rows = React.useMemo(() => {
     return subs.map(s => {
       const existing = data.readings.find(r => r.subId === s.id && r.date === dateStr);
@@ -859,13 +859,17 @@ function EntryView({
       };
     });
   }, [subs, data, dateStr, drafts, feeDrafts, year, month]);
-  const enteredCount = rows.filter(r => r.existing).length;
+  const activeRows = rows.filter(r => r.sub.active === "Active");
+  const enteredCount = activeRows.filter(r => r.existing).length;
   const displayRows = React.useMemo(() => {
     const q = search.trim().toLowerCase();
     return rows.filter(row => {
-      if (remainingOnly && row.existing) return false;
+      if (remainingOnly && (row.sub.active !== "Active" || row.existing)) return false;
       if (!q) return true;
       return row.sub.name.toLowerCase().includes(q) || String(row.sub.panel).toLowerCase().includes(q) || String(row.sub.meter).toLowerCase().includes(q);
+    }).sort((a, b) => {
+      if (a.sub.active !== b.sub.active) return a.sub.active === "Active" ? -1 : 1;
+      return a.sub.id - b.sub.id;
     });
   }, [rows, search, remainingOnly]);
   function setDraft(subId, val) {
@@ -892,6 +896,11 @@ function EntryView({
       };
       delete next[row.sub.id];
       return next;
+    });
+  }
+  function toggleActive(row) {
+    store.updateSubscriber(row.sub.id, {
+      active: row.sub.active === "Active" ? "Inactive" : "Active"
     });
   }
   function focusReadingInput(subId) {
@@ -932,7 +941,7 @@ function EntryView({
   }
   function saveAll() {
     let count = 0;
-    rows.forEach(row => {
+    activeRows.forEach(row => {
       if (row.curr !== "" && !isNaN(row.curr) && !row.existing) {
         saveRow(row);
         count++;
@@ -984,7 +993,7 @@ function EntryView({
     }
   }, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow-dot"
-  }), monthLabel(year, month), " — ", enteredCount, "/", rows.length, " entered"), /*#__PURE__*/React.createElement("input", {
+  }), monthLabel(year, month), " — ", enteredCount, "/", activeRows.length, " entered"), /*#__PURE__*/React.createElement("input", {
     className: "search-input",
     placeholder: "Search by name, panel or meter...",
     value: search,
@@ -994,14 +1003,14 @@ function EntryView({
   }, /*#__PURE__*/React.createElement("button", {
     className: "chip" + (!remainingOnly ? " active" : ""),
     onClick: () => setRemainingOnly(false)
-  }, "All (", rows.length, ")"), /*#__PURE__*/React.createElement("button", {
+  }, "All (", activeRows.length, ")"), /*#__PURE__*/React.createElement("button", {
     className: "chip" + (remainingOnly ? " active" : ""),
     onClick: () => setRemainingOnly(true)
-  }, "Remaining (", rows.length - enteredCount, ")")), /*#__PURE__*/React.createElement("div", {
+  }, "Remaining (", activeRows.length - enteredCount, ")")), /*#__PURE__*/React.createElement("div", {
     className: "table-wrap"
   }, /*#__PURE__*/React.createElement("table", {
     className: "data-table"
-  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "#"), /*#__PURE__*/React.createElement("th", null, "Name"), /*#__PURE__*/React.createElement("th", null, "Panel No."), /*#__PURE__*/React.createElement("th", null, "Meter No."), /*#__PURE__*/React.createElement("th", {
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "#"), /*#__PURE__*/React.createElement("th", null, "Name"), /*#__PURE__*/React.createElement("th", null, "Panel No."), /*#__PURE__*/React.createElement("th", null, "Meter No."), /*#__PURE__*/React.createElement("th", null, "Active"), /*#__PURE__*/React.createElement("th", {
     className: "num"
   }, "Previous Reading"), /*#__PURE__*/React.createElement("th", {
     className: "num"
@@ -1014,59 +1023,71 @@ function EntryView({
   }, "Fixed Fee"), /*#__PURE__*/React.createElement("th", {
     className: "num"
   }, "Total"), /*#__PURE__*/React.createElement("th", null, "Save"))), /*#__PURE__*/React.createElement("tbody", null, displayRows.length === 0 && /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", {
-    colSpan: 11,
+    colSpan: 12,
     style: {
       textAlign: "center",
       color: "var(--slate)",
       padding: "24px 12px"
     }
-  }, remainingOnly ? "All subscribers have a reading for this month." : "No subscribers match your search.")), displayRows.map((row, idx) => /*#__PURE__*/React.createElement("tr", {
-    key: row.sub.id,
-    className: row.existing ? "row-saved" : ""
-  }, /*#__PURE__*/React.createElement("td", {
-    className: "num"
-  }, row.sub.id), /*#__PURE__*/React.createElement("td", null, row.sub.name), /*#__PURE__*/React.createElement("td", {
-    className: "num"
-  }, row.sub.panel), /*#__PURE__*/React.createElement("td", {
-    className: "num"
-  }, row.sub.meter), /*#__PURE__*/React.createElement("td", {
-    className: "num"
-  }, row.prev.toLocaleString("en-US")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
-    ref: el => inputRefs.current[row.sub.id] = el,
-    className: "entry-input",
-    type: "number",
-    inputMode: "decimal",
-    value: row.curr,
-    onChange: e => setDraft(row.sub.id, e.target.value),
-    onKeyDown: e => handleReadingKeyDown(e, row, idx),
-    placeholder: "Enter reading"
-  })), /*#__PURE__*/React.createElement("td", {
-    className: "num"
-  }, row.consumption !== null ? row.consumption.toLocaleString("en-US") : "—"), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("select", {
-    className: "entry-input",
-    value: row.sub.A,
-    onChange: e => changeAmp(row, e.target.value)
-  }, Object.keys(data.tariff).map(a => /*#__PURE__*/React.createElement("option", {
-    key: a,
-    value: a
-  }, a, "A")))), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
-    className: "entry-input",
-    type: "number",
-    step: "0.01",
-    value: feeDrafts[row.sub.id] !== undefined ? feeDrafts[row.sub.id] : row.fixedFee,
-    onChange: e => setFeeDraft(row.sub.id, e.target.value),
-    style: row.feeEdited ? {
-      borderColor: "var(--filament)",
-      background: "var(--filament-soft)"
-    } : undefined,
-    title: row.feeEdited ? "Fixed fee changed from the default subscription rate" : ""
-  })), /*#__PURE__*/React.createElement("td", {
-    className: "num"
-  }, row.total !== null ? fmtMoney(Math.ceil(row.total)) : "—"), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
-    className: "btn btn-sm",
-    disabled: row.curr === "" || isNaN(row.curr),
-    onClick: () => saveRow(row)
-  }, row.existing ? "Update" : "Save"))))))), /*#__PURE__*/React.createElement("div", {
+  }, remainingOnly ? "All subscribers have a reading for this month." : "No subscribers match your search.")), displayRows.map((row, idx) => {
+    const isActive = row.sub.active === "Active";
+    return /*#__PURE__*/React.createElement("tr", {
+      key: row.sub.id,
+      className: !isActive ? "row-inactive" : row.existing ? "row-saved" : ""
+    }, /*#__PURE__*/React.createElement("td", {
+      className: "num"
+    }, row.sub.id), /*#__PURE__*/React.createElement("td", null, row.sub.name), /*#__PURE__*/React.createElement("td", {
+      className: "num"
+    }, row.sub.panel), /*#__PURE__*/React.createElement("td", {
+      className: "num"
+    }, row.sub.meter), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
+      className: "badge " + (isActive ? "active" : "inactive"),
+      style: {
+        border: "none"
+      },
+      onClick: () => toggleActive(row)
+    }, row.sub.active)), /*#__PURE__*/React.createElement("td", {
+      className: "num"
+    }, row.prev.toLocaleString("en-US")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+      ref: el => inputRefs.current[row.sub.id] = el,
+      className: "entry-input",
+      type: "number",
+      inputMode: "decimal",
+      value: row.curr,
+      onChange: e => setDraft(row.sub.id, e.target.value),
+      onKeyDown: e => handleReadingKeyDown(e, row, idx),
+      placeholder: isActive ? "Enter reading" : "Inactive",
+      disabled: !isActive
+    })), /*#__PURE__*/React.createElement("td", {
+      className: "num"
+    }, row.consumption !== null ? row.consumption.toLocaleString("en-US") : "—"), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("select", {
+      className: "entry-input",
+      value: row.sub.A,
+      onChange: e => changeAmp(row, e.target.value),
+      disabled: !isActive
+    }, Object.keys(data.tariff).map(a => /*#__PURE__*/React.createElement("option", {
+      key: a,
+      value: a
+    }, a, "A")))), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+      className: "entry-input",
+      type: "number",
+      step: "0.01",
+      value: feeDrafts[row.sub.id] !== undefined ? feeDrafts[row.sub.id] : row.fixedFee,
+      onChange: e => setFeeDraft(row.sub.id, e.target.value),
+      disabled: !isActive,
+      style: row.feeEdited ? {
+        borderColor: "var(--filament)",
+        background: "var(--filament-soft)"
+      } : undefined,
+      title: row.feeEdited ? "Fixed fee changed from the default subscription rate" : ""
+    })), /*#__PURE__*/React.createElement("td", {
+      className: "num"
+    }, row.total !== null ? fmtMoney(Math.ceil(row.total)) : "—"), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
+      className: "btn btn-sm",
+      disabled: !isActive || row.curr === "" || isNaN(row.curr),
+      onClick: () => saveRow(row)
+    }, row.existing ? "Update" : "Save")));
+  })))), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 16,
       display: "flex",
