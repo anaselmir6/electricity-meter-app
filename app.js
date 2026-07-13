@@ -837,6 +837,20 @@ function EntryView({
       [subId]: val
     }));
   }
+  function changeAmp(row, newAmp) {
+    store.updateSubscriber(row.sub.id, {
+      A: Number(newAmp),
+      fixedFee: data.tariff[newAmp]
+    });
+    // the fixed fee follows the new amp's tariff price, so drop any manual override for this row
+    setFeeDrafts(d => {
+      const next = {
+        ...d
+      };
+      delete next[row.sub.id];
+      return next;
+    });
+  }
   function focusReadingInput(subId) {
     const el = inputRefs.current[subId];
     if (el) {
@@ -865,7 +879,7 @@ function EntryView({
       feeEdited: row.feeEdited,
       editedBy: row.feeEdited ? user.name : row.existing ? row.existing.editedBy : undefined,
       total: row.total,
-      totalRounded: Math.round(row.total),
+      totalRounded: Math.ceil(row.total),
       receiptNo: row.existing ? row.existing.receiptNo : "",
       paid: row.existing ? row.existing.paid : "Paid",
       payMethod: "Cash"
@@ -973,9 +987,14 @@ function EntryView({
     placeholder: "Enter reading"
   })), /*#__PURE__*/React.createElement("td", {
     className: "num"
-  }, row.consumption !== null ? row.consumption.toLocaleString("en-US") : "—"), /*#__PURE__*/React.createElement("td", {
-    className: "num"
-  }, row.sub.A, "A"), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+  }, row.consumption !== null ? row.consumption.toLocaleString("en-US") : "—"), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("select", {
+    className: "entry-input",
+    value: row.sub.A,
+    onChange: e => changeAmp(row, e.target.value)
+  }, Object.keys(data.tariff).map(a => /*#__PURE__*/React.createElement("option", {
+    key: a,
+    value: a
+  }, a, "A")))), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
     className: "entry-input",
     type: "number",
     step: "0.01",
@@ -988,7 +1007,7 @@ function EntryView({
     title: row.feeEdited ? "Fixed fee changed from the default subscription rate" : ""
   })), /*#__PURE__*/React.createElement("td", {
     className: "num"
-  }, row.total !== null ? fmtMoney2(row.total) : "—"), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
+  }, row.total !== null ? fmtMoney(Math.ceil(row.total)) : "—"), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
     className: "btn btn-sm",
     disabled: row.curr === "" || isNaN(row.curr),
     onClick: () => saveRow(row)

@@ -611,6 +611,12 @@ function EntryView({ data, store, user }) {
     setFeeDrafts(d => ({ ...d, [subId]: val }));
   }
 
+  function changeAmp(row, newAmp) {
+    store.updateSubscriber(row.sub.id, { A: Number(newAmp), fixedFee: data.tariff[newAmp] });
+    // the fixed fee follows the new amp's tariff price, so drop any manual override for this row
+    setFeeDrafts(d => { const next = { ...d }; delete next[row.sub.id]; return next; });
+  }
+
   function focusReadingInput(subId) {
     const el = inputRefs.current[subId];
     if (el) { el.focus(); el.select(); }
@@ -638,7 +644,7 @@ function EntryView({ data, store, user }) {
       feeEdited: row.feeEdited,
       editedBy: row.feeEdited ? user.name : (row.existing ? row.existing.editedBy : undefined),
       total: row.total,
-      totalRounded: Math.round(row.total),
+      totalRounded: Math.ceil(row.total),
       receiptNo: row.existing ? row.existing.receiptNo : "",
       paid: row.existing ? row.existing.paid : "Paid",
       payMethod: "Cash",
@@ -733,7 +739,15 @@ function EntryView({ data, store, user }) {
                     />
                   </td>
                   <td className="num">{row.consumption !== null ? row.consumption.toLocaleString("en-US") : "—"}</td>
-                  <td className="num">{row.sub.A}A</td>
+                  <td>
+                    <select
+                      className="entry-input"
+                      value={row.sub.A}
+                      onChange={e => changeAmp(row, e.target.value)}
+                    >
+                      {Object.keys(data.tariff).map(a => <option key={a} value={a}>{a}A</option>)}
+                    </select>
+                  </td>
                   <td>
                     <input
                       className="entry-input"
@@ -745,7 +759,7 @@ function EntryView({ data, store, user }) {
                       title={row.feeEdited ? "Fixed fee changed from the default subscription rate" : ""}
                     />
                   </td>
-                  <td className="num">{row.total !== null ? fmtMoney2(row.total) : "—"}</td>
+                  <td className="num">{row.total !== null ? fmtMoney(Math.ceil(row.total)) : "—"}</td>
                   <td>
                     <button className="btn btn-sm" disabled={row.curr === "" || isNaN(row.curr)} onClick={() => saveRow(row)}>
                       {row.existing ? "Update" : "Save"}
