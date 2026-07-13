@@ -1,5 +1,6 @@
 // ==================== UTILITIES ====================
 const MONTHS_AR = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const MONTHS_ARABIC = ["كانون الثاني", "شباط", "آذار", "نيسان", "أيار", "حزيران", "تموز", "آب", "أيلول", "تشرين الأول", "تشرين الثاني", "كانون الأول"];
 function pad2(n) {
   return n < 10 ? "0" + n : "" + n;
 }
@@ -8,6 +9,9 @@ function ymKey(y, m) {
 }
 function monthLabel(y, m) {
   return MONTHS_AR[m - 1] + " " + y;
+}
+function monthLabelArabic(y, m) {
+  return MONTHS_ARABIC[m - 1] + " " + y;
 }
 function fmtMoney(n) {
   if (n === null || n === undefined || isNaN(n)) return "$0";
@@ -1591,48 +1595,93 @@ function ReceiptTemplate({
   receiptNo
 }) {
   if (!sub || !reading) return null;
+  const y = Number(reading.date.slice(0, 4));
+  const m = Number(reading.date.slice(5, 7));
+  const today = new Date();
+  const printedDate = `${today.getFullYear()}/${today.getDate()}/${today.getMonth() + 1}`;
+  const payMethodArabic = reading.payMethod === "Cash" || !reading.payMethod ? "نقداً" : reading.payMethod;
   return /*#__PURE__*/React.createElement("div", {
-    className: "receipt-sheet",
-    dir: "ltr"
+    className: "receipt-sheet-ar",
+    dir: "rtl"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "r-title"
-  }, "Receipt — No. ", receiptNo), /*#__PURE__*/React.createElement("div", {
-    className: "r-row"
-  }, /*#__PURE__*/React.createElement("span", null, "Received from:"), /*#__PURE__*/React.createElement("b", null, sub.name)), /*#__PURE__*/React.createElement("div", {
-    className: "r-row"
-  }, /*#__PURE__*/React.createElement("span", null, "Panel No.:"), /*#__PURE__*/React.createElement("b", {
+    className: "rc-header"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "rc-title"
+  }, "إيصال قبض ", /*#__PURE__*/React.createElement("span", {
+    className: "rc-no mono"
+  }, receiptNo)), /*#__PURE__*/React.createElement("div", {
+    className: "rc-amount-box"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "rc-amount-label"
+  }, "المبلغ"), /*#__PURE__*/React.createElement("div", {
+    className: "rc-amount-value"
+  }, /*#__PURE__*/React.createElement("span", null, "USD"), /*#__PURE__*/React.createElement("span", {
     className: "mono"
-  }, sub.panel)), /*#__PURE__*/React.createElement("div", {
-    className: "r-row"
-  }, /*#__PURE__*/React.createElement("span", null, "Unit Rate:"), /*#__PURE__*/React.createElement("b", {
+  }, reading.totalRounded)))), /*#__PURE__*/React.createElement("div", {
+    className: "rc-row"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+    className: "rc-label"
+  }, "وصلنا من السيد:"), " ", /*#__PURE__*/React.createElement("b", null, sub.name)), /*#__PURE__*/React.createElement("div", {
+    className: "rc-box"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "rc-box-value mono"
+  }, sub.panel), /*#__PURE__*/React.createElement("div", {
+    className: "rc-box-label"
+  }, "رقم الساعة"))), /*#__PURE__*/React.createElement("div", {
+    className: "rc-row"
+  }, /*#__PURE__*/React.createElement("div", null), /*#__PURE__*/React.createElement("div", {
+    className: "rc-box"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "rc-box-value mono"
+  }, reading.price), /*#__PURE__*/React.createElement("div", {
+    className: "rc-box-label"
+  }, "تعرفة الوحدة"))), /*#__PURE__*/React.createElement("div", {
+    className: "rc-row"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+    className: "rc-label"
+  }, "مبلغاً وقدره:"), " ", /*#__PURE__*/React.createElement("b", null, amountInWords(reading.totalRounded)))), /*#__PURE__*/React.createElement("div", {
+    className: "rc-row"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+    className: "rc-label"
+  }, "وذلك عن:"), " ", /*#__PURE__*/React.createElement("b", null, "تسديد إشتراك الكهرباء عن شهر ", monthLabelArabic(y, m))), /*#__PURE__*/React.createElement("div", {
+    className: "rc-box"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "rc-box-value mono"
+  }, reading.fixedFee), /*#__PURE__*/React.createElement("div", {
+    className: "rc-box-label"
+  }, "مبلغ مقطوع"))), /*#__PURE__*/React.createElement("div", {
+    className: "rc-row"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+    className: "rc-label"
+  }, "طريقة الدفع:"), " ", /*#__PURE__*/React.createElement("b", null, payMethodArabic))), /*#__PURE__*/React.createElement("div", {
+    className: "rc-row rc-meters"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "rc-box"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "rc-box-value mono"
+  }, reading.prev), /*#__PURE__*/React.createElement("div", {
+    className: "rc-box-label"
+  }, "العداد السابق")), /*#__PURE__*/React.createElement("div", {
+    className: "rc-box"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "rc-box-value mono"
+  }, reading.curr), /*#__PURE__*/React.createElement("div", {
+    className: "rc-box-label"
+  }, "العداد الحالي")), /*#__PURE__*/React.createElement("div", {
+    className: "rc-box"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "rc-box-value mono"
+  }, reading.consumption), /*#__PURE__*/React.createElement("div", {
+    className: "rc-box-label"
+  }, "إجمالي المسحوب"))), /*#__PURE__*/React.createElement("div", {
+    className: "rc-footer"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+    className: "rc-label"
+  }, "المستلم:"), " ", /*#__PURE__*/React.createElement("b", null, "LASeR")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+    className: "rc-label"
+  }, "التاريخ:"), " ", /*#__PURE__*/React.createElement("b", {
     className: "mono"
-  }, reading.price, " $")), /*#__PURE__*/React.createElement("div", {
-    className: "r-row"
-  }, /*#__PURE__*/React.createElement("span", null, "For:"), /*#__PURE__*/React.createElement("b", null, "Payment of electricity subscription for ", monthLabel(Number(reading.date.slice(0, 4)), Number(reading.date.slice(5, 7))))), /*#__PURE__*/React.createElement("div", {
-    className: "r-row"
-  }, /*#__PURE__*/React.createElement("span", null, "Previous Reading:"), /*#__PURE__*/React.createElement("b", {
-    className: "mono"
-  }, reading.prev)), /*#__PURE__*/React.createElement("div", {
-    className: "r-row"
-  }, /*#__PURE__*/React.createElement("span", null, "Current Reading:"), /*#__PURE__*/React.createElement("b", {
-    className: "mono"
-  }, reading.curr)), /*#__PURE__*/React.createElement("div", {
-    className: "r-row"
-  }, /*#__PURE__*/React.createElement("span", null, "Total Consumption:"), /*#__PURE__*/React.createElement("b", {
-    className: "mono"
-  }, reading.consumption, " kWh")), /*#__PURE__*/React.createElement("div", {
-    className: "r-row"
-  }, /*#__PURE__*/React.createElement("span", null, "Fixed Subscription:"), /*#__PURE__*/React.createElement("b", {
-    className: "mono"
-  }, fmtMoney2(reading.fixedFee))), /*#__PURE__*/React.createElement("div", {
-    className: "r-amount"
-  }, "Amount: ", amountInWords(reading.totalRounded), " — ", fmtMoney(reading.totalRounded)), /*#__PURE__*/React.createElement("div", {
-    className: "r-row"
-  }, /*#__PURE__*/React.createElement("span", null, "Payment Method:"), /*#__PURE__*/React.createElement("b", null, reading.payMethod || "Cash")), /*#__PURE__*/React.createElement("div", {
-    className: "r-foot"
-  }, /*#__PURE__*/React.createElement("span", null, "Received by: Meter System 224"), /*#__PURE__*/React.createElement("span", {
-    className: "mono"
-  }, reading.date)));
+  }, printedDate))));
 }
 
 // ==================== RECEIPTS VIEW ====================

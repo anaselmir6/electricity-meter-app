@@ -1,9 +1,11 @@
 // ==================== UTILITIES ====================
 const MONTHS_AR = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const MONTHS_ARABIC = ["كانون الثاني","شباط","آذار","نيسان","أيار","حزيران","تموز","آب","أيلول","تشرين الأول","تشرين الثاني","كانون الأول"];
 
 function pad2(n) { return n < 10 ? "0" + n : "" + n; }
 function ymKey(y, m) { return y * 100 + m; }
 function monthLabel(y, m) { return MONTHS_AR[m - 1] + " " + y; }
+function monthLabelArabic(y, m) { return MONTHS_ARABIC[m - 1] + " " + y; }
 function fmtMoney(n) {
   if (n === null || n === undefined || isNaN(n)) return "$0";
   const r = Math.round(n);
@@ -1172,22 +1174,54 @@ function ContractsView({ data, store }) {
 // ==================== RECEIPT TEMPLATE ====================
 function ReceiptTemplate({ sub, reading, receiptNo }) {
   if (!sub || !reading) return null;
+  const y = Number(reading.date.slice(0, 4));
+  const m = Number(reading.date.slice(5, 7));
+  const today = new Date();
+  const printedDate = `${today.getFullYear()}/${today.getDate()}/${today.getMonth() + 1}`;
+  const payMethodArabic = reading.payMethod === "Cash" || !reading.payMethod ? "نقداً" : reading.payMethod;
+
   return (
-    <div className="receipt-sheet" dir="ltr">
-      <div className="r-title">Receipt — No. {receiptNo}</div>
-      <div className="r-row"><span>Received from:</span><b>{sub.name}</b></div>
-      <div className="r-row"><span>Panel No.:</span><b className="mono">{sub.panel}</b></div>
-      <div className="r-row"><span>Unit Rate:</span><b className="mono">{reading.price} $</b></div>
-      <div className="r-row"><span>For:</span><b>Payment of electricity subscription for {monthLabel(Number(reading.date.slice(0,4)), Number(reading.date.slice(5,7)))}</b></div>
-      <div className="r-row"><span>Previous Reading:</span><b className="mono">{reading.prev}</b></div>
-      <div className="r-row"><span>Current Reading:</span><b className="mono">{reading.curr}</b></div>
-      <div className="r-row"><span>Total Consumption:</span><b className="mono">{reading.consumption} kWh</b></div>
-      <div className="r-row"><span>Fixed Subscription:</span><b className="mono">{fmtMoney2(reading.fixedFee)}</b></div>
-      <div className="r-amount">Amount: {amountInWords(reading.totalRounded)} — {fmtMoney(reading.totalRounded)}</div>
-      <div className="r-row"><span>Payment Method:</span><b>{reading.payMethod || "Cash"}</b></div>
-      <div className="r-foot">
-        <span>Received by: Meter System 224</span>
-        <span className="mono">{reading.date}</span>
+    <div className="receipt-sheet-ar" dir="rtl">
+      <div className="rc-header">
+        <div className="rc-title">إيصال قبض <span className="rc-no mono">{receiptNo}</span></div>
+        <div className="rc-amount-box">
+          <div className="rc-amount-label">المبلغ</div>
+          <div className="rc-amount-value"><span>USD</span><span className="mono">{reading.totalRounded}</span></div>
+        </div>
+      </div>
+
+      <div className="rc-row">
+        <div><span className="rc-label">وصلنا من السيد:</span> <b>{sub.name}</b></div>
+        <div className="rc-box"><div className="rc-box-value mono">{sub.panel}</div><div className="rc-box-label">رقم الساعة</div></div>
+      </div>
+
+      <div className="rc-row">
+        <div></div>
+        <div className="rc-box"><div className="rc-box-value mono">{reading.price}</div><div className="rc-box-label">تعرفة الوحدة</div></div>
+      </div>
+
+      <div className="rc-row">
+        <div><span className="rc-label">مبلغاً وقدره:</span> <b>{amountInWords(reading.totalRounded)}</b></div>
+      </div>
+
+      <div className="rc-row">
+        <div><span className="rc-label">وذلك عن:</span> <b>تسديد إشتراك الكهرباء عن شهر {monthLabelArabic(y, m)}</b></div>
+        <div className="rc-box"><div className="rc-box-value mono">{reading.fixedFee}</div><div className="rc-box-label">مبلغ مقطوع</div></div>
+      </div>
+
+      <div className="rc-row">
+        <div><span className="rc-label">طريقة الدفع:</span> <b>{payMethodArabic}</b></div>
+      </div>
+
+      <div className="rc-row rc-meters">
+        <div className="rc-box"><div className="rc-box-value mono">{reading.prev}</div><div className="rc-box-label">العداد السابق</div></div>
+        <div className="rc-box"><div className="rc-box-value mono">{reading.curr}</div><div className="rc-box-label">العداد الحالي</div></div>
+        <div className="rc-box"><div className="rc-box-value mono">{reading.consumption}</div><div className="rc-box-label">إجمالي المسحوب</div></div>
+      </div>
+
+      <div className="rc-footer">
+        <div><span className="rc-label">المستلم:</span> <b>LASeR</b></div>
+        <div><span className="rc-label">التاريخ:</span> <b className="mono">{printedDate}</b></div>
       </div>
     </div>
   );

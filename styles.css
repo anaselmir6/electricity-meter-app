@@ -258,16 +258,28 @@ table.data-table td.num, table.data-table th.num { font-family: "IBM Plex Mono",
   width: 100%; padding: 9px 11px; border: 1px solid var(--line); border-radius: 3px; font-family: inherit; font-size: 13.5px;
 }
 
-/* ==================== RECEIPT ==================== */
-.receipt-sheet {
+/* ==================== RECEIPT (Arabic) ==================== */
+.receipt-sheet-ar {
   width: 640px; background: var(--white); border: 2px solid var(--ink); padding: 26px 30px;
   font-family: "IBM Plex Sans Arabic", sans-serif; color: var(--ink);
 }
-.receipt-sheet .r-title { text-align: center; font-size: 18px; font-weight: 700; border-bottom: 2px solid var(--ink); padding-bottom: 10px; margin-bottom: 14px; }
-.receipt-sheet .r-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed var(--line); font-size: 13.5px; }
-.receipt-sheet .r-row b { font-weight: 700; }
-.receipt-sheet .r-amount { text-align: center; margin: 14px 0; padding: 10px; background: var(--paper-dim); font-weight: 700; font-size: 15px; }
-.receipt-sheet .r-foot { display: flex; justify-content: space-between; margin-top: 16px; font-size: 12.5px; color: var(--slate); }
+.rc-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--ink); padding-bottom: 14px; margin-bottom: 14px; }
+.rc-title { font-size: 18px; font-weight: 700; }
+.rc-title .rc-no { font-size: 12.5px; color: var(--slate); font-weight: 400; margin-inline-start: 8px; }
+.rc-amount-box { text-align: center; }
+.rc-amount-label { font-size: 11.5px; color: var(--slate); margin-bottom: 4px; }
+.rc-amount-value { font-size: 19px; font-weight: 700; display: flex; gap: 6px; align-items: baseline; }
+
+.rc-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 9px 0; border-bottom: 1px dashed var(--line); font-size: 13.5px; }
+.rc-row:last-of-type { border-bottom: none; }
+.rc-label { color: var(--slate); }
+.rc-box { background: var(--paper-dim); border-radius: 3px; padding: 8px 16px; text-align: center; min-width: 90px; }
+.rc-box-value { font-size: 14.5px; font-weight: 700; }
+.rc-box-label { font-size: 11px; color: var(--slate); margin-top: 2px; }
+.rc-meters { gap: 10px; }
+.rc-meters .rc-box { flex: 1; }
+
+.rc-footer { display: flex; justify-content: space-between; margin-top: 16px; padding-top: 12px; border-top: 2px solid var(--ink); font-size: 13px; }
 
 .empty-state { text-align: center; padding: 60px 20px; color: var(--slate); }
 .empty-state .icon { font-size: 34px; margin-bottom: 10px; }
@@ -314,7 +326,8 @@ table.data-table td.num, table.data-table th.num { font-family: "IBM Plex Mono",
   .panel-card h3 { flex-wrap: wrap; gap: 8px; }
   .search-input { width: 100%; max-width: none; }
 
-  .receipt-sheet { width: 100%; padding: 18px; }
+  .receipt-sheet-ar { width: 100%; padding: 18px; }
+  .rc-header, .rc-row { flex-wrap: wrap; }
 }
 
 @media (max-width: 480px) {
