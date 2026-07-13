@@ -940,10 +940,12 @@ function EntryView({
     className: "num"
   }, "Consumption"), /*#__PURE__*/React.createElement("th", {
     className: "num"
+  }, "Amp"), /*#__PURE__*/React.createElement("th", {
+    className: "num"
   }, "Fixed Fee"), /*#__PURE__*/React.createElement("th", {
     className: "num"
   }, "Total"), /*#__PURE__*/React.createElement("th", null, "Save"))), /*#__PURE__*/React.createElement("tbody", null, displayRows.length === 0 && /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", {
-    colSpan: 10,
+    colSpan: 11,
     style: {
       textAlign: "center",
       color: "var(--slate)",
@@ -971,7 +973,9 @@ function EntryView({
     placeholder: "Enter reading"
   })), /*#__PURE__*/React.createElement("td", {
     className: "num"
-  }, row.consumption !== null ? row.consumption.toLocaleString("en-US") : "—"), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+  }, row.consumption !== null ? row.consumption.toLocaleString("en-US") : "—"), /*#__PURE__*/React.createElement("td", {
+    className: "num"
+  }, row.sub.A, "A"), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
     className: "entry-input",
     type: "number",
     step: "0.01",

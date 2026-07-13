@@ -701,6 +701,7 @@ function EntryView({ data, store, user }) {
                 <th className="num">Previous Reading</th>
                 <th className="num">Current Reading</th>
                 <th className="num">Consumption</th>
+                <th className="num">Amp</th>
                 <th className="num">Fixed Fee</th>
                 <th className="num">Total</th>
                 <th>Save</th>
@@ -708,7 +709,7 @@ function EntryView({ data, store, user }) {
             </thead>
             <tbody>
               {displayRows.length === 0 && (
-                <tr><td colSpan={10} style={{ textAlign: "center", color: "var(--slate)", padding: "24px 12px" }}>
+                <tr><td colSpan={11} style={{ textAlign: "center", color: "var(--slate)", padding: "24px 12px" }}>
                   {remainingOnly ? "All subscribers have a reading for this month." : "No subscribers match your search."}
                 </td></tr>
               )}
@@ -732,6 +733,7 @@ function EntryView({ data, store, user }) {
                     />
                   </td>
                   <td className="num">{row.consumption !== null ? row.consumption.toLocaleString("en-US") : "—"}</td>
+                  <td className="num">{row.sub.A}A</td>
                   <td>
                     <input
                       className="entry-input"
