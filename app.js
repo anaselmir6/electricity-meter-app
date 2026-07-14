@@ -231,89 +231,90 @@ function LoginScreen({
   return /*#__PURE__*/React.createElement("div", {
     className: "login-screen"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "login-split"
+    className: "login-card"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "login-brand"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "brand-badge"
-  }, /*#__PURE__*/React.createElement("svg", {
-    width: "26",
-    height: "26",
-    viewBox: "0 0 24 24",
-    fill: "none"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M13 2 4 14h6l-1 8 9-12h-6l1-8Z",
-    fill: "var(--filament)",
-    stroke: "var(--filament)",
-    strokeWidth: "1",
-    strokeLinejoin: "round"
-  }))), /*#__PURE__*/React.createElement("div", {
     className: "login-eyebrow"
   }, "METER · 224"), /*#__PURE__*/React.createElement("div", {
-    className: "login-brand-title"
-  }, "Electricity Meter", /*#__PURE__*/React.createElement("br", null), "Management System"), /*#__PURE__*/React.createElement("div", {
-    className: "login-brand-sub"
-  }, "A single place to record monthly meter readings, calculate bills, and track collections for Property 224."), /*#__PURE__*/React.createElement("ul", {
-    className: "login-brand-points"
-  }, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-    className: "dot"
-  }), "Monthly readings with automatic billing"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-    className: "dot"
-  }), "Collections dashboard and receipts"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
-    className: "dot"
-  }), "Subscriber and maintenance records"))), /*#__PURE__*/React.createElement("div", {
-    className: "login-form-panel"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "login-form-inner"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "login-title"
-  }, "Sign in"), /*#__PURE__*/React.createElement("div", {
-    className: "login-sub"
-  }, "Choose your role to continue"), /*#__PURE__*/React.createElement("div", {
-    className: "role-tabs"
+    className: "login-title-center"
+  }, "Sign In"), /*#__PURE__*/React.createElement("div", {
+    className: "role-pills"
   }, /*#__PURE__*/React.createElement("button", {
     type: "button",
-    className: "role-tab" + (role === "wissam" ? " active" : ""),
+    className: "role-pill" + (role === "wissam" ? " active" : ""),
     onClick: () => {
       setRole("wissam");
       setError("");
     }
-  }, "Wissam (Enter Readings)"), /*#__PURE__*/React.createElement("button", {
+  }, "Wissam"), /*#__PURE__*/React.createElement("button", {
     type: "button",
-    className: "role-tab" + (role === "owner" ? " active" : ""),
+    className: "role-pill" + (role === "owner" ? " active" : ""),
     onClick: () => {
       setRole("owner");
       setError("");
     }
-  }, "Owner (Dashboard)")), /*#__PURE__*/React.createElement("form", {
+  }, "Owner")), /*#__PURE__*/React.createElement("div", {
+    className: "login-divider"
+  }, "or sign in with your ", role === "wissam" ? "meter" : "owner", " credentials:"), /*#__PURE__*/React.createElement("form", {
     onSubmit: handleSubmit
-  }, /*#__PURE__*/React.createElement("label", {
-    className: "field-label"
-  }, "Username"), /*#__PURE__*/React.createElement("input", {
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "icon-field"
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: "16",
+    height: "16",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }, /*#__PURE__*/React.createElement("circle", {
+    cx: "12",
+    cy: "8",
+    r: "4"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M4 20c0-4 4-6 8-6s8 2 8 6"
+  })), /*#__PURE__*/React.createElement("input", {
     className: "field-input",
     value: username,
     onChange: e => setUsername(e.target.value),
     placeholder: role === "wissam" ? "wissam" : "admin"
-  }), /*#__PURE__*/React.createElement("label", {
-    className: "field-label"
-  }, "Password"), /*#__PURE__*/React.createElement("input", {
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "icon-field"
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: "16",
+    height: "16",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "5",
+    y: "11",
+    width: "14",
+    height: "9",
+    rx: "2"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M8 11V7a4 4 0 0 1 8 0v4"
+  })), /*#__PURE__*/React.createElement("input", {
     className: "field-input",
     type: "password",
     value: password,
     onChange: e => setPassword(e.target.value),
-    placeholder: "••••"
-  }), error && /*#__PURE__*/React.createElement("div", {
+    placeholder: "Password"
+  })), error && /*#__PURE__*/React.createElement("div", {
     className: "login-error"
   }, error), /*#__PURE__*/React.createElement("button", {
-    className: "btn-primary",
+    className: "btn-pill",
     type: "submit"
-  }, "Login")), /*#__PURE__*/React.createElement("div", {
+  }, "Log In")), /*#__PURE__*/React.createElement("div", {
     className: "login-hint"
   }, /*#__PURE__*/React.createElement("b", null, "Demo mode:"), " username ", /*#__PURE__*/React.createElement("span", {
     className: "mono"
   }, role === "wissam" ? "wissam" : "admin"), " and password ", /*#__PURE__*/React.createElement("span", {
     className: "mono"
-  }, "1234"), ". After connecting the site to Firebase, this screen becomes a real login with actual accounts for each person.")))));
+  }, "1234"), ". After connecting the site to Firebase, this screen becomes a real login with actual accounts for each person.")));
 }
 
 // ==================== APP SHELL ====================

@@ -62,92 +62,64 @@ button:focus-visible, input:focus-visible, select:focus-visible, [tabindex]:focu
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--ink);
-  padding: 32px;
+  background: var(--paper-dim);
+  padding: 24px;
 }
-.login-split {
+.login-card {
   width: 100%;
-  max-width: 1040px;
-  min-height: 600px;
-  display: flex;
-  background: var(--paper);
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+  max-width: 380px;
+  background: var(--white);
+  border-radius: 20px;
+  padding: 44px 34px 36px;
+  box-shadow: 0 20px 50px rgba(16,37,28,0.12);
+  text-align: center;
 }
-
-.login-brand {
-  flex: 1 1 45%;
-  background:
-    radial-gradient(circle at 25% 15%, rgba(34,165,102,0.22), transparent 50%),
-    linear-gradient(165deg, var(--ink), var(--ink-soft));
-  color: var(--white);
-  padding: 56px 48px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-}
-.brand-badge {
-  width: 52px; height: 52px; border-radius: 12px;
-  background: rgba(34,165,102,0.16); border: 1px solid rgba(34,165,102,0.4);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 26px;
-}
-.login-brand-title { font-size: 27px; font-weight: 700; line-height: 1.28; margin: 8px 0 14px; }
-.login-brand-sub { font-size: 14px; color: #AEBDB4; line-height: 1.65; max-width: 340px; margin-bottom: 30px; }
-.login-brand-points { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 13px; }
-.login-brand-points li { display: flex; align-items: center; gap: 11px; font-size: 13px; color: #D2DBD5; }
-.login-brand-points .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--filament); flex-shrink: 0; box-shadow: 0 0 6px 1px rgba(34,165,102,0.6); }
-
-.login-form-panel {
-  flex: 1 1 55%;
-  padding: 56px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.login-form-inner { width: 100%; max-width: 360px; }
 .login-eyebrow {
   font-family: "IBM Plex Mono", monospace;
   direction: ltr;
-  text-align: left;
   font-size: 11px;
   letter-spacing: 0.14em;
-  color: var(--filament);
+  color: var(--slate);
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   font-weight: 600;
 }
-.login-title { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
-.login-sub { color: var(--slate); font-size: 14px; margin-bottom: 26px; }
-.role-tabs { display: flex; gap: 4px; margin-bottom: 24px; background: var(--paper-dim); padding: 4px; border-radius: 8px; }
-.role-tab {
-  flex: 1; padding: 10px 8px; border: none; background: transparent; border-radius: 6px;
+.login-title-center { font-size: 27px; font-weight: 800; color: var(--filament); margin-bottom: 22px; }
+
+.role-pills { display: flex; justify-content: center; gap: 10px; margin-bottom: 22px; }
+.role-pill {
+  padding: 10px 20px; border-radius: 999px; border: 1px solid var(--line); background: var(--white);
   font-size: 13px; font-weight: 600; color: var(--slate); transition: all .15s;
+  box-shadow: 0 2px 6px rgba(16,37,28,0.06);
 }
-.role-tab.active { background: var(--ink); color: var(--filament); box-shadow: 0 2px 8px rgba(16,37,28,0.25); }
-.field-label { font-size: 12px; color: var(--slate); margin-bottom: 6px; display: block; font-weight: 600; }
-.field-input {
-  width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px;
-  background: var(--white); font-size: 14px; margin-bottom: 16px; color: var(--ink);
-  font-family: inherit; transition: border-color .15s, box-shadow .15s;
+.role-pill.active { background: var(--filament); border-color: var(--filament); color: #fff; }
+
+.login-divider { font-size: 11.5px; color: var(--slate); margin-bottom: 20px; }
+
+.icon-field { position: relative; margin-bottom: 14px; }
+.icon-field svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--slate); pointer-events: none; }
+.icon-field .field-input {
+  width: 100%; padding: 13px 16px 13px 44px; border: 1px solid transparent; border-radius: 12px;
+  background: var(--paper-dim); font-size: 14px; color: var(--ink); font-family: inherit;
+  text-align: left; transition: border-color .15s, box-shadow .15s, background .15s;
 }
-.field-input:focus { border-color: var(--filament); box-shadow: 0 0 0 3px rgba(34,165,102,0.15); outline: none; }
-.btn-primary {
-  width: 100%; padding: 13px; border: none; border-radius: 8px; background: var(--ink);
-  color: var(--filament); font-weight: 700; font-size: 14px; letter-spacing: 0.02em;
-  transition: transform .1s, background .15s;
+.icon-field .field-input:focus { background: var(--white); border-color: var(--filament); box-shadow: 0 0 0 3px rgba(34,165,102,0.15); outline: none; }
+
+.btn-pill {
+  width: 100%; padding: 14px; border: none; border-radius: 999px; background: var(--filament); color: #fff;
+  font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 8px;
+  transition: background .15s, transform .1s; box-shadow: 0 10px 24px rgba(34,165,102,0.35);
 }
-.btn-primary:hover { background: #000; }
-.btn-primary:active { transform: scale(0.98); }
+.btn-pill:hover { background: #1B8A55; }
+.btn-pill:active { transform: scale(0.98); }
+
 .login-hint {
-  margin-top: 18px; font-size: 11.5px; color: var(--slate); background: var(--paper-dim);
-  border-radius: 8px; padding: 12px 14px; line-height: 1.6;
+  margin-top: 20px; font-size: 11.5px; color: var(--slate); background: var(--paper-dim);
+  border-radius: 10px; padding: 12px 14px; line-height: 1.6; text-align: left;
 }
 .login-error {
-  color: var(--rust); font-size: 13px; margin: -6px 0 14px; background: var(--rust-soft);
-  border-radius: 6px; padding: 8px 11px;
+  color: var(--rust); font-size: 13px; margin: -2px 0 14px; background: var(--rust-soft);
+  border-radius: 8px; padding: 8px 11px; text-align: center;
 }
 
 /* ==================== APP SHELL ==================== */
@@ -360,18 +332,13 @@ table.data-table td.num, table.data-table th.num { font-family: "IBM Plex Mono",
   .receipt-sheet-ar { width: 100%; padding: 18px; }
   .rc-header, .rc-row { flex-wrap: wrap; }
 
-  .login-screen { padding: 0; }
-  .login-split { flex-direction: column; min-height: 0; border-radius: 0; }
-  .login-brand { padding: 32px 28px 28px; }
-  .login-brand-points { display: none; }
-  .login-form-panel { padding: 32px 28px; }
+  .login-card { padding: 34px 24px 28px; }
 }
 
 @media (max-width: 480px) {
   .kpi-card .kpi-value { font-size: 20px; }
   table.data-table { font-size: 12.5px; }
   table.data-table th, table.data-table td { padding: 8px 9px; }
-  .login-brand-title { font-size: 22px; }
-  .login-title { font-size: 21px; }
+  .login-title-center { font-size: 23px; }
 }
 
