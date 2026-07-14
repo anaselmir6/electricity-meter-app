@@ -1233,7 +1233,7 @@ window.APP_DATA = {
     },
     {
       "date": "2026-05-01",
-      "label": "Generator Consumption (Diesel)",
+      "label": "استهلاك مازوت",
       "amount": 750
     },
     {
@@ -2312,73 +2312,73 @@ window.APP_DATA = {
     },
     {
       "date": "2025-01-01",
-      "label": "Diesel Fuel Consumption",
+      "label": "استهلاك مازوت",
       "amount": 2000,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-02-01",
-      "label": "Diesel Fuel Consumption",
+      "label": "استهلاك مازوت",
       "amount": 1000,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-03-01",
-      "label": "Diesel Fuel Consumption",
+      "label": "استهلاك مازوت",
       "amount": 500,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-04-01",
-      "label": "Diesel Fuel Consumption",
+      "label": "استهلاك مازوت",
       "amount": 0,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-05-01",
-      "label": "Diesel Fuel Consumption",
+      "label": "استهلاك مازوت",
       "amount": 0,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-06-01",
-      "label": "Diesel Fuel Consumption",
+      "label": "استهلاك مازوت",
       "amount": 900,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-07-01",
-      "label": "Diesel Fuel Consumption",
+      "label": "استهلاك مازوت",
       "amount": 3000,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-08-01",
-      "label": "Diesel Fuel Consumption",
+      "label": "استهلاك مازوت",
       "amount": 4500,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-09-01",
-      "label": "Diesel Fuel Consumption",
+      "label": "استهلاك مازوت",
       "amount": 1500,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-10-01",
-      "label": "Diesel Fuel Consumption",
+      "label": "استهلاك مازوت",
       "amount": 1500,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-11-01",
-      "label": "Diesel Fuel Consumption",
+      "label": "استهلاك مازوت",
       "amount": 1500,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-12-01",
-      "label": "Diesel Fuel Consumption",
+      "label": "استهلاك مازوت",
       "amount": 3000,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },

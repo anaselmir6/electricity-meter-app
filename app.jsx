@@ -1009,7 +1009,7 @@ function SubscribersView({ data, store }) {
 }
 // ==================== EXPENSES VIEW ====================
 const EXPENSE_CATEGORIES = [
-  "Fixed Salaries", "Generator Maintenance Contract", "Generator Consumption (Diesel)", "Electrical Maintenance",
+  "Fixed Salaries", "Generator Maintenance Contract", "استهلاك مازوت", "Electrical Maintenance",
   "Generator Maintenance (Repairs)", "Solar Power System Consumption", "Diesel (Purchase)",
   "Panel Washing", "Camera Installation", "Miscellaneous Expenses", "Other",
 ];
