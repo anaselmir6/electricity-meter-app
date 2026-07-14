@@ -352,7 +352,7 @@ function MeterDial({ value, max, label }) {
 
   function tickPoint(p, r) {
     const a = (-90 + p * 180) * (Math.PI / 180);
-    return { x: 100 + r * Math.cos(a), y: 100 + r * Math.sin(a) };
+    return { x: 100 + r * Math.sin(a), y: 100 - r * Math.cos(a) };
   }
 
   return (
@@ -360,7 +360,7 @@ function MeterDial({ value, max, label }) {
       <svg width="200" height="120" viewBox="0 0 200 120">
         <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#DEE5E1" strokeWidth="10" strokeLinecap="round" />
         <path
-          d={`M 20 100 A 80 80 0 0 1 ${100 + 80 * Math.cos((-90 + pct * 180) * Math.PI / 180)} ${100 + 80 * Math.sin((-90 + pct * 180) * Math.PI / 180)}`}
+          d={`M 20 100 A 80 80 0 0 1 ${100 + 80 * Math.sin((-90 + pct * 180) * Math.PI / 180)} ${100 - 80 * Math.cos((-90 + pct * 180) * Math.PI / 180)}`}
           fill="none" stroke="#22A566" strokeWidth="10" strokeLinecap="round"
         />
         {ticks.map((t, i) => {

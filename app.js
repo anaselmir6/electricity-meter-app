@@ -503,8 +503,8 @@ function MeterDial({
   function tickPoint(p, r) {
     const a = (-90 + p * 180) * (Math.PI / 180);
     return {
-      x: 100 + r * Math.cos(a),
-      y: 100 + r * Math.sin(a)
+      x: 100 + r * Math.sin(a),
+      y: 100 - r * Math.cos(a)
     };
   }
   return /*#__PURE__*/React.createElement("div", {
@@ -520,7 +520,7 @@ function MeterDial({
     strokeWidth: "10",
     strokeLinecap: "round"
   }), /*#__PURE__*/React.createElement("path", {
-    d: `M 20 100 A 80 80 0 0 1 ${100 + 80 * Math.cos((-90 + pct * 180) * Math.PI / 180)} ${100 + 80 * Math.sin((-90 + pct * 180) * Math.PI / 180)}`,
+    d: `M 20 100 A 80 80 0 0 1 ${100 + 80 * Math.sin((-90 + pct * 180) * Math.PI / 180)} ${100 - 80 * Math.cos((-90 + pct * 180) * Math.PI / 180)}`,
     fill: "none",
     stroke: "#22A566",
     strokeWidth: "10",
