@@ -384,6 +384,7 @@ function DashboardView({ data }) {
   const [year, setYear] = React.useState(2026);
   const [month, setMonth] = React.useState(6);
   const [search, setSearch] = React.useState("");
+  const [chartYear, setChartYear] = React.useState("all");
   const chartRef = React.useRef(null);
   const chartInstance = React.useRef(null);
 
@@ -443,7 +444,7 @@ function DashboardView({ data }) {
 
   // build monthly trend series (income vs expenses) across all months present
   const trend = React.useMemo(() => {
-    const months = allMonthsInRange(data);
+    const months = allMonthsInRange(data).filter(ym => chartYear === "all" || ym.startsWith(String(chartYear)));
     return months.map(ym => {
       const [y, m] = ym.split("-").map(Number);
       return {
@@ -452,7 +453,7 @@ function DashboardView({ data }) {
         expense: sumBy(expensesForMonth(data, y, m), e => e.amount),
       };
     });
-  }, [data]);
+  }, [data, chartYear]);
 
   React.useEffect(() => {
     if (!chartRef.current) return;
@@ -591,7 +592,20 @@ function DashboardView({ data }) {
 
       <div className="grid-2">
         <div className="panel-card">
-          <h3><span className="eyebrow-dot"></span>Collected vs. Expenses — All Recorded Months</h3>
+          <h3 style={{ justifyContent: "space-between", flexWrap: "wrap", gap: 10 }}>
+            <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span className="eyebrow-dot"></span>
+              Collected vs. Expenses {chartYear === "all" ? "— All Recorded Months" : "— " + chartYear}
+            </span>
+            <div className="month-picker">
+              <select value={chartYear} onChange={e => setChartYear(e.target.value === "all" ? "all" : Number(e.target.value))}>
+                <option value="all">All Years</option>
+                <option value={2024}>2024</option>
+                <option value={2025}>2025</option>
+                <option value={2026}>2026</option>
+              </select>
+            </div>
+          </h3>
           <div style={{ height: 280 }}>
             <canvas ref={chartRef}></canvas>
           </div>
