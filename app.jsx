@@ -444,7 +444,13 @@ function DashboardView({ data }) {
 
   // build monthly trend series (income vs expenses) across all months present
   const trend = React.useMemo(() => {
-    const months = allMonthsInRange(data).filter(ym => chartYear === "all" || ym.startsWith(String(chartYear)));
+    let months;
+    if (chartYear === "all") {
+      months = allMonthsInRange(data);
+    } else {
+      months = [];
+      for (let m = 1; m <= 12; m++) months.push(chartYear + "-" + pad2(m));
+    }
     return months.map(ym => {
       const [y, m] = ym.split("-").map(Number);
       return {
