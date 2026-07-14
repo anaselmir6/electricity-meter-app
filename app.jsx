@@ -178,40 +178,61 @@ function LoginScreen({ onLogin }) {
 
   return (
     <div className="login-screen">
-      <div className="login-card">
-        <div className="login-eyebrow">METER · 224</div>
-        <div className="login-title">Electricity Meter Management System</div>
-        <div className="login-sub">Sign in according to your role to continue</div>
-
-        <div className="role-tabs">
-          <button
-            type="button"
-            className={"role-tab" + (role === "wissam" ? " active" : "")}
-            onClick={() => { setRole("wissam"); setError(""); }}
-          >
-            Wissam Login (Enter Readings)
-          </button>
-          <button
-            type="button"
-            className={"role-tab" + (role === "owner" ? " active" : "")}
-            onClick={() => { setRole("owner"); setError(""); }}
-          >
-            Owner Login (Dashboard)
-          </button>
+      <div className="login-split">
+        <div className="login-brand">
+          <div className="brand-badge">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+              <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="var(--filament)" stroke="var(--filament)" strokeWidth="1" strokeLinejoin="round" />
+            </svg>
+          </div>
+          <div className="login-eyebrow">METER · 224</div>
+          <div className="login-brand-title">Electricity Meter<br />Management System</div>
+          <div className="login-brand-sub">
+            A single place to record monthly meter readings, calculate bills, and track collections for Property 224.
+          </div>
+          <ul className="login-brand-points">
+            <li><span className="dot"></span>Monthly readings with automatic billing</li>
+            <li><span className="dot"></span>Collections dashboard and receipts</li>
+            <li><span className="dot"></span>Subscriber and maintenance records</li>
+          </ul>
         </div>
 
-        <form onSubmit={handleSubmit}>
-          <label className="field-label">Username</label>
-          <input className="field-input" value={username} onChange={e => setUsername(e.target.value)} placeholder={role === "wissam" ? "wissam" : "admin"} />
-          <label className="field-label">Password</label>
-          <input className="field-input" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••" />
-          {error && <div className="login-error">{error}</div>}
-          <button className="btn-primary" type="submit">Login</button>
-        </form>
+        <div className="login-form-panel">
+          <div className="login-form-inner">
+            <div className="login-title">Sign in</div>
+            <div className="login-sub">Choose your role to continue</div>
 
-        <div className="login-hint">
-          <b>Demo mode:</b> username <span className="mono">{role === "wissam" ? "wissam" : "admin"}</span> and password <span className="mono">1234</span>.
-          After connecting the site to Firebase, this screen becomes a real login with actual accounts for each person.
+            <div className="role-tabs">
+              <button
+                type="button"
+                className={"role-tab" + (role === "wissam" ? " active" : "")}
+                onClick={() => { setRole("wissam"); setError(""); }}
+              >
+                Wissam (Enter Readings)
+              </button>
+              <button
+                type="button"
+                className={"role-tab" + (role === "owner" ? " active" : "")}
+                onClick={() => { setRole("owner"); setError(""); }}
+              >
+                Owner (Dashboard)
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit}>
+              <label className="field-label">Username</label>
+              <input className="field-input" value={username} onChange={e => setUsername(e.target.value)} placeholder={role === "wissam" ? "wissam" : "admin"} />
+              <label className="field-label">Password</label>
+              <input className="field-input" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••" />
+              {error && <div className="login-error">{error}</div>}
+              <button className="btn-primary" type="submit">Login</button>
+            </form>
+
+            <div className="login-hint">
+              <b>Demo mode:</b> username <span className="mono">{role === "wissam" ? "wissam" : "admin"}</span> and password <span className="mono">1234</span>.
+              After connecting the site to Firebase, this screen becomes a real login with actual accounts for each person.
+            </div>
+          </div>
         </div>
       </div>
     </div>

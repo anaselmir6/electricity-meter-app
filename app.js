@@ -231,14 +231,45 @@ function LoginScreen({
   return /*#__PURE__*/React.createElement("div", {
     className: "login-screen"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "login-card"
+    className: "login-split"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "login-brand"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "brand-badge"
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: "26",
+    height: "26",
+    viewBox: "0 0 24 24",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M13 2 4 14h6l-1 8 9-12h-6l1-8Z",
+    fill: "var(--filament)",
+    stroke: "var(--filament)",
+    strokeWidth: "1",
+    strokeLinejoin: "round"
+  }))), /*#__PURE__*/React.createElement("div", {
     className: "login-eyebrow"
   }, "METER · 224"), /*#__PURE__*/React.createElement("div", {
+    className: "login-brand-title"
+  }, "Electricity Meter", /*#__PURE__*/React.createElement("br", null), "Management System"), /*#__PURE__*/React.createElement("div", {
+    className: "login-brand-sub"
+  }, "A single place to record monthly meter readings, calculate bills, and track collections for Property 224."), /*#__PURE__*/React.createElement("ul", {
+    className: "login-brand-points"
+  }, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+    className: "dot"
+  }), "Monthly readings with automatic billing"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+    className: "dot"
+  }), "Collections dashboard and receipts"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("span", {
+    className: "dot"
+  }), "Subscriber and maintenance records"))), /*#__PURE__*/React.createElement("div", {
+    className: "login-form-panel"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "login-form-inner"
+  }, /*#__PURE__*/React.createElement("div", {
     className: "login-title"
-  }, "Electricity Meter Management System"), /*#__PURE__*/React.createElement("div", {
+  }, "Sign in"), /*#__PURE__*/React.createElement("div", {
     className: "login-sub"
-  }, "Sign in according to your role to continue"), /*#__PURE__*/React.createElement("div", {
+  }, "Choose your role to continue"), /*#__PURE__*/React.createElement("div", {
     className: "role-tabs"
   }, /*#__PURE__*/React.createElement("button", {
     type: "button",
@@ -247,14 +278,14 @@ function LoginScreen({
       setRole("wissam");
       setError("");
     }
-  }, "Wissam Login (Enter Readings)"), /*#__PURE__*/React.createElement("button", {
+  }, "Wissam (Enter Readings)"), /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "role-tab" + (role === "owner" ? " active" : ""),
     onClick: () => {
       setRole("owner");
       setError("");
     }
-  }, "Owner Login (Dashboard)")), /*#__PURE__*/React.createElement("form", {
+  }, "Owner (Dashboard)")), /*#__PURE__*/React.createElement("form", {
     onSubmit: handleSubmit
   }, /*#__PURE__*/React.createElement("label", {
     className: "field-label"
@@ -282,7 +313,7 @@ function LoginScreen({
     className: "mono"
   }, role === "wissam" ? "wissam" : "admin"), " and password ", /*#__PURE__*/React.createElement("span", {
     className: "mono"
-  }, "1234"), ". After connecting the site to Firebase, this screen becomes a real login with actual accounts for each person.")));
+  }, "1234"), ". After connecting the site to Firebase, this screen becomes a real login with actual accounts for each person.")))));
 }
 
 // ==================== APP SHELL ====================
