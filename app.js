@@ -495,7 +495,8 @@ function PriceEditor({
 function MeterDial({
   value,
   max,
-  label
+  label,
+  unit = "kWh"
 }) {
   const pct = max > 0 ? Math.min(1, Math.max(0, value / max)) : 0;
   const angle = -90 + pct * 180; // -90 (empty, left) .. +90 (full, right)
@@ -557,7 +558,7 @@ function MeterDial({
     fill: "#10251C"
   }))), /*#__PURE__*/React.createElement("div", {
     className: "dial-value mono"
-  }, Math.round(value).toLocaleString("en-US"), " kWh"), /*#__PURE__*/React.createElement("div", {
+  }, Math.round(value).toLocaleString("en-US"), " ", unit), /*#__PURE__*/React.createElement("div", {
     className: "dial-caption"
   }, label));
 }
@@ -592,7 +593,13 @@ function DashboardView({
   const unpaid = sumBy(monthReadings.filter(r => r.paid !== "Paid"), r => r.total);
   const expensesTotal = sumBy(monthExpenses, e => e.amount);
   const net = collected - expensesTotal;
-  const kwhTotal = sumBy(monthReadings, r => r.consumption);
+  const genLogs = React.useMemo(() => {
+    if (isAllYears) return data.generatorLogs;
+    if (isAllMonths) return data.generatorLogs.filter(g => g.year === year);
+    return data.generatorLogs.filter(g => g.year === year && g.month === month);
+  }, [data, year, month, isAllYears, isAllMonths]);
+  const genHoursTotal = sumBy(genLogs, g => g.hours || 0);
+  const genMonthPossibleHours = !isAggregate ? daysInMonth(year, month) * 24 : 0;
   const yearlyBreakdown = React.useMemo(() => {
     const years = [2024, 2025, 2026];
     const rows = years.map(y => {
@@ -619,16 +626,6 @@ function DashboardView({
       rows,
       total
     };
-  }, [data]);
-  const maxKwh = React.useMemo(() => {
-    const months = allMonthsInRange(data);
-    let max = 0;
-    months.forEach(ym => {
-      const [y, m] = ym.split("-").map(Number);
-      const total = sumBy(readingsForMonth(data, y, m), r => r.consumption);
-      if (total > max) max = total;
-    });
-    return max || 1;
   }, [data]);
 
   // build monthly trend series (income vs expenses) across all months present
@@ -879,7 +876,7 @@ function DashboardView({
     className: "panel-card"
   }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow-dot"
-  }), isAggregate ? "Total Consumption (kWh)" : "Month Consumption (kWh)"), isAggregate ? /*#__PURE__*/React.createElement("div", {
+  }), isAggregate ? "Total Generator Running Time" : "Generator Running Time"), isAggregate ? /*#__PURE__*/React.createElement("div", {
     className: "dial-wrap"
   }, /*#__PURE__*/React.createElement("div", {
     className: "dial-value mono",
@@ -887,12 +884,13 @@ function DashboardView({
       fontSize: 34,
       marginTop: 24
     }
-  }, Math.round(kwhTotal).toLocaleString("en-US"), " kWh"), /*#__PURE__*/React.createElement("div", {
+  }, Math.round(genHoursTotal).toLocaleString("en-US"), " hrs"), /*#__PURE__*/React.createElement("div", {
     className: "dial-caption"
   }, isAllYears ? "All recorded years" : "All months in " + year)) : /*#__PURE__*/React.createElement(MeterDial, {
-    value: kwhTotal,
-    max: maxKwh,
-    label: monthLabel(year, month)
+    value: genHoursTotal,
+    max: genMonthPossibleHours,
+    unit: "hrs",
+    label: monthLabel(year, month) + " — " + Math.round(genHoursTotal / genMonthPossibleHours * 100) + "% utilization"
   }))), /*#__PURE__*/React.createElement("div", {
     className: "panel-card"
   }, /*#__PURE__*/React.createElement("h3", {

@@ -345,7 +345,7 @@ function PriceEditor({ year, month, data, store }) {
   );
 }
 // ==================== METER DIAL (signature element) ====================
-function MeterDial({ value, max, label }) {
+function MeterDial({ value, max, label, unit = "kWh" }) {
   const pct = max > 0 ? Math.min(1, Math.max(0, value / max)) : 0;
   const angle = -90 + pct * 180; // -90 (empty, left) .. +90 (full, right)
   const ticks = [0, 0.25, 0.5, 0.75, 1];
@@ -373,7 +373,7 @@ function MeterDial({ value, max, label }) {
           <circle cx="100" cy="100" r="6" fill="#10251C" />
         </g>
       </svg>
-      <div className="dial-value mono">{Math.round(value).toLocaleString("en-US")} kWh</div>
+      <div className="dial-value mono">{Math.round(value).toLocaleString("en-US")} {unit}</div>
       <div className="dial-caption">{label}</div>
     </div>
   );
@@ -410,7 +410,14 @@ function DashboardView({ data }) {
   const unpaid = sumBy(monthReadings.filter(r => r.paid !== "Paid"), r => r.total);
   const expensesTotal = sumBy(monthExpenses, e => e.amount);
   const net = collected - expensesTotal;
-  const kwhTotal = sumBy(monthReadings, r => r.consumption);
+
+  const genLogs = React.useMemo(() => {
+    if (isAllYears) return data.generatorLogs;
+    if (isAllMonths) return data.generatorLogs.filter(g => g.year === year);
+    return data.generatorLogs.filter(g => g.year === year && g.month === month);
+  }, [data, year, month, isAllYears, isAllMonths]);
+  const genHoursTotal = sumBy(genLogs, g => g.hours || 0);
+  const genMonthPossibleHours = !isAggregate ? daysInMonth(year, month) * 24 : 0;
 
   const yearlyBreakdown = React.useMemo(() => {
     const years = [2024, 2025, 2026];
@@ -429,17 +436,6 @@ function DashboardView({ data }) {
       net: sumBy(rows, r => r.net),
     };
     return { rows, total };
-  }, [data]);
-
-  const maxKwh = React.useMemo(() => {
-    const months = allMonthsInRange(data);
-    let max = 0;
-    months.forEach(ym => {
-      const [y, m] = ym.split("-").map(Number);
-      const total = sumBy(readingsForMonth(data, y, m), r => r.consumption);
-      if (total > max) max = total;
-    });
-    return max || 1;
   }, [data]);
 
   // build monthly trend series (income vs expenses) across all months present
@@ -617,14 +613,19 @@ function DashboardView({ data }) {
           </div>
         </div>
         <div className="panel-card">
-          <h3><span className="eyebrow-dot"></span>{isAggregate ? "Total Consumption (kWh)" : "Month Consumption (kWh)"}</h3>
+          <h3><span className="eyebrow-dot"></span>{isAggregate ? "Total Generator Running Time" : "Generator Running Time"}</h3>
           {isAggregate ? (
             <div className="dial-wrap">
-              <div className="dial-value mono" style={{ fontSize: 34, marginTop: 24 }}>{Math.round(kwhTotal).toLocaleString("en-US")} kWh</div>
+              <div className="dial-value mono" style={{ fontSize: 34, marginTop: 24 }}>{Math.round(genHoursTotal).toLocaleString("en-US")} hrs</div>
               <div className="dial-caption">{isAllYears ? "All recorded years" : "All months in " + year}</div>
             </div>
           ) : (
-            <MeterDial value={kwhTotal} max={maxKwh} label={monthLabel(year, month)} />
+            <MeterDial
+              value={genHoursTotal}
+              max={genMonthPossibleHours}
+              unit="hrs"
+              label={monthLabel(year, month) + " — " + Math.round(genHoursTotal / genMonthPossibleHours * 100) + "% utilization"}
+            />
           )}
         </div>
       </div>
