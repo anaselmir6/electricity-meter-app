@@ -13,6 +13,9 @@ function monthLabel(y, m) {
 function monthLabelArabic(y, m) {
   return MONTHS_ARABIC[m - 1] + " " + y;
 }
+function daysInMonth(y, m) {
+  return new Date(y, m, 0).getDate();
+}
 function fmtMoney(n) {
   if (n === null || n === undefined || isNaN(n)) return "$0";
   const r = Math.round(n);
@@ -1387,6 +1390,10 @@ function ExpensesView({
   const currentGenLog = React.useMemo(() => {
     return data.generatorLogs.find(g => g.year === year && g.month === month);
   }, [data, year, month]);
+  const yearGenLogs = React.useMemo(() => data.generatorLogs.filter(g => g.year === year), [data, year]);
+  const yearGenHours = sumBy(yearGenLogs, g => g.hours || 0);
+  const yearGenPossibleHours = sumBy(yearGenLogs, g => daysInMonth(g.year, g.month) * 24);
+  const yearGenRate = yearGenPossibleHours > 0 ? Math.round(yearGenHours / yearGenPossibleHours * 100) : 0;
   React.useEffect(() => {
     setGenForm({
       hours: currentGenLog && currentGenLog.hours !== undefined ? String(currentGenLog.hours) : "",
@@ -1496,6 +1503,27 @@ function ExpensesView({
     className: "btn btn-dark",
     type: "submit"
   }, "Save Expense"))), /*#__PURE__*/React.createElement("div", {
+    className: "kpi-grid",
+    style: {
+      gridTemplateColumns: "repeat(2, 1fr)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "kpi-card accent-teal"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "kpi-label"
+  }, "Generator Hours ", year), /*#__PURE__*/React.createElement("div", {
+    className: "kpi-value"
+  }, yearGenHours.toLocaleString("en-US")), /*#__PURE__*/React.createElement("div", {
+    className: "kpi-bar"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "kpi-card accent-teal"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "kpi-label"
+  }, "Utilization Rate ", year), /*#__PURE__*/React.createElement("div", {
+    className: "kpi-value"
+  }, yearGenRate, "%"), /*#__PURE__*/React.createElement("div", {
+    className: "kpi-bar"
+  }))), /*#__PURE__*/React.createElement("div", {
     className: "panel-card",
     style: {
       marginBottom: 20
@@ -1556,7 +1584,9 @@ function ExpensesView({
     className: "num"
   }, "Running Hours"), /*#__PURE__*/React.createElement("th", {
     className: "num"
-  }, "Diesel (L)"), /*#__PURE__*/React.createElement("th", null, "Notes"), /*#__PURE__*/React.createElement("th", null, "Edit"))), /*#__PURE__*/React.createElement("tbody", null, [...data.generatorLogs].sort((a, b) => b.year * 100 + b.month - (a.year * 100 + a.month)).map((g, i) => /*#__PURE__*/React.createElement("tr", {
+  }, "Diesel (L)"), /*#__PURE__*/React.createElement("th", {
+    className: "num"
+  }, "Utilization"), /*#__PURE__*/React.createElement("th", null, "Notes"), /*#__PURE__*/React.createElement("th", null, "Edit"))), /*#__PURE__*/React.createElement("tbody", null, [...data.generatorLogs].sort((a, b) => b.year * 100 + b.month - (a.year * 100 + a.month)).map((g, i) => /*#__PURE__*/React.createElement("tr", {
     key: i,
     className: g.year === year && g.month === month ? "row-saved" : ""
   }, /*#__PURE__*/React.createElement("td", null, monthLabel(g.year, g.month)), /*#__PURE__*/React.createElement("td", {
@@ -1564,6 +1594,8 @@ function ExpensesView({
   }, g.hours), /*#__PURE__*/React.createElement("td", {
     className: "num"
   }, g.liters), /*#__PURE__*/React.createElement("td", {
+    className: "num"
+  }, Math.round((g.hours || 0) / (daysInMonth(g.year, g.month) * 24) * 100), "%"), /*#__PURE__*/React.createElement("td", {
     style: {
       whiteSpace: "normal"
     }

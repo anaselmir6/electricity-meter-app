@@ -2455,7 +2455,20 @@ window.APP_DATA = {
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     }
   ],
-  "generatorLogs": [],
+  "generatorLogs": [
+    { "year": 2025, "month": 1, "hours": 193, "liters": 0, "notes": "" },
+    { "year": 2025, "month": 2, "hours": 113, "liters": 0, "notes": "" },
+    { "year": 2025, "month": 3, "hours": 13, "liters": 0, "notes": "" },
+    { "year": 2025, "month": 4, "hours": 18, "liters": 0, "notes": "" },
+    { "year": 2025, "month": 5, "hours": 4, "liters": 0, "notes": "" },
+    { "year": 2025, "month": 6, "hours": 1, "liters": 0, "notes": "" },
+    { "year": 2025, "month": 7, "hours": 48, "liters": 0, "notes": "" },
+    { "year": 2025, "month": 8, "hours": 180, "liters": 0, "notes": "" },
+    { "year": 2025, "month": 9, "hours": 216, "liters": 0, "notes": "" },
+    { "year": 2025, "month": 10, "hours": 104, "liters": 0, "notes": "" },
+    { "year": 2025, "month": 11, "hours": 130, "liters": 0, "notes": "" },
+    { "year": 2025, "month": 12, "hours": 127, "liters": 0, "notes": "" }
+  ],
   "contracts": [
     {
       "name": "Generator Maintenance Contract",

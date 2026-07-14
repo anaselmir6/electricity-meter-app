@@ -6,6 +6,7 @@ function pad2(n) { return n < 10 ? "0" + n : "" + n; }
 function ymKey(y, m) { return y * 100 + m; }
 function monthLabel(y, m) { return MONTHS_AR[m - 1] + " " + y; }
 function monthLabelArabic(y, m) { return MONTHS_ARABIC[m - 1] + " " + y; }
+function daysInMonth(y, m) { return new Date(y, m, 0).getDate(); }
 function fmtMoney(n) {
   if (n === null || n === undefined || isNaN(n)) return "$0";
   const r = Math.round(n);
@@ -1030,6 +1031,11 @@ function ExpensesView({ data, store }) {
     return data.generatorLogs.find(g => g.year === year && g.month === month);
   }, [data, year, month]);
 
+  const yearGenLogs = React.useMemo(() => data.generatorLogs.filter(g => g.year === year), [data, year]);
+  const yearGenHours = sumBy(yearGenLogs, g => g.hours || 0);
+  const yearGenPossibleHours = sumBy(yearGenLogs, g => daysInMonth(g.year, g.month) * 24);
+  const yearGenRate = yearGenPossibleHours > 0 ? Math.round((yearGenHours / yearGenPossibleHours) * 100) : 0;
+
   React.useEffect(() => {
     setGenForm({
       hours: currentGenLog && currentGenLog.hours !== undefined ? String(currentGenLog.hours) : "",
@@ -1107,6 +1113,19 @@ function ExpensesView({ data, store }) {
         </form>
       </div>
 
+      <div className="kpi-grid" style={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
+        <div className="kpi-card accent-teal">
+          <div className="kpi-label">Generator Hours {year}</div>
+          <div className="kpi-value">{yearGenHours.toLocaleString("en-US")}</div>
+          <div className="kpi-bar"></div>
+        </div>
+        <div className="kpi-card accent-teal">
+          <div className="kpi-label">Utilization Rate {year}</div>
+          <div className="kpi-value">{yearGenRate}%</div>
+          <div className="kpi-bar"></div>
+        </div>
+      </div>
+
       <div className="panel-card" style={{ marginBottom: 20 }}>
         <h3><span className="eyebrow-dot"></span>Generator Log — {monthLabel(year, month)}</h3>
         <form onSubmit={submitGenForm}>
@@ -1133,13 +1152,14 @@ function ExpensesView({ data, store }) {
           <h3><span className="eyebrow-dot"></span>Generator Log History</h3>
           <div className="table-wrap">
             <table className="data-table">
-              <thead><tr><th>Month</th><th className="num">Running Hours</th><th className="num">Diesel (L)</th><th>Notes</th><th>Edit</th></tr></thead>
+              <thead><tr><th>Month</th><th className="num">Running Hours</th><th className="num">Diesel (L)</th><th className="num">Utilization</th><th>Notes</th><th>Edit</th></tr></thead>
               <tbody>
                 {[...data.generatorLogs].sort((a, b) => (b.year * 100 + b.month) - (a.year * 100 + a.month)).map((g, i) => (
                   <tr key={i} className={g.year === year && g.month === month ? "row-saved" : ""}>
                     <td>{monthLabel(g.year, g.month)}</td>
                     <td className="num">{g.hours}</td>
                     <td className="num">{g.liters}</td>
+                    <td className="num">{Math.round((g.hours || 0) / (daysInMonth(g.year, g.month) * 24) * 100)}%</td>
                     <td style={{ whiteSpace: "normal" }}>{g.notes}</td>
                     <td><button className="btn btn-sm" onClick={() => { setYear(g.year); setMonth(g.month); }}>Edit</button></td>
                   </tr>
