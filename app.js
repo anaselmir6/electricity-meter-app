@@ -113,6 +113,9 @@ function useStore() {
       prices: seed.prices.map(p => ({
         ...p
       })),
+      generatorLogs: (seed.generatorLogs || []).map(g => ({
+        ...g
+      })),
       tariff: {
         ...seed.tariff
       }
@@ -183,6 +186,25 @@ function useStore() {
       };
     });
   }, []);
+  const setGeneratorLog = React.useCallback((year, month, patch) => {
+    // FIREBASE: setDoc(doc(db, "generatorLogs", `${year}_${month}`), patch)
+    setData(prev => {
+      const idx = prev.generatorLogs.findIndex(g => g.year === year && g.month === month);
+      const next = [...prev.generatorLogs];
+      if (idx >= 0) next[idx] = {
+        ...next[idx],
+        ...patch
+      };else next.push({
+        year,
+        month,
+        ...patch
+      });
+      return {
+        ...prev,
+        generatorLogs: next
+      };
+    });
+  }, []);
   return {
     data,
     addOrUpdateReading,
@@ -190,7 +212,8 @@ function useStore() {
     addContract,
     addSubscriber,
     updateSubscriber,
-    setPriceForMonth
+    setPriceForMonth,
+    setGeneratorLog
   };
 }
 // ==================== LOGIN ====================
@@ -1351,11 +1374,26 @@ function ExpensesView({
     amount: "",
     notes: ""
   });
+  const [genForm, setGenForm] = React.useState({
+    hours: "",
+    liters: "",
+    notes: ""
+  });
   const monthExpenses = React.useMemo(() => expensesForMonth(data, year, month), [data, year, month]);
   const total = sumBy(monthExpenses, e => e.amount);
   const yearTotal = React.useMemo(() => {
     return sumBy(data.expenses.filter(e => e.date.startsWith(String(year))), e => e.amount);
   }, [data, year]);
+  const currentGenLog = React.useMemo(() => {
+    return data.generatorLogs.find(g => g.year === year && g.month === month);
+  }, [data, year, month]);
+  React.useEffect(() => {
+    setGenForm({
+      hours: currentGenLog && currentGenLog.hours !== undefined ? String(currentGenLog.hours) : "",
+      liters: currentGenLog && currentGenLog.liters !== undefined ? String(currentGenLog.liters) : "",
+      notes: currentGenLog ? currentGenLog.notes || "" : ""
+    });
+  }, [year, month, currentGenLog]);
   function submitForm(e) {
     e.preventDefault();
     if (!form.amount || isNaN(form.amount)) return;
@@ -1371,6 +1409,15 @@ function ExpensesView({
       notes: ""
     });
   }
+  function submitGenForm(e) {
+    e.preventDefault();
+    if (genForm.hours === "" && genForm.liters === "") return;
+    store.setGeneratorLog(year, month, {
+      hours: genForm.hours === "" ? 0 : Number(genForm.hours),
+      liters: genForm.liters === "" ? 0 : Number(genForm.liters),
+      notes: genForm.notes
+    });
+  }
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "page-header"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
@@ -1379,7 +1426,7 @@ function ExpensesView({
     className: "page-title"
   }, "Monthly Expenses"), /*#__PURE__*/React.createElement("div", {
     className: "page-desc"
-  }, "Salaries, maintenance, diesel — every expense by month")), /*#__PURE__*/React.createElement(MonthPicker, {
+  }, "Salaries, maintenance, diesel costs, and generator running hours — by month")), /*#__PURE__*/React.createElement(MonthPicker, {
     year: year,
     month: month,
     setYear: setYear,
@@ -1449,6 +1496,84 @@ function ExpensesView({
     className: "btn btn-dark",
     type: "submit"
   }, "Save Expense"))), /*#__PURE__*/React.createElement("div", {
+    className: "panel-card",
+    style: {
+      marginBottom: 20
+    }
+  }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("span", {
+    className: "eyebrow-dot"
+  }), "Generator Log — ", monthLabel(year, month)), /*#__PURE__*/React.createElement("form", {
+    onSubmit: submitGenForm
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "form-grid"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "form-field"
+  }, /*#__PURE__*/React.createElement("label", null, "Running Hours"), /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    step: "0.1",
+    min: "0",
+    value: genForm.hours,
+    onChange: e => setGenForm(f => ({
+      ...f,
+      hours: e.target.value
+    })),
+    placeholder: "e.g. 210"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "form-field"
+  }, /*#__PURE__*/React.createElement("label", null, "Diesel Consumed (Liters)"), /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    step: "0.1",
+    min: "0",
+    value: genForm.liters,
+    onChange: e => setGenForm(f => ({
+      ...f,
+      liters: e.target.value
+    })),
+    placeholder: "e.g. 480"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "form-field"
+  }, /*#__PURE__*/React.createElement("label", null, "Notes"), /*#__PURE__*/React.createElement("input", {
+    value: genForm.notes,
+    onChange: e => setGenForm(f => ({
+      ...f,
+      notes: e.target.value
+    }))
+  }))), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-dark",
+    type: "submit"
+  }, currentGenLog ? "Update Generator Log" : "Save Generator Log"))), data.generatorLogs.length > 0 && /*#__PURE__*/React.createElement("div", {
+    className: "panel-card",
+    style: {
+      marginBottom: 20
+    }
+  }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("span", {
+    className: "eyebrow-dot"
+  }), "Generator Log History"), /*#__PURE__*/React.createElement("div", {
+    className: "table-wrap"
+  }, /*#__PURE__*/React.createElement("table", {
+    className: "data-table"
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Month"), /*#__PURE__*/React.createElement("th", {
+    className: "num"
+  }, "Running Hours"), /*#__PURE__*/React.createElement("th", {
+    className: "num"
+  }, "Diesel (L)"), /*#__PURE__*/React.createElement("th", null, "Notes"), /*#__PURE__*/React.createElement("th", null, "Edit"))), /*#__PURE__*/React.createElement("tbody", null, [...data.generatorLogs].sort((a, b) => b.year * 100 + b.month - (a.year * 100 + a.month)).map((g, i) => /*#__PURE__*/React.createElement("tr", {
+    key: i,
+    className: g.year === year && g.month === month ? "row-saved" : ""
+  }, /*#__PURE__*/React.createElement("td", null, monthLabel(g.year, g.month)), /*#__PURE__*/React.createElement("td", {
+    className: "num"
+  }, g.hours), /*#__PURE__*/React.createElement("td", {
+    className: "num"
+  }, g.liters), /*#__PURE__*/React.createElement("td", {
+    style: {
+      whiteSpace: "normal"
+    }
+  }, g.notes), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-sm",
+    onClick: () => {
+      setYear(g.year);
+      setMonth(g.month);
+    }
+  }, "Edit")))))))), /*#__PURE__*/React.createElement("div", {
     className: "panel-card"
   }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow-dot"

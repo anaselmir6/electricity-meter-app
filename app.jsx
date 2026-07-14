@@ -94,6 +94,7 @@ function useStore() {
       expenses: seed.expenses.map(e => ({ ...e })),
       contracts: seed.contracts.map(c => ({ ...c })),
       prices: seed.prices.map(p => ({ ...p })),
+      generatorLogs: (seed.generatorLogs || []).map(g => ({ ...g })),
       tariff: { ...seed.tariff },
     };
   });
@@ -143,6 +144,17 @@ function useStore() {
     });
   }, []);
 
+  const setGeneratorLog = React.useCallback((year, month, patch) => {
+    // FIREBASE: setDoc(doc(db, "generatorLogs", `${year}_${month}`), patch)
+    setData(prev => {
+      const idx = prev.generatorLogs.findIndex(g => g.year === year && g.month === month);
+      const next = [...prev.generatorLogs];
+      if (idx >= 0) next[idx] = { ...next[idx], ...patch };
+      else next.push({ year, month, ...patch });
+      return { ...prev, generatorLogs: next };
+    });
+  }, []);
+
   return {
     data,
     addOrUpdateReading,
@@ -151,6 +163,7 @@ function useStore() {
     addSubscriber,
     updateSubscriber,
     setPriceForMonth,
+    setGeneratorLog,
   };
 }
 // ==================== LOGIN ====================
@@ -1004,6 +1017,7 @@ function ExpensesView({ data, store }) {
   const [year, setYear] = React.useState(2026);
   const [month, setMonth] = React.useState(6);
   const [form, setForm] = React.useState({ label: EXPENSE_CATEGORIES[0], amount: "", notes: "" });
+  const [genForm, setGenForm] = React.useState({ hours: "", liters: "", notes: "" });
 
   const monthExpenses = React.useMemo(() => expensesForMonth(data, year, month), [data, year, month]);
   const total = sumBy(monthExpenses, e => e.amount);
@@ -1011,6 +1025,18 @@ function ExpensesView({ data, store }) {
   const yearTotal = React.useMemo(() => {
     return sumBy(data.expenses.filter(e => e.date.startsWith(String(year))), e => e.amount);
   }, [data, year]);
+
+  const currentGenLog = React.useMemo(() => {
+    return data.generatorLogs.find(g => g.year === year && g.month === month);
+  }, [data, year, month]);
+
+  React.useEffect(() => {
+    setGenForm({
+      hours: currentGenLog && currentGenLog.hours !== undefined ? String(currentGenLog.hours) : "",
+      liters: currentGenLog && currentGenLog.liters !== undefined ? String(currentGenLog.liters) : "",
+      notes: currentGenLog ? (currentGenLog.notes || "") : "",
+    });
+  }, [year, month, currentGenLog]);
 
   function submitForm(e) {
     e.preventDefault();
@@ -1024,13 +1050,23 @@ function ExpensesView({ data, store }) {
     setForm({ label: EXPENSE_CATEGORIES[0], amount: "", notes: "" });
   }
 
+  function submitGenForm(e) {
+    e.preventDefault();
+    if (genForm.hours === "" && genForm.liters === "") return;
+    store.setGeneratorLog(year, month, {
+      hours: genForm.hours === "" ? 0 : Number(genForm.hours),
+      liters: genForm.liters === "" ? 0 : Number(genForm.liters),
+      notes: genForm.notes,
+    });
+  }
+
   return (
     <div>
       <div className="page-header">
         <div>
           <div className="page-eyebrow">EXPENSES</div>
           <div className="page-title">Monthly Expenses</div>
-          <div className="page-desc">Salaries, maintenance, diesel — every expense by month</div>
+          <div className="page-desc">Salaries, maintenance, diesel costs, and generator running hours — by month</div>
         </div>
         <MonthPicker year={year} month={month} setYear={setYear} setMonth={setMonth} />
       </div>
@@ -1070,6 +1106,49 @@ function ExpensesView({ data, store }) {
           <button className="btn btn-dark" type="submit">Save Expense</button>
         </form>
       </div>
+
+      <div className="panel-card" style={{ marginBottom: 20 }}>
+        <h3><span className="eyebrow-dot"></span>Generator Log — {monthLabel(year, month)}</h3>
+        <form onSubmit={submitGenForm}>
+          <div className="form-grid">
+            <div className="form-field">
+              <label>Running Hours</label>
+              <input type="number" step="0.1" min="0" value={genForm.hours} onChange={e => setGenForm(f => ({ ...f, hours: e.target.value }))} placeholder="e.g. 210" />
+            </div>
+            <div className="form-field">
+              <label>Diesel Consumed (Liters)</label>
+              <input type="number" step="0.1" min="0" value={genForm.liters} onChange={e => setGenForm(f => ({ ...f, liters: e.target.value }))} placeholder="e.g. 480" />
+            </div>
+            <div className="form-field">
+              <label>Notes</label>
+              <input value={genForm.notes} onChange={e => setGenForm(f => ({ ...f, notes: e.target.value }))} />
+            </div>
+          </div>
+          <button className="btn btn-dark" type="submit">{currentGenLog ? "Update Generator Log" : "Save Generator Log"}</button>
+        </form>
+      </div>
+
+      {data.generatorLogs.length > 0 && (
+        <div className="panel-card" style={{ marginBottom: 20 }}>
+          <h3><span className="eyebrow-dot"></span>Generator Log History</h3>
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead><tr><th>Month</th><th className="num">Running Hours</th><th className="num">Diesel (L)</th><th>Notes</th><th>Edit</th></tr></thead>
+              <tbody>
+                {[...data.generatorLogs].sort((a, b) => (b.year * 100 + b.month) - (a.year * 100 + a.month)).map((g, i) => (
+                  <tr key={i} className={g.year === year && g.month === month ? "row-saved" : ""}>
+                    <td>{monthLabel(g.year, g.month)}</td>
+                    <td className="num">{g.hours}</td>
+                    <td className="num">{g.liters}</td>
+                    <td style={{ whiteSpace: "normal" }}>{g.notes}</td>
+                    <td><button className="btn btn-sm" onClick={() => { setYear(g.year); setMonth(g.month); }}>Edit</button></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
 
       <div className="panel-card">
         <h3><span className="eyebrow-dot"></span>Expenses for {monthLabel(year, month)}</h3>

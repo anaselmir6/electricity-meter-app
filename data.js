@@ -2455,6 +2455,7 @@ window.APP_DATA = {
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     }
   ],
+  "generatorLogs": [],
   "contracts": [
     {
       "name": "Generator Maintenance Contract",
