@@ -257,7 +257,7 @@ function BreakerPanel({ user, view, setView, onLogout }) {
       </div>
       <div className="panel-footer">
         <div className="user-chip">
-          <span className="dot" style={{ background: "#E8A33D", width: 7, height: 7, borderRadius: "50%" }}></span>
+          <span className="dot" style={{ background: "var(--filament)", width: 7, height: 7, borderRadius: "50%" }}></span>
           {user.name}
         </div>
         <button className="logout-btn" onClick={onLogout}>Log out</button>
@@ -329,10 +329,10 @@ function MeterDial({ value, max, label }) {
   return (
     <div className="dial-wrap">
       <svg width="200" height="120" viewBox="0 0 200 120">
-        <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#DDD6C4" strokeWidth="10" strokeLinecap="round" />
+        <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#DEE5E1" strokeWidth="10" strokeLinecap="round" />
         <path
           d={`M 20 100 A 80 80 0 0 1 ${100 + 80 * Math.cos((-90 + pct * 180) * Math.PI / 180)} ${100 + 80 * Math.sin((-90 + pct * 180) * Math.PI / 180)}`}
-          fill="none" stroke="#E8A33D" strokeWidth="10" strokeLinecap="round"
+          fill="none" stroke="#22A566" strokeWidth="10" strokeLinecap="round"
         />
         {ticks.map((t, i) => {
           const p1 = tickPoint(t, 68);
@@ -340,8 +340,8 @@ function MeterDial({ value, max, label }) {
           return <line key={i} x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y} stroke="#9AA1AC" strokeWidth="2" />;
         })}
         <g className="dial-needle" style={{ transform: `rotate(${angle}deg)` }}>
-          <line x1="100" y1="100" x2="100" y2="34" stroke="#14181D" strokeWidth="3" strokeLinecap="round" />
-          <circle cx="100" cy="100" r="6" fill="#14181D" />
+          <line x1="100" y1="100" x2="100" y2="34" stroke="#10251C" strokeWidth="3" strokeLinecap="round" />
+          <circle cx="100" cy="100" r="6" fill="#10251C" />
         </g>
       </svg>
       <div className="dial-value mono">{Math.round(value).toLocaleString("en-US")} kWh</div>
@@ -423,8 +423,8 @@ function DashboardView({ data }) {
           {
             label: "Collected",
             data: trend.map(t => t.income),
-            borderColor: "#E8A33D",
-            backgroundColor: "rgba(232,163,61,0.12)",
+            borderColor: "#22A566",
+            backgroundColor: "rgba(34,165,102,0.12)",
             tension: 0.3,
             fill: true,
             pointRadius: 0,
@@ -433,8 +433,8 @@ function DashboardView({ data }) {
           {
             label: "Expenses",
             data: trend.map(t => t.expense),
-            borderColor: "#1F5C54",
-            backgroundColor: "rgba(31,92,84,0.08)",
+            borderColor: "#B3261E",
+            backgroundColor: "rgba(179,38,30,0.08)",
             tension: 0.3,
             fill: true,
             pointRadius: 0,

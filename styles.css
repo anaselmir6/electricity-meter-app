@@ -1,32 +1,35 @@
 /* ==================== DESIGN TOKENS ====================
    Palette
-   --ink        #14181D  near-black panel background (sidebar / header)
-   --paper      #F6F3EA  warm paper background (content canvas)
-   --paper-dim  #EDE8DB  slightly deeper paper for cards on paper
-   --filament   #E8A33D  amber accent — the "live wire" color, used sparingly
-   --teal       #1F5C54  deep teal — positive / active / paid
-   --rust       #B23B23  rust red — alerts / unpaid / expired
+   --ink        #10251C  dark forest-green panel background (sidebar / header)
+   --paper      #FFFFFF  white content canvas
+   --paper-dim  #EEF3F0  soft green-gray for cards on white
+   --filament   #22A566  primary green accent — brand / active / primary actions
+   --teal       #0F6B52  secondary deep green — positive / paid, kept distinct from filament
+   --rust       #B3261E  rust red — alerts / unpaid / expired
+   --warn       #C6821D  amber — informational / warning notices (decoupled from brand)
    --slate      #4B5563  secondary text
-   --line       #DDD6C4  hairline dividers on paper
+   --line       #DEE5E1  hairline dividers on paper
    Type
    Display + UI Arabic : "IBM Plex Sans Arabic"
    Data / numbers      : "IBM Plex Mono"
 ========================================================= */
 
 :root {
-  --ink: #14181D;
-  --ink-soft: #1E242C;
-  --paper: #F6F3EA;
-  --paper-dim: #EDE7D8;
-  --filament: #E8A33D;
-  --filament-soft: #F6D9A8;
-  --teal: #1F5C54;
-  --teal-soft: #DCEAE6;
-  --rust: #B23B23;
-  --rust-soft: #F3DCD6;
+  --ink: #10251C;
+  --ink-soft: #17352A;
+  --paper: #FFFFFF;
+  --paper-dim: #EEF3F0;
+  --filament: #22A566;
+  --filament-soft: #DCF0E3;
+  --teal: #0F6B52;
+  --teal-soft: #DCEEE6;
+  --rust: #B3261E;
+  --rust-soft: #F4DAD7;
+  --warn: #C6821D;
+  --warn-soft: #F6E4C4;
   --slate: #4B5563;
-  --line: #DDD6C4;
-  --white: #FFFDF8;
+  --line: #DEE5E1;
+  --white: #FFFFFF;
 }
 
 * { box-sizing: border-box; }
@@ -60,7 +63,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, [tabindex]:focu
   align-items: center;
   justify-content: center;
   background:
-    radial-gradient(circle at 30% 20%, rgba(232,163,61,0.12), transparent 45%),
+    radial-gradient(circle at 30% 20%, rgba(30,122,76,0.16), transparent 45%),
     var(--ink);
   padding: 24px;
 }
@@ -142,8 +145,8 @@ button:focus-visible, input:focus-visible, select:focus-visible, [tabindex]:focu
   transition: background .15s, box-shadow .15s;
 }
 .switch-item:hover { background: rgba(255,255,255,0.05); color: var(--white); }
-.switch-item.active { background: rgba(232,163,61,0.12); color: var(--filament); }
-.switch-item.active .dot { background: var(--filament); box-shadow: 0 0 8px 1px rgba(232,163,61,0.7); }
+.switch-item.active { background: rgba(30,122,76,0.14); color: var(--filament); }
+.switch-item.active .dot { background: var(--filament); box-shadow: 0 0 8px 1px rgba(30,122,76,0.7); }
 
 .panel-footer { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 14px; margin-top: 10px; }
 .user-chip { display: flex; align-items: center; gap: 8px; padding: 8px 10px; font-size: 12.5px; color: #B7BEC9; }
@@ -177,7 +180,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, [tabindex]:focu
 }
 .kpi-card .kpi-label { font-size: 11.5px; color: var(--slate); margin-bottom: 8px; }
 .kpi-card .kpi-value { font-family: "IBM Plex Mono", monospace; direction: ltr; text-align: right; font-size: 24px; font-weight: 700; }
-.kpi-card.accent-filament .kpi-value { color: #9A6110; }
+.kpi-card.accent-filament .kpi-value { color: #146C3E; }
 .kpi-card.accent-teal .kpi-value { color: var(--teal); }
 .kpi-card.accent-rust .kpi-value { color: var(--rust); }
 .kpi-card .kpi-bar { position: absolute; bottom: 0; right: 0; left: 0; height: 3px; }
@@ -215,8 +218,8 @@ table.data-table td.num, table.data-table th.num { font-family: "IBM Plex Mono",
 .badge.paid { background: var(--teal-soft); color: var(--teal); }
 .badge.unpaid { background: var(--rust-soft); color: var(--rust); }
 .badge.active { background: var(--teal-soft); color: var(--teal); }
-.badge.inactive { background: #E7E2D3; color: var(--slate); }
-.badge.expiring { background: var(--filament-soft); color: #8A5A0E; }
+.badge.inactive { background: #E4E9E6; color: var(--slate); }
+.badge.expiring { background: var(--warn-soft); color: #8A5A0E; }
 .badge.expired { background: var(--rust-soft); color: var(--rust); }
 
 .search-input {
@@ -292,7 +295,7 @@ table.data-table td.num, table.data-table th.num { font-family: "IBM Plex Mono",
 .chip.active { background: var(--ink); color: var(--filament); border-color: var(--ink); }
 
 .demo-banner {
-  background: var(--filament-soft); color: #7A4E10; border: 1px solid #E0BE7C; border-radius: 4px;
+  background: var(--warn-soft); color: #7A4E10; border: 1px solid #E0BE7C; border-radius: 4px;
   padding: 10px 16px; font-size: 12.5px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
 }
 
