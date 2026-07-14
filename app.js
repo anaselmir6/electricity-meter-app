@@ -384,12 +384,25 @@ function BreakerPanel({
   }, /*#__PURE__*/React.createElement("div", {
     className: "brand"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "brand-badge-sm"
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: "18",
+    height: "18",
+    viewBox: "0 0 24 24",
+    fill: "none"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M13 2 4 14h6l-1 8 9-12h-6l1-8Z",
+    fill: "var(--filament)",
+    stroke: "var(--filament)",
+    strokeWidth: "1",
+    strokeLinejoin: "round"
+  }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "brand-mark"
   }, "METER · 224"), /*#__PURE__*/React.createElement("div", {
     className: "brand-name"
-  }, "Electricity Meter System"), /*#__PURE__*/React.createElement("div", {
-    className: "brand-sub"
-  }, "Property 224 — Subscriber Management")), /*#__PURE__*/React.createElement("div", {
+  }, "Electricity Meter System"))), /*#__PURE__*/React.createElement("div", {
+    className: "nav-label"
+  }, "Menu"), /*#__PURE__*/React.createElement("div", {
     className: "nav-group"
   }, items.map(item => /*#__PURE__*/React.createElement("button", {
     key: item.id,
@@ -400,6 +413,12 @@ function BreakerPanel({
   }), item.label))), /*#__PURE__*/React.createElement("div", {
     className: "panel-footer"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "nav-label",
+    style: {
+      padding: 0,
+      marginBottom: 10
+    }
+  }, "General"), /*#__PURE__*/React.createElement("div", {
     className: "user-chip"
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot",
@@ -490,6 +509,23 @@ function PriceEditor({
     className: "btn btn-sm",
     onClick: apply
   }, saved ? "Saved" : "Apply")));
+}
+// ==================== KPI ARROW ICON ====================
+function KpiArrowIcon() {
+  return /*#__PURE__*/React.createElement("svg", {
+    width: "14",
+    height: "14",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2.2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M7 17 17 7"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M7 7h10v10"
+  }));
 }
 // ==================== METER DIAL (signature element) ====================
 function MeterDial({
@@ -747,8 +783,10 @@ function DashboardView({
   })), /*#__PURE__*/React.createElement("div", {
     className: "kpi-grid"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "kpi-card accent-ink"
+    className: "kpi-card kpi-hero accent-ink"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "kpi-icon"
+  }, /*#__PURE__*/React.createElement(KpiArrowIcon, null)), /*#__PURE__*/React.createElement("div", {
     className: "kpi-label"
   }, "Subscribers (All)"), /*#__PURE__*/React.createElement("div", {
     className: "kpi-value"
@@ -757,6 +795,8 @@ function DashboardView({
   })), /*#__PURE__*/React.createElement("div", {
     className: "kpi-card accent-teal"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "kpi-icon"
+  }, /*#__PURE__*/React.createElement(KpiArrowIcon, null)), /*#__PURE__*/React.createElement("div", {
     className: "kpi-label"
   }, "Active Now"), /*#__PURE__*/React.createElement("div", {
     className: "kpi-value"
@@ -765,6 +805,8 @@ function DashboardView({
   })), /*#__PURE__*/React.createElement("div", {
     className: "kpi-card accent-filament"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "kpi-icon"
+  }, /*#__PURE__*/React.createElement(KpiArrowIcon, null)), /*#__PURE__*/React.createElement("div", {
     className: "kpi-label"
   }, "Collected ", periodLabel), /*#__PURE__*/React.createElement("div", {
     className: "kpi-value"
@@ -773,6 +815,8 @@ function DashboardView({
   })), /*#__PURE__*/React.createElement("div", {
     className: "kpi-card accent-rust"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "kpi-icon"
+  }, /*#__PURE__*/React.createElement(KpiArrowIcon, null)), /*#__PURE__*/React.createElement("div", {
     className: "kpi-label"
   }, "Unpaid"), /*#__PURE__*/React.createElement("div", {
     className: "kpi-value"
@@ -781,6 +825,8 @@ function DashboardView({
   })), /*#__PURE__*/React.createElement("div", {
     className: "kpi-card accent-rust"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "kpi-icon"
+  }, /*#__PURE__*/React.createElement(KpiArrowIcon, null)), /*#__PURE__*/React.createElement("div", {
     className: "kpi-label"
   }, "Expenses ", periodLabel), /*#__PURE__*/React.createElement("div", {
     className: "kpi-value"
@@ -789,6 +835,8 @@ function DashboardView({
   })), /*#__PURE__*/React.createElement("div", {
     className: "kpi-card accent-teal"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "kpi-icon"
+  }, /*#__PURE__*/React.createElement(KpiArrowIcon, null)), /*#__PURE__*/React.createElement("div", {
     className: "kpi-label"
   }, "Net (Collected − Expenses)"), /*#__PURE__*/React.createElement("div", {
     className: "kpi-value"

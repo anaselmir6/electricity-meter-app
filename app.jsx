@@ -262,10 +262,17 @@ function BreakerPanel({ user, view, setView, onLogout }) {
   return (
     <div className="breaker-panel">
       <div className="brand">
-        <div className="brand-mark">METER · 224</div>
-        <div className="brand-name">Electricity Meter System</div>
-        <div className="brand-sub">Property 224 — Subscriber Management</div>
+        <div className="brand-badge-sm">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="var(--filament)" stroke="var(--filament)" strokeWidth="1" strokeLinejoin="round" />
+          </svg>
+        </div>
+        <div>
+          <div className="brand-mark">METER · 224</div>
+          <div className="brand-name">Electricity Meter System</div>
+        </div>
       </div>
+      <div className="nav-label">Menu</div>
       <div className="nav-group">
         {items.map(item => (
           <button
@@ -279,6 +286,7 @@ function BreakerPanel({ user, view, setView, onLogout }) {
         ))}
       </div>
       <div className="panel-footer">
+        <div className="nav-label" style={{ padding: 0, marginBottom: 10 }}>General</div>
         <div className="user-chip">
           <span className="dot" style={{ background: "var(--filament)", width: 7, height: 7, borderRadius: "50%" }}></span>
           {user.name}
@@ -342,6 +350,14 @@ function PriceEditor({ year, month, data, store }) {
         <button className="btn btn-sm" onClick={apply}>{saved ? "Saved" : "Apply"}</button>
       </div>
     </div>
+  );
+}
+// ==================== KPI ARROW ICON ====================
+function KpiArrowIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+    </svg>
   );
 }
 // ==================== METER DIAL (signature element) ====================
@@ -527,32 +543,38 @@ function DashboardView({ data }) {
       </div>
 
       <div className="kpi-grid">
-        <div className="kpi-card accent-ink">
+        <div className="kpi-card kpi-hero accent-ink">
+          <div className="kpi-icon"><KpiArrowIcon /></div>
           <div className="kpi-label">Subscribers (All)</div>
           <div className="kpi-value">{totalCount}</div>
           <div className="kpi-bar"></div>
         </div>
         <div className="kpi-card accent-teal">
+          <div className="kpi-icon"><KpiArrowIcon /></div>
           <div className="kpi-label">Active Now</div>
           <div className="kpi-value">{activeCount}</div>
           <div className="kpi-bar"></div>
         </div>
         <div className="kpi-card accent-filament">
+          <div className="kpi-icon"><KpiArrowIcon /></div>
           <div className="kpi-label">Collected {periodLabel}</div>
           <div className="kpi-value">{fmtMoney(collected)}</div>
           <div className="kpi-bar"></div>
         </div>
         <div className="kpi-card accent-rust">
+          <div className="kpi-icon"><KpiArrowIcon /></div>
           <div className="kpi-label">Unpaid</div>
           <div className="kpi-value">{fmtMoney(unpaid)}</div>
           <div className="kpi-bar"></div>
         </div>
         <div className="kpi-card accent-rust">
+          <div className="kpi-icon"><KpiArrowIcon /></div>
           <div className="kpi-label">Expenses {periodLabel}</div>
           <div className="kpi-value">{fmtMoney(expensesTotal)}</div>
           <div className="kpi-bar"></div>
         </div>
         <div className="kpi-card accent-teal">
+          <div className="kpi-icon"><KpiArrowIcon /></div>
           <div className="kpi-label">Net (Collected − Expenses)</div>
           <div className="kpi-value">{fmtMoney(net)}</div>
           <div className="kpi-bar"></div>
