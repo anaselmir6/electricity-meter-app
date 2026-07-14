@@ -421,7 +421,8 @@ function MonthPicker({
   setYear,
   setMonth,
   minYear = 2024,
-  maxYear = 2026
+  maxYear = 2026,
+  allowAllYears = false
 }) {
   const years = [];
   for (let y = minYear; y <= maxYear; y++) years.push(y);
@@ -429,13 +430,16 @@ function MonthPicker({
     className: "month-picker"
   }, /*#__PURE__*/React.createElement("select", {
     value: year,
-    onChange: e => setYear(Number(e.target.value))
-  }, years.map(y => /*#__PURE__*/React.createElement("option", {
+    onChange: e => setYear(e.target.value === "all" ? "all" : Number(e.target.value))
+  }, allowAllYears && /*#__PURE__*/React.createElement("option", {
+    value: "all"
+  }, "All Years"), years.map(y => /*#__PURE__*/React.createElement("option", {
     key: y,
     value: y
   }, y))), /*#__PURE__*/React.createElement("select", {
     value: month,
-    onChange: e => setMonth(Number(e.target.value))
+    onChange: e => setMonth(Number(e.target.value)),
+    disabled: year === "all"
   }, MONTHS_AR.map((m, i) => /*#__PURE__*/React.createElement("option", {
     key: i,
     value: i + 1
@@ -564,8 +568,13 @@ function DashboardView({
   const [search, setSearch] = React.useState("");
   const chartRef = React.useRef(null);
   const chartInstance = React.useRef(null);
-  const monthReadings = React.useMemo(() => readingsForMonth(data, year, month), [data, year, month]);
-  const monthExpenses = React.useMemo(() => expensesForMonth(data, year, month), [data, year, month]);
+  const isAllYears = year === "all";
+  const monthReadings = React.useMemo(() => {
+    return isAllYears ? data.readings : readingsForMonth(data, year, month);
+  }, [data, year, month, isAllYears]);
+  const monthExpenses = React.useMemo(() => {
+    return isAllYears ? data.expenses : expensesForMonth(data, year, month);
+  }, [data, year, month, isAllYears]);
   const activeCount = activeSubscribers(data).length;
   const totalCount = data.subscribers.length;
   const collected = sumBy(monthReadings.filter(r => r.paid === "Paid"), r => r.total);
@@ -714,11 +723,12 @@ function DashboardView({
     className: "page-title"
   }, "Dashboard"), /*#__PURE__*/React.createElement("div", {
     className: "page-desc"
-  }, "Full overview of collections and expenses — choose a month to update the numbers")), /*#__PURE__*/React.createElement(MonthPicker, {
+  }, "Full overview of collections and expenses — choose a month, or All Years for a lifetime total")), /*#__PURE__*/React.createElement(MonthPicker, {
     year: year,
     month: month,
     setYear: setYear,
-    setMonth: setMonth
+    setMonth: setMonth,
+    allowAllYears: true
   })), /*#__PURE__*/React.createElement("div", {
     className: "kpi-grid"
   }, /*#__PURE__*/React.createElement("div", {
@@ -741,7 +751,7 @@ function DashboardView({
     className: "kpi-card accent-filament"
   }, /*#__PURE__*/React.createElement("div", {
     className: "kpi-label"
-  }, "Collected ", monthLabel(year, month)), /*#__PURE__*/React.createElement("div", {
+  }, "Collected ", isAllYears ? "(All Years)" : monthLabel(year, month)), /*#__PURE__*/React.createElement("div", {
     className: "kpi-value"
   }, fmtMoney(collected)), /*#__PURE__*/React.createElement("div", {
     className: "kpi-bar"
@@ -757,7 +767,7 @@ function DashboardView({
     className: "kpi-card accent-rust"
   }, /*#__PURE__*/React.createElement("div", {
     className: "kpi-label"
-  }, "Expenses ", monthLabel(year, month)), /*#__PURE__*/React.createElement("div", {
+  }, "Expenses ", isAllYears ? "(All Years)" : monthLabel(year, month)), /*#__PURE__*/React.createElement("div", {
     className: "kpi-value"
   }, fmtMoney(expensesTotal)), /*#__PURE__*/React.createElement("div", {
     className: "kpi-bar"
@@ -826,7 +836,17 @@ function DashboardView({
     className: "panel-card"
   }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow-dot"
-  }), "Month Consumption (kWh)"), /*#__PURE__*/React.createElement(MeterDial, {
+  }), isAllYears ? "Total Consumption (kWh)" : "Month Consumption (kWh)"), isAllYears ? /*#__PURE__*/React.createElement("div", {
+    className: "dial-wrap"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "dial-value mono",
+    style: {
+      fontSize: 34,
+      marginTop: 24
+    }
+  }, Math.round(kwhTotal).toLocaleString("en-US"), " kWh"), /*#__PURE__*/React.createElement("div", {
+    className: "dial-caption"
+  }, "All recorded years")) : /*#__PURE__*/React.createElement(MeterDial, {
     value: kwhTotal,
     max: maxKwh,
     label: monthLabel(year, month)

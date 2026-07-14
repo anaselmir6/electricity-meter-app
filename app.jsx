@@ -289,15 +289,16 @@ function BreakerPanel({ user, view, setView, onLogout }) {
   );
 }
 // ==================== MONTH PICKER ====================
-function MonthPicker({ year, month, setYear, setMonth, minYear = 2024, maxYear = 2026 }) {
+function MonthPicker({ year, month, setYear, setMonth, minYear = 2024, maxYear = 2026, allowAllYears = false }) {
   const years = [];
   for (let y = minYear; y <= maxYear; y++) years.push(y);
   return (
     <div className="month-picker">
-      <select value={year} onChange={e => setYear(Number(e.target.value))}>
+      <select value={year} onChange={e => setYear(e.target.value === "all" ? "all" : Number(e.target.value))}>
+        {allowAllYears && <option value="all">All Years</option>}
         {years.map(y => <option key={y} value={y}>{y}</option>)}
       </select>
-      <select value={month} onChange={e => setMonth(Number(e.target.value))}>
+      <select value={month} onChange={e => setMonth(Number(e.target.value))} disabled={year === "all"}>
         {MONTHS_AR.map((m, i) => <option key={i} value={i + 1}>{m}</option>)}
       </select>
     </div>
@@ -381,8 +382,14 @@ function DashboardView({ data }) {
   const chartRef = React.useRef(null);
   const chartInstance = React.useRef(null);
 
-  const monthReadings = React.useMemo(() => readingsForMonth(data, year, month), [data, year, month]);
-  const monthExpenses = React.useMemo(() => expensesForMonth(data, year, month), [data, year, month]);
+  const isAllYears = year === "all";
+
+  const monthReadings = React.useMemo(() => {
+    return isAllYears ? data.readings : readingsForMonth(data, year, month);
+  }, [data, year, month, isAllYears]);
+  const monthExpenses = React.useMemo(() => {
+    return isAllYears ? data.expenses : expensesForMonth(data, year, month);
+  }, [data, year, month, isAllYears]);
 
   const activeCount = activeSubscribers(data).length;
   const totalCount = data.subscribers.length;
@@ -499,9 +506,9 @@ function DashboardView({ data }) {
         <div>
           <div className="page-eyebrow">OWNER · OVERVIEW</div>
           <div className="page-title">Dashboard</div>
-          <div className="page-desc">Full overview of collections and expenses — choose a month to update the numbers</div>
+          <div className="page-desc">Full overview of collections and expenses — choose a month, or All Years for a lifetime total</div>
         </div>
-        <MonthPicker year={year} month={month} setYear={setYear} setMonth={setMonth} />
+        <MonthPicker year={year} month={month} setYear={setYear} setMonth={setMonth} allowAllYears />
       </div>
 
       <div className="kpi-grid">
@@ -516,7 +523,7 @@ function DashboardView({ data }) {
           <div className="kpi-bar"></div>
         </div>
         <div className="kpi-card accent-filament">
-          <div className="kpi-label">Collected {monthLabel(year, month)}</div>
+          <div className="kpi-label">Collected {isAllYears ? "(All Years)" : monthLabel(year, month)}</div>
           <div className="kpi-value">{fmtMoney(collected)}</div>
           <div className="kpi-bar"></div>
         </div>
@@ -526,7 +533,7 @@ function DashboardView({ data }) {
           <div className="kpi-bar"></div>
         </div>
         <div className="kpi-card accent-rust">
-          <div className="kpi-label">Expenses {monthLabel(year, month)}</div>
+          <div className="kpi-label">Expenses {isAllYears ? "(All Years)" : monthLabel(year, month)}</div>
           <div className="kpi-value">{fmtMoney(expensesTotal)}</div>
           <div className="kpi-bar"></div>
         </div>
@@ -578,8 +585,15 @@ function DashboardView({ data }) {
           </div>
         </div>
         <div className="panel-card">
-          <h3><span className="eyebrow-dot"></span>Month Consumption (kWh)</h3>
-          <MeterDial value={kwhTotal} max={maxKwh} label={monthLabel(year, month)} />
+          <h3><span className="eyebrow-dot"></span>{isAllYears ? "Total Consumption (kWh)" : "Month Consumption (kWh)"}</h3>
+          {isAllYears ? (
+            <div className="dial-wrap">
+              <div className="dial-value mono" style={{ fontSize: 34, marginTop: 24 }}>{Math.round(kwhTotal).toLocaleString("en-US")} kWh</div>
+              <div className="dial-caption">All recorded years</div>
+            </div>
+          ) : (
+            <MeterDial value={kwhTotal} max={maxKwh} label={monthLabel(year, month)} />
+          )}
         </div>
       </div>
 
