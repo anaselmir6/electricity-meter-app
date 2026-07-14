@@ -289,7 +289,7 @@ function BreakerPanel({ user, view, setView, onLogout }) {
   );
 }
 // ==================== MONTH PICKER ====================
-function MonthPicker({ year, month, setYear, setMonth, minYear = 2024, maxYear = 2026, allowAllYears = false }) {
+function MonthPicker({ year, month, setYear, setMonth, minYear = 2024, maxYear = 2026, allowAllYears = false, allowAllMonths = false }) {
   const years = [];
   for (let y = minYear; y <= maxYear; y++) years.push(y);
   return (
@@ -298,7 +298,12 @@ function MonthPicker({ year, month, setYear, setMonth, minYear = 2024, maxYear =
         {allowAllYears && <option value="all">All Years</option>}
         {years.map(y => <option key={y} value={y}>{y}</option>)}
       </select>
-      <select value={month} onChange={e => setMonth(Number(e.target.value))} disabled={year === "all"}>
+      <select
+        value={month}
+        onChange={e => setMonth(e.target.value === "all" ? "all" : Number(e.target.value))}
+        disabled={year === "all"}
+      >
+        {allowAllMonths && <option value="all">All Months</option>}
         {MONTHS_AR.map((m, i) => <option key={i} value={i + 1}>{m}</option>)}
       </select>
     </div>
@@ -383,13 +388,20 @@ function DashboardView({ data }) {
   const chartInstance = React.useRef(null);
 
   const isAllYears = year === "all";
+  const isAllMonths = month === "all";
+  const isAggregate = isAllYears || isAllMonths;
+  const periodLabel = isAllYears ? "(All Years)" : isAllMonths ? String(year) : monthLabel(year, month);
 
   const monthReadings = React.useMemo(() => {
-    return isAllYears ? data.readings : readingsForMonth(data, year, month);
-  }, [data, year, month, isAllYears]);
+    if (isAllYears) return data.readings;
+    if (isAllMonths) return data.readings.filter(r => r.date.startsWith(String(year)));
+    return readingsForMonth(data, year, month);
+  }, [data, year, month, isAllYears, isAllMonths]);
   const monthExpenses = React.useMemo(() => {
-    return isAllYears ? data.expenses : expensesForMonth(data, year, month);
-  }, [data, year, month, isAllYears]);
+    if (isAllYears) return data.expenses;
+    if (isAllMonths) return data.expenses.filter(e => e.date.startsWith(String(year)));
+    return expensesForMonth(data, year, month);
+  }, [data, year, month, isAllYears, isAllMonths]);
 
   const activeCount = activeSubscribers(data).length;
   const totalCount = data.subscribers.length;
@@ -506,9 +518,9 @@ function DashboardView({ data }) {
         <div>
           <div className="page-eyebrow">OWNER · OVERVIEW</div>
           <div className="page-title">Dashboard</div>
-          <div className="page-desc">Full overview of collections and expenses — choose a month, or All Years for a lifetime total</div>
+          <div className="page-desc">Full overview of collections and expenses — choose a month, All Months for a year's total, or All Years for a lifetime total</div>
         </div>
-        <MonthPicker year={year} month={month} setYear={setYear} setMonth={setMonth} allowAllYears />
+        <MonthPicker year={year} month={month} setYear={setYear} setMonth={setMonth} allowAllYears allowAllMonths />
       </div>
 
       <div className="kpi-grid">
@@ -523,7 +535,7 @@ function DashboardView({ data }) {
           <div className="kpi-bar"></div>
         </div>
         <div className="kpi-card accent-filament">
-          <div className="kpi-label">Collected {isAllYears ? "(All Years)" : monthLabel(year, month)}</div>
+          <div className="kpi-label">Collected {periodLabel}</div>
           <div className="kpi-value">{fmtMoney(collected)}</div>
           <div className="kpi-bar"></div>
         </div>
@@ -533,7 +545,7 @@ function DashboardView({ data }) {
           <div className="kpi-bar"></div>
         </div>
         <div className="kpi-card accent-rust">
-          <div className="kpi-label">Expenses {isAllYears ? "(All Years)" : monthLabel(year, month)}</div>
+          <div className="kpi-label">Expenses {periodLabel}</div>
           <div className="kpi-value">{fmtMoney(expensesTotal)}</div>
           <div className="kpi-bar"></div>
         </div>
@@ -585,11 +597,11 @@ function DashboardView({ data }) {
           </div>
         </div>
         <div className="panel-card">
-          <h3><span className="eyebrow-dot"></span>{isAllYears ? "Total Consumption (kWh)" : "Month Consumption (kWh)"}</h3>
-          {isAllYears ? (
+          <h3><span className="eyebrow-dot"></span>{isAggregate ? "Total Consumption (kWh)" : "Month Consumption (kWh)"}</h3>
+          {isAggregate ? (
             <div className="dial-wrap">
               <div className="dial-value mono" style={{ fontSize: 34, marginTop: 24 }}>{Math.round(kwhTotal).toLocaleString("en-US")} kWh</div>
-              <div className="dial-caption">All recorded years</div>
+              <div className="dial-caption">{isAllYears ? "All recorded years" : "All months in " + year}</div>
             </div>
           ) : (
             <MeterDial value={kwhTotal} max={maxKwh} label={monthLabel(year, month)} />
