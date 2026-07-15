@@ -2525,6 +2525,42 @@ window.APP_DATA = {
       "label": "Income Reconciliation (2024)",
       "amount": -934.25,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
+    },
+    {
+      "date": "2026-01-01",
+      "label": "Income Reconciliation (2026)",
+      "amount": -1714.67,
+      "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
+    },
+    {
+      "date": "2026-02-01",
+      "label": "Income Reconciliation (2026)",
+      "amount": -388.17,
+      "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
+    },
+    {
+      "date": "2026-03-01",
+      "label": "Income Reconciliation (2026)",
+      "amount": 1251.33,
+      "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
+    },
+    {
+      "date": "2026-04-01",
+      "label": "Income Reconciliation (2026)",
+      "amount": -608.67,
+      "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
+    },
+    {
+      "date": "2026-05-01",
+      "label": "Income Reconciliation (2026)",
+      "amount": 9793.33,
+      "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
+    },
+    {
+      "date": "2026-06-01",
+      "label": "Income Reconciliation (2026)",
+      "amount": -1850.67,
+      "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
     }
   ],
   "incomeAdjustments": [
@@ -2539,7 +2575,13 @@ window.APP_DATA = {
     { "year": 2024, "month": 9, "paid": 482, "unpaid": 0.5 },
     { "year": 2024, "month": 10, "paid": 443.5, "unpaid": 0.5 },
     { "year": 2024, "month": 11, "paid": 425, "unpaid": 1 },
-    { "year": 2024, "month": 12, "paid": 455.5, "unpaid": 1 }
+    { "year": 2024, "month": 12, "paid": 455.5, "unpaid": 1 },
+    { "year": 2026, "month": 1, "paid": 22.97, "unpaid": 1 },
+    { "year": 2026, "month": 2, "paid": 23.47, "unpaid": 1 },
+    { "year": 2026, "month": 3, "paid": 20.13, "unpaid": 0 },
+    { "year": 2026, "month": 4, "paid": 35.27, "unpaid": 0.8 },
+    { "year": 2026, "month": 5, "paid": -3296.23, "unpaid": -21.6 },
+    { "year": 2026, "month": 6, "paid": 37.77, "unpaid": 0.9 }
   ],
   "generatorLogs": [
     {
