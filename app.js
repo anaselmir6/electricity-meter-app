@@ -1717,11 +1717,7 @@ function ExpensesView({
     }
   }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow-dot"
-  }), "Generator Log History — ", year), data.generatorLogs.filter(g => g.year === year).length === 0 ? /*#__PURE__*/React.createElement("div", {
-    className: "empty-state"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "icon"
-  }, "—"), "No generator log entries for ", year, " yet") : /*#__PURE__*/React.createElement("div", {
+  }), "Generator Log History — ", year), /*#__PURE__*/React.createElement("div", {
     className: "table-wrap"
   }, /*#__PURE__*/React.createElement("table", {
     className: "data-table"
@@ -1731,28 +1727,32 @@ function ExpensesView({
     className: "num"
   }, "Diesel $"), /*#__PURE__*/React.createElement("th", {
     className: "num"
-  }, "Utilization"), /*#__PURE__*/React.createElement("th", null, "Notes"), /*#__PURE__*/React.createElement("th", null, "Edit"))), /*#__PURE__*/React.createElement("tbody", null, data.generatorLogs.filter(g => g.year === year).sort((a, b) => b.month - a.month).map((g, i) => {
-    const dieselCost = sumBy(expensesForMonth(data, g.year, g.month).filter(e => e.label === "استهلاك مازوت"), e => e.amount);
+  }, "Utilization"), /*#__PURE__*/React.createElement("th", null, "Notes"), /*#__PURE__*/React.createElement("th", null, "Edit"))), /*#__PURE__*/React.createElement("tbody", null, Array.from({
+    length: 12
+  }, (_, i) => i + 1).map(m => {
+    const g = data.generatorLogs.find(x => x.year === year && x.month === m);
+    const dieselExpenses = expensesForMonth(data, year, m).filter(e => e.label === "استهلاك مازوت");
+    const dieselCost = sumBy(dieselExpenses, e => e.amount);
     return /*#__PURE__*/React.createElement("tr", {
-      key: i,
-      className: g.year === year && g.month === month ? "row-saved" : ""
-    }, /*#__PURE__*/React.createElement("td", null, monthLabel(g.year, g.month)), /*#__PURE__*/React.createElement("td", {
+      key: m,
+      className: m === month ? "row-saved" : ""
+    }, /*#__PURE__*/React.createElement("td", null, monthLabel(year, m)), /*#__PURE__*/React.createElement("td", {
       className: "num"
-    }, g.hours), /*#__PURE__*/React.createElement("td", {
+    }, g ? g.hours : "—"), /*#__PURE__*/React.createElement("td", {
       className: "num"
-    }, fmtMoney2(dieselCost)), /*#__PURE__*/React.createElement("td", {
+    }, dieselExpenses.length > 0 ? fmtMoney2(dieselCost) : "—"), /*#__PURE__*/React.createElement("td", {
       className: "num"
-    }, Math.round((g.hours || 0) / (daysInMonth(g.year, g.month) * 24) * 100), "%"), /*#__PURE__*/React.createElement("td", {
+    }, g ? Math.round((g.hours || 0) / (daysInMonth(year, m) * 24) * 100) + "%" : "—"), /*#__PURE__*/React.createElement("td", {
       style: {
         whiteSpace: "normal"
       }
-    }, g.notes), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
+    }, g ? g.notes : ""), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
       className: "btn btn-sm",
       onClick: () => {
-        setYear(g.year);
-        setMonth(g.month);
+        setYear(year);
+        setMonth(m);
       }
-    }, "Edit")));
+    }, g ? "Edit" : "Add")));
   }))))), /*#__PURE__*/React.createElement("div", {
     className: "panel-card"
   }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("span", {
