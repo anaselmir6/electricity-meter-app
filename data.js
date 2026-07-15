@@ -2453,7 +2453,93 @@ window.APP_DATA = {
       "label": "Other Expenses",
       "amount": 80,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
+    },
+    {
+      "date": "2024-01-01",
+      "label": "Income Reconciliation (2024)",
+      "amount": -449.3,
+      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
+    },
+    {
+      "date": "2024-02-01",
+      "label": "Income Reconciliation (2024)",
+      "amount": 993.3,
+      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
+    },
+    {
+      "date": "2024-03-01",
+      "label": "Income Reconciliation (2024)",
+      "amount": 244.2,
+      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
+    },
+    {
+      "date": "2024-04-01",
+      "label": "Income Reconciliation (2024)",
+      "amount": 396,
+      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
+    },
+    {
+      "date": "2024-05-01",
+      "label": "Income Reconciliation (2024)",
+      "amount": 70.95,
+      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
+    },
+    {
+      "date": "2024-06-01",
+      "label": "Income Reconciliation (2024)",
+      "amount": -1245.9,
+      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
+    },
+    {
+      "date": "2024-07-01",
+      "label": "Income Reconciliation (2024)",
+      "amount": -2346.1,
+      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
+    },
+    {
+      "date": "2024-08-01",
+      "label": "Income Reconciliation (2024)",
+      "amount": 2025.9,
+      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
+    },
+    {
+      "date": "2024-09-01",
+      "label": "Income Reconciliation (2024)",
+      "amount": 2235.6,
+      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
+    },
+    {
+      "date": "2024-10-01",
+      "label": "Income Reconciliation (2024)",
+      "amount": 669.75,
+      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
+    },
+    {
+      "date": "2024-11-01",
+      "label": "Income Reconciliation (2024)",
+      "amount": 402.35,
+      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
+    },
+    {
+      "date": "2024-12-01",
+      "label": "Income Reconciliation (2024)",
+      "amount": -934.25,
+      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     }
+  ],
+  "incomeAdjustments": [
+    { "year": 2024, "month": 1, "paid": 327.5, "unpaid": 0.5 },
+    { "year": 2024, "month": 2, "paid": 390, "unpaid": 0 },
+    { "year": 2024, "month": 3, "paid": 341.5, "unpaid": 0 },
+    { "year": 2024, "month": 4, "paid": 356, "unpaid": 0 },
+    { "year": 2024, "month": 5, "paid": 387, "unpaid": 0 },
+    { "year": 2024, "month": 6, "paid": 413.5, "unpaid": 0 },
+    { "year": 2024, "month": 7, "paid": 455, "unpaid": 0 },
+    { "year": 2024, "month": 8, "paid": 499.5, "unpaid": 1 },
+    { "year": 2024, "month": 9, "paid": 482, "unpaid": 0.5 },
+    { "year": 2024, "month": 10, "paid": 443.5, "unpaid": 0.5 },
+    { "year": 2024, "month": 11, "paid": 425, "unpaid": 1 },
+    { "year": 2024, "month": 12, "paid": 455.5, "unpaid": 1 }
   ],
   "generatorLogs": [
     {

@@ -78,6 +78,13 @@ function expensesForMonth(data, year, month) {
 function sumBy(arr, fn) {
   return arr.reduce((s, x) => s + (fn(x) || 0), 0);
 }
+
+// Collected/Unpaid are summed from individual subscriber readings; incomeAdjustments is a
+// transparent, auditable correction layer for gaps against the owner's own income records
+// (used when the reading-level data doesn't fully reconcile with actual collections).
+function incomeAdjustmentsFor(data, year, month) {
+  return data.incomeAdjustments.filter(a => a.year === year && (month === undefined || a.month === month));
+}
 function allMonthsInRange(data) {
   const set = new Set();
   data.readings.forEach(r => set.add(r.date.slice(0, 7)));
@@ -118,6 +125,9 @@ function useStore() {
       })),
       generatorLogs: (seed.generatorLogs || []).map(g => ({
         ...g
+      })),
+      incomeAdjustments: (seed.incomeAdjustments || []).map(a => ({
+        ...a
       })),
       tariff: {
         ...seed.tariff
@@ -657,8 +667,13 @@ function DashboardView({
   }, [data, year, month, isAllYears, isAllMonths]);
   const activeCount = activeSubscribers(data).length;
   const totalCount = data.subscribers.length;
-  const collected = sumBy(monthReadings.filter(r => r.paid === "Paid"), r => r.total);
-  const unpaid = sumBy(monthReadings.filter(r => r.paid !== "Paid"), r => r.total);
+  const periodAdjustments = React.useMemo(() => {
+    if (isAllYears) return data.incomeAdjustments;
+    if (isAllMonths) return incomeAdjustmentsFor(data, year);
+    return incomeAdjustmentsFor(data, year, month);
+  }, [data, year, month, isAllYears, isAllMonths]);
+  const collected = sumBy(monthReadings.filter(r => r.paid === "Paid"), r => r.total) + sumBy(periodAdjustments, a => a.paid);
+  const unpaid = sumBy(monthReadings.filter(r => r.paid !== "Paid"), r => r.total) + sumBy(periodAdjustments, a => a.unpaid);
   const expensesTotal = sumBy(monthExpenses, e => e.amount);
   const net = collected - expensesTotal;
   const genLogs = React.useMemo(() => {
@@ -673,8 +688,9 @@ function DashboardView({
     const rows = years.map(y => {
       const yReadings = data.readings.filter(r => r.date.startsWith(String(y)));
       const yExpenses = data.expenses.filter(e => e.date.startsWith(String(y)));
-      const yCollected = sumBy(yReadings.filter(r => r.paid === "Paid"), r => r.total);
-      const yUnpaid = sumBy(yReadings.filter(r => r.paid !== "Paid"), r => r.total);
+      const yAdjustments = incomeAdjustmentsFor(data, y);
+      const yCollected = sumBy(yReadings.filter(r => r.paid === "Paid"), r => r.total) + sumBy(yAdjustments, a => a.paid);
+      const yUnpaid = sumBy(yReadings.filter(r => r.paid !== "Paid"), r => r.total) + sumBy(yAdjustments, a => a.unpaid);
       const yExpensesTotal = sumBy(yExpenses, e => e.amount);
       return {
         year: y,
@@ -707,9 +723,10 @@ function DashboardView({
     }
     return months.map(ym => {
       const [y, m] = ym.split("-").map(Number);
+      const adj = incomeAdjustmentsFor(data, y, m);
       return {
         label: MONTHS_AR[m - 1].slice(0, 3) + " " + String(y).slice(2),
-        income: sumBy(readingsForMonth(data, y, m), r => r.total),
+        income: sumBy(readingsForMonth(data, y, m), r => r.total) + sumBy(adj, a => a.paid + a.unpaid),
         expense: sumBy(expensesForMonth(data, y, m), e => e.amount)
       };
     });
