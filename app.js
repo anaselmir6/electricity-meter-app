@@ -676,6 +676,7 @@ function DashboardView({
   const unpaid = sumBy(monthReadings.filter(r => r.paid !== "Paid"), r => r.total) + sumBy(periodAdjustments, a => a.unpaid);
   const expensesTotal = sumBy(monthExpenses, e => e.amount);
   const net = collected - expensesTotal;
+  const kwhTotal = sumBy(monthReadings, r => r.consumption);
   const genLogs = React.useMemo(() => {
     if (isAllYears) return data.generatorLogs;
     if (isAllMonths) return data.generatorLogs.filter(g => g.year === year);
@@ -862,14 +863,14 @@ function DashboardView({
   }, fmtMoney(collected)), /*#__PURE__*/React.createElement("div", {
     className: "kpi-bar"
   })), /*#__PURE__*/React.createElement("div", {
-    className: "kpi-card accent-rust"
+    className: "kpi-card accent-teal"
   }, /*#__PURE__*/React.createElement("div", {
     className: "kpi-icon"
   }, /*#__PURE__*/React.createElement(KpiArrowIcon, null)), /*#__PURE__*/React.createElement("div", {
     className: "kpi-label"
-  }, "Unpaid"), /*#__PURE__*/React.createElement("div", {
+  }, "Consumption ", periodLabel), /*#__PURE__*/React.createElement("div", {
     className: "kpi-value"
-  }, fmtMoney(unpaid)), /*#__PURE__*/React.createElement("div", {
+  }, Math.round(kwhTotal).toLocaleString("en-US"), " kWh"), /*#__PURE__*/React.createElement("div", {
     className: "kpi-bar"
   })), /*#__PURE__*/React.createElement("div", {
     className: "kpi-card accent-rust"

@@ -458,6 +458,7 @@ function DashboardView({ data }) {
   const unpaid = sumBy(monthReadings.filter(r => r.paid !== "Paid"), r => r.total) + sumBy(periodAdjustments, a => a.unpaid);
   const expensesTotal = sumBy(monthExpenses, e => e.amount);
   const net = collected - expensesTotal;
+  const kwhTotal = sumBy(monthReadings, r => r.consumption);
 
   const genLogs = React.useMemo(() => {
     if (isAllYears) return data.generatorLogs;
@@ -595,10 +596,10 @@ function DashboardView({ data }) {
           <div className="kpi-value">{fmtMoney(collected)}</div>
           <div className="kpi-bar"></div>
         </div>
-        <div className="kpi-card accent-rust">
+        <div className="kpi-card accent-teal">
           <div className="kpi-icon"><KpiArrowIcon /></div>
-          <div className="kpi-label">Unpaid</div>
-          <div className="kpi-value">{fmtMoney(unpaid)}</div>
+          <div className="kpi-label">Consumption {periodLabel}</div>
+          <div className="kpi-value">{Math.round(kwhTotal).toLocaleString("en-US")} kWh</div>
           <div className="kpi-bar"></div>
         </div>
         <div className="kpi-card accent-rust">
