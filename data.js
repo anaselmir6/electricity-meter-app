@@ -1283,8 +1283,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-01-01",
-      "label": "Diesel",
-      "amount": 1283.7
+      "label": "استهلاك مازوت",
+      "amount": 1733
     },
     {
       "date": "2024-02-01",
@@ -1313,8 +1313,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-02-01",
-      "label": "Diesel",
-      "amount": 993.3
+      "label": "استهلاك مازوت",
+      "amount": 0
     },
     {
       "date": "2024-03-01",
@@ -1343,8 +1343,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-03-01",
-      "label": "Diesel",
-      "amount": 244.2
+      "label": "استهلاك مازوت",
+      "amount": 0
     },
     {
       "date": "2024-04-01",
@@ -1373,8 +1373,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-04-01",
-      "label": "Diesel",
-      "amount": 396
+      "label": "استهلاك مازوت",
+      "amount": 0
     },
     {
       "date": "2024-05-01",
@@ -1403,8 +1403,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-05-01",
-      "label": "Diesel",
-      "amount": 70.95
+      "label": "استهلاك مازوت",
+      "amount": 0
     },
     {
       "date": "2024-05-01",
@@ -1443,8 +1443,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-06-01",
-      "label": "Diesel",
-      "amount": 254.1
+      "label": "استهلاك مازوت",
+      "amount": 1500
     },
     {
       "date": "2024-07-01",
@@ -1473,8 +1473,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-07-01",
-      "label": "Diesel",
-      "amount": 2253.9
+      "label": "استهلاك مازوت",
+      "amount": 4600
     },
     {
       "date": "2024-08-01",
@@ -1503,8 +1503,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-08-01",
-      "label": "Diesel",
-      "amount": 5025.9
+      "label": "استهلاك مازوت",
+      "amount": 3000
     },
     {
       "date": "2024-09-01",
@@ -1533,8 +1533,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-09-01",
-      "label": "Diesel",
-      "amount": 3735.6
+      "label": "استهلاك مازوت",
+      "amount": 1500
     },
     {
       "date": "2024-10-01",
@@ -1568,8 +1568,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-10-01",
-      "label": "Diesel",
-      "amount": 2169.75
+      "label": "استهلاك مازوت",
+      "amount": 1500
     },
     {
       "date": "2024-11-01",
@@ -1598,8 +1598,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-11-01",
-      "label": "Diesel",
-      "amount": 2902.35
+      "label": "استهلاك مازوت",
+      "amount": 2500
     },
     {
       "date": "2024-12-01",
@@ -1628,8 +1628,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-12-01",
-      "label": "Diesel",
-      "amount": 2565.75
+      "label": "استهلاك مازوت",
+      "amount": 3500
     },
     {
       "date": "2026-01-01",
@@ -2456,18 +2456,174 @@ window.APP_DATA = {
     }
   ],
   "generatorLogs": [
-    { "year": 2025, "month": 1, "hours": 193, "liters": 0, "notes": "" },
-    { "year": 2025, "month": 2, "hours": 113, "liters": 0, "notes": "" },
-    { "year": 2025, "month": 3, "hours": 13, "liters": 0, "notes": "" },
-    { "year": 2025, "month": 4, "hours": 18, "liters": 0, "notes": "" },
-    { "year": 2025, "month": 5, "hours": 4, "liters": 0, "notes": "" },
-    { "year": 2025, "month": 6, "hours": 1, "liters": 0, "notes": "" },
-    { "year": 2025, "month": 7, "hours": 48, "liters": 0, "notes": "" },
-    { "year": 2025, "month": 8, "hours": 180, "liters": 0, "notes": "" },
-    { "year": 2025, "month": 9, "hours": 216, "liters": 0, "notes": "" },
-    { "year": 2025, "month": 10, "hours": 104, "liters": 0, "notes": "" },
-    { "year": 2025, "month": 11, "hours": 130, "liters": 0, "notes": "" },
-    { "year": 2025, "month": 12, "hours": 127, "liters": 0, "notes": "" }
+    {
+      "year": 2025,
+      "month": 1,
+      "hours": 193,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "hours": 113,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2025,
+      "month": 3,
+      "hours": 13,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2025,
+      "month": 4,
+      "hours": 18,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2025,
+      "month": 5,
+      "hours": 4,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2025,
+      "month": 6,
+      "hours": 1,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2025,
+      "month": 7,
+      "hours": 48,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2025,
+      "month": 8,
+      "hours": 180,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2025,
+      "month": 9,
+      "hours": 216,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2025,
+      "month": 10,
+      "hours": 104,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2025,
+      "month": 11,
+      "hours": 130,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "hours": 127,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2024,
+      "month": 1,
+      "hours": 79,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2024,
+      "month": 2,
+      "hours": 56,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2024,
+      "month": 3,
+      "hours": 19,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "hours": 30,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "hours": 4,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "hours": 22,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "hours": 90,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "hours": 203,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "hours": 169,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "hours": 132,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "hours": 179,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "hours": 140,
+      "liters": 0,
+      "notes": ""
+    }
   ],
   "contracts": [
     {
