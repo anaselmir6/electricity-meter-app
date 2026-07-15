@@ -379,8 +379,13 @@ function BreakerPanel({
   onLogout
 }) {
   const items = NAV_ITEMS[user.role];
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  function selectView(id) {
+    setView(id);
+    setMobileOpen(false);
+  }
   return /*#__PURE__*/React.createElement("div", {
-    className: "breaker-panel"
+    className: "breaker-panel" + (mobileOpen ? " mobile-open" : "")
   }, /*#__PURE__*/React.createElement("div", {
     className: "brand"
   }, /*#__PURE__*/React.createElement("div", {
@@ -400,14 +405,39 @@ function BreakerPanel({
     className: "brand-mark"
   }, "METER · 224"), /*#__PURE__*/React.createElement("div", {
     className: "brand-name"
-  }, "Electricity Meter System"))), /*#__PURE__*/React.createElement("div", {
+  }, "Electricity Meter System"))), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "mobile-menu-toggle",
+    onClick: () => setMobileOpen(o => !o),
+    "aria-label": "Toggle menu"
+  }, mobileOpen ? /*#__PURE__*/React.createElement("svg", {
+    width: "18",
+    height: "18",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M6 6l12 12M18 6 6 18"
+  })) : /*#__PURE__*/React.createElement("svg", {
+    width: "18",
+    height: "18",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M4 6h16M4 12h16M4 18h16"
+  }))), /*#__PURE__*/React.createElement("div", {
     className: "nav-label"
   }, "Menu"), /*#__PURE__*/React.createElement("div", {
     className: "nav-group"
   }, items.map(item => /*#__PURE__*/React.createElement("button", {
     key: item.id,
     className: "switch-item" + (view === item.id ? " active" : ""),
-    onClick: () => setView(item.id)
+    onClick: () => selectView(item.id)
   }, /*#__PURE__*/React.createElement("span", {
     className: "dot"
   }), item.label))), /*#__PURE__*/React.createElement("div", {
