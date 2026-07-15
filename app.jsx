@@ -1240,18 +1240,21 @@ function ExpensesView({ data, store }) {
           <h3><span className="eyebrow-dot"></span>Generator Log History</h3>
           <div className="table-wrap">
             <table className="data-table">
-              <thead><tr><th>Month</th><th className="num">Running Hours</th><th className="num">Diesel (L)</th><th className="num">Utilization</th><th>Notes</th><th>Edit</th></tr></thead>
+              <thead><tr><th>Month</th><th className="num">Running Hours</th><th className="num">Diesel $</th><th className="num">Utilization</th><th>Notes</th><th>Edit</th></tr></thead>
               <tbody>
-                {[...data.generatorLogs].sort((a, b) => (b.year * 100 + b.month) - (a.year * 100 + a.month)).map((g, i) => (
-                  <tr key={i} className={g.year === year && g.month === month ? "row-saved" : ""}>
-                    <td>{monthLabel(g.year, g.month)}</td>
-                    <td className="num">{g.hours}</td>
-                    <td className="num">{g.liters}</td>
-                    <td className="num">{Math.round((g.hours || 0) / (daysInMonth(g.year, g.month) * 24) * 100)}%</td>
-                    <td style={{ whiteSpace: "normal" }}>{g.notes}</td>
-                    <td><button className="btn btn-sm" onClick={() => { setYear(g.year); setMonth(g.month); }}>Edit</button></td>
-                  </tr>
-                ))}
+                {[...data.generatorLogs].sort((a, b) => (b.year * 100 + b.month) - (a.year * 100 + a.month)).map((g, i) => {
+                  const dieselCost = sumBy(expensesForMonth(data, g.year, g.month).filter(e => e.label === "استهلاك مازوت"), e => e.amount);
+                  return (
+                    <tr key={i} className={g.year === year && g.month === month ? "row-saved" : ""}>
+                      <td>{monthLabel(g.year, g.month)}</td>
+                      <td className="num">{g.hours}</td>
+                      <td className="num">{fmtMoney2(dieselCost)}</td>
+                      <td className="num">{Math.round((g.hours || 0) / (daysInMonth(g.year, g.month) * 24) * 100)}%</td>
+                      <td style={{ whiteSpace: "normal" }}>{g.notes}</td>
+                      <td><button className="btn btn-sm" onClick={() => { setYear(g.year); setMonth(g.month); }}>Edit</button></td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

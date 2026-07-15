@@ -1725,28 +1725,31 @@ function ExpensesView({
     className: "num"
   }, "Running Hours"), /*#__PURE__*/React.createElement("th", {
     className: "num"
-  }, "Diesel (L)"), /*#__PURE__*/React.createElement("th", {
+  }, "Diesel $"), /*#__PURE__*/React.createElement("th", {
     className: "num"
-  }, "Utilization"), /*#__PURE__*/React.createElement("th", null, "Notes"), /*#__PURE__*/React.createElement("th", null, "Edit"))), /*#__PURE__*/React.createElement("tbody", null, [...data.generatorLogs].sort((a, b) => b.year * 100 + b.month - (a.year * 100 + a.month)).map((g, i) => /*#__PURE__*/React.createElement("tr", {
-    key: i,
-    className: g.year === year && g.month === month ? "row-saved" : ""
-  }, /*#__PURE__*/React.createElement("td", null, monthLabel(g.year, g.month)), /*#__PURE__*/React.createElement("td", {
-    className: "num"
-  }, g.hours), /*#__PURE__*/React.createElement("td", {
-    className: "num"
-  }, g.liters), /*#__PURE__*/React.createElement("td", {
-    className: "num"
-  }, Math.round((g.hours || 0) / (daysInMonth(g.year, g.month) * 24) * 100), "%"), /*#__PURE__*/React.createElement("td", {
-    style: {
-      whiteSpace: "normal"
-    }
-  }, g.notes), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
-    className: "btn btn-sm",
-    onClick: () => {
-      setYear(g.year);
-      setMonth(g.month);
-    }
-  }, "Edit")))))))), /*#__PURE__*/React.createElement("div", {
+  }, "Utilization"), /*#__PURE__*/React.createElement("th", null, "Notes"), /*#__PURE__*/React.createElement("th", null, "Edit"))), /*#__PURE__*/React.createElement("tbody", null, [...data.generatorLogs].sort((a, b) => b.year * 100 + b.month - (a.year * 100 + a.month)).map((g, i) => {
+    const dieselCost = sumBy(expensesForMonth(data, g.year, g.month).filter(e => e.label === "استهلاك مازوت"), e => e.amount);
+    return /*#__PURE__*/React.createElement("tr", {
+      key: i,
+      className: g.year === year && g.month === month ? "row-saved" : ""
+    }, /*#__PURE__*/React.createElement("td", null, monthLabel(g.year, g.month)), /*#__PURE__*/React.createElement("td", {
+      className: "num"
+    }, g.hours), /*#__PURE__*/React.createElement("td", {
+      className: "num"
+    }, fmtMoney2(dieselCost)), /*#__PURE__*/React.createElement("td", {
+      className: "num"
+    }, Math.round((g.hours || 0) / (daysInMonth(g.year, g.month) * 24) * 100), "%"), /*#__PURE__*/React.createElement("td", {
+      style: {
+        whiteSpace: "normal"
+      }
+    }, g.notes), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
+      className: "btn btn-sm",
+      onClick: () => {
+        setYear(g.year);
+        setMonth(g.month);
+      }
+    }, "Edit")));
+  }))))), /*#__PURE__*/React.createElement("div", {
     className: "panel-card"
   }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow-dot"
