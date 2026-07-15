@@ -190,7 +190,8 @@ button:focus-visible, input:focus-visible, select:focus-visible, [tabindex]:focu
 .price-editor input.entry-input { width: 90px; }
 
 /* ==================== CARDS / KPI ==================== */
-.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 26px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-bottom: 26px; }
+@media (max-width: 1300px) { .kpi-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 1100px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
 .kpi-card {
   background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 18px 18px 16px;
