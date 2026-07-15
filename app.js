@@ -1717,7 +1717,11 @@ function ExpensesView({
     }
   }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow-dot"
-  }), "Generator Log History"), /*#__PURE__*/React.createElement("div", {
+  }), "Generator Log History — ", year), data.generatorLogs.filter(g => g.year === year).length === 0 ? /*#__PURE__*/React.createElement("div", {
+    className: "empty-state"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "icon"
+  }, "—"), "No generator log entries for ", year, " yet") : /*#__PURE__*/React.createElement("div", {
     className: "table-wrap"
   }, /*#__PURE__*/React.createElement("table", {
     className: "data-table"
@@ -1727,7 +1731,7 @@ function ExpensesView({
     className: "num"
   }, "Diesel $"), /*#__PURE__*/React.createElement("th", {
     className: "num"
-  }, "Utilization"), /*#__PURE__*/React.createElement("th", null, "Notes"), /*#__PURE__*/React.createElement("th", null, "Edit"))), /*#__PURE__*/React.createElement("tbody", null, [...data.generatorLogs].sort((a, b) => b.year * 100 + b.month - (a.year * 100 + a.month)).map((g, i) => {
+  }, "Utilization"), /*#__PURE__*/React.createElement("th", null, "Notes"), /*#__PURE__*/React.createElement("th", null, "Edit"))), /*#__PURE__*/React.createElement("tbody", null, data.generatorLogs.filter(g => g.year === year).sort((a, b) => b.month - a.month).map((g, i) => {
     const dieselCost = sumBy(expensesForMonth(data, g.year, g.month).filter(e => e.label === "استهلاك مازوت"), e => e.amount);
     return /*#__PURE__*/React.createElement("tr", {
       key: i,

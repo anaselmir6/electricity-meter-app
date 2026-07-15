@@ -1237,27 +1237,31 @@ function ExpensesView({ data, store }) {
 
       {data.generatorLogs.length > 0 && (
         <div className="panel-card" style={{ marginBottom: 20 }}>
-          <h3><span className="eyebrow-dot"></span>Generator Log History</h3>
-          <div className="table-wrap">
-            <table className="data-table">
-              <thead><tr><th>Month</th><th className="num">Running Hours</th><th className="num">Diesel $</th><th className="num">Utilization</th><th>Notes</th><th>Edit</th></tr></thead>
-              <tbody>
-                {[...data.generatorLogs].sort((a, b) => (b.year * 100 + b.month) - (a.year * 100 + a.month)).map((g, i) => {
-                  const dieselCost = sumBy(expensesForMonth(data, g.year, g.month).filter(e => e.label === "استهلاك مازوت"), e => e.amount);
-                  return (
-                    <tr key={i} className={g.year === year && g.month === month ? "row-saved" : ""}>
-                      <td>{monthLabel(g.year, g.month)}</td>
-                      <td className="num">{g.hours}</td>
-                      <td className="num">{fmtMoney2(dieselCost)}</td>
-                      <td className="num">{Math.round((g.hours || 0) / (daysInMonth(g.year, g.month) * 24) * 100)}%</td>
-                      <td style={{ whiteSpace: "normal" }}>{g.notes}</td>
-                      <td><button className="btn btn-sm" onClick={() => { setYear(g.year); setMonth(g.month); }}>Edit</button></td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+          <h3><span className="eyebrow-dot"></span>Generator Log History — {year}</h3>
+          {data.generatorLogs.filter(g => g.year === year).length === 0 ? (
+            <div className="empty-state"><div className="icon">—</div>No generator log entries for {year} yet</div>
+          ) : (
+            <div className="table-wrap">
+              <table className="data-table">
+                <thead><tr><th>Month</th><th className="num">Running Hours</th><th className="num">Diesel $</th><th className="num">Utilization</th><th>Notes</th><th>Edit</th></tr></thead>
+                <tbody>
+                  {data.generatorLogs.filter(g => g.year === year).sort((a, b) => b.month - a.month).map((g, i) => {
+                    const dieselCost = sumBy(expensesForMonth(data, g.year, g.month).filter(e => e.label === "استهلاك مازوت"), e => e.amount);
+                    return (
+                      <tr key={i} className={g.year === year && g.month === month ? "row-saved" : ""}>
+                        <td>{monthLabel(g.year, g.month)}</td>
+                        <td className="num">{g.hours}</td>
+                        <td className="num">{fmtMoney2(dieselCost)}</td>
+                        <td className="num">{Math.round((g.hours || 0) / (daysInMonth(g.year, g.month) * 24) * 100)}%</td>
+                        <td style={{ whiteSpace: "normal" }}>{g.notes}</td>
+                        <td><button className="btn btn-sm" onClick={() => { setYear(g.year); setMonth(g.month); }}>Edit</button></td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       )}
 
