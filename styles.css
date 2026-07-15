@@ -369,6 +369,17 @@ table.data-table td.num, table.data-table th.num { font-family: "IBM Plex Mono",
   .rc-header, .rc-row { flex-wrap: wrap; }
 
   .login-card { padding: 34px 24px 28px; }
+
+  /* iOS Safari auto-zooms the whole page when a focused input's font-size is under 16px,
+     and that zoom can persist past a client-side view change (e.g. right after login). */
+  .icon-field .field-input,
+  .month-picker select,
+  .search-input,
+  .entry-input,
+  .form-field input,
+  .form-field select {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 480px) {
