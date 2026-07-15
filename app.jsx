@@ -1192,28 +1192,33 @@ function ExpensesView({ data, store }) {
         </div>
       </div>
 
-      <div className="panel-card" style={{ marginBottom: 20 }}>
-        <h3><span className="eyebrow-dot"></span>Add New Expense — {monthLabel(year, month)}</h3>
-        <form onSubmit={submitForm}>
-          <div className="form-grid">
-            <div className="form-field">
-              <label>Expense Type</label>
-              <select value={form.label} onChange={e => setForm(f => ({ ...f, label: e.target.value }))}>
-                {EXPENSE_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
-              </select>
-            </div>
-            <div className="form-field">
-              <label>Amount ($)</label>
-              <input type="number" value={form.amount} onChange={e => setForm(f => ({ ...f, amount: e.target.value }))} required />
-            </div>
-            <div className="form-field">
-              <label>Notes</label>
-              <input value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))} />
-            </div>
+      {data.generatorLogs.length > 0 && (
+        <div className="panel-card" style={{ marginBottom: 20 }}>
+          <h3><span className="eyebrow-dot"></span>Generator Log History — {year}</h3>
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead><tr><th>Month</th><th className="num">Running Hours</th><th className="num">Diesel $</th><th className="num">Utilization</th><th>Notes</th><th>Edit</th></tr></thead>
+              <tbody>
+                {Array.from({ length: 12 }, (_, i) => i + 1).map(m => {
+                  const g = data.generatorLogs.find(x => x.year === year && x.month === m);
+                  const dieselExpenses = expensesForMonth(data, year, m).filter(e => e.label === "Diesel $");
+                  const dieselCost = sumBy(dieselExpenses, e => e.amount);
+                  return (
+                    <tr key={m} className={m === month ? "row-saved" : ""}>
+                      <td>{monthLabel(year, m)}</td>
+                      <td className="num">{g ? g.hours : "—"}</td>
+                      <td className="num">{dieselExpenses.length > 0 ? fmtMoney2(dieselCost) : "—"}</td>
+                      <td className="num">{g ? Math.round((g.hours || 0) / (daysInMonth(year, m) * 24) * 100) + "%" : "—"}</td>
+                      <td style={{ whiteSpace: "normal" }}>{g ? g.notes : ""}</td>
+                      <td><button className="btn btn-sm" onClick={() => { setYear(year); setMonth(m); }}>{g ? "Edit" : "Add"}</button></td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
-          <button className="btn btn-dark" type="submit">Save Expense</button>
-        </form>
-      </div>
+        </div>
+      )}
 
       <div className="kpi-grid" style={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
         <div className="kpi-card accent-teal">
@@ -1249,33 +1254,28 @@ function ExpensesView({ data, store }) {
         </form>
       </div>
 
-      {data.generatorLogs.length > 0 && (
-        <div className="panel-card" style={{ marginBottom: 20 }}>
-          <h3><span className="eyebrow-dot"></span>Generator Log History — {year}</h3>
-          <div className="table-wrap">
-            <table className="data-table">
-              <thead><tr><th>Month</th><th className="num">Running Hours</th><th className="num">Diesel $</th><th className="num">Utilization</th><th>Notes</th><th>Edit</th></tr></thead>
-              <tbody>
-                {Array.from({ length: 12 }, (_, i) => i + 1).map(m => {
-                  const g = data.generatorLogs.find(x => x.year === year && x.month === m);
-                  const dieselExpenses = expensesForMonth(data, year, m).filter(e => e.label === "Diesel $");
-                  const dieselCost = sumBy(dieselExpenses, e => e.amount);
-                  return (
-                    <tr key={m} className={m === month ? "row-saved" : ""}>
-                      <td>{monthLabel(year, m)}</td>
-                      <td className="num">{g ? g.hours : "—"}</td>
-                      <td className="num">{dieselExpenses.length > 0 ? fmtMoney2(dieselCost) : "—"}</td>
-                      <td className="num">{g ? Math.round((g.hours || 0) / (daysInMonth(year, m) * 24) * 100) + "%" : "—"}</td>
-                      <td style={{ whiteSpace: "normal" }}>{g ? g.notes : ""}</td>
-                      <td><button className="btn btn-sm" onClick={() => { setYear(year); setMonth(m); }}>{g ? "Edit" : "Add"}</button></td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+      <div className="panel-card" style={{ marginBottom: 20 }}>
+        <h3><span className="eyebrow-dot"></span>Add New Expense — {monthLabel(year, month)}</h3>
+        <form onSubmit={submitForm}>
+          <div className="form-grid">
+            <div className="form-field">
+              <label>Expense Type</label>
+              <select value={form.label} onChange={e => setForm(f => ({ ...f, label: e.target.value }))}>
+                {EXPENSE_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </div>
+            <div className="form-field">
+              <label>Amount ($)</label>
+              <input type="number" value={form.amount} onChange={e => setForm(f => ({ ...f, amount: e.target.value }))} required />
+            </div>
+            <div className="form-field">
+              <label>Notes</label>
+              <input value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))} />
+            </div>
           </div>
-        </div>
-      )}
+          <button className="btn btn-dark" type="submit">Save Expense</button>
+        </form>
+      </div>
 
       <div className="panel-card">
         <h3><span className="eyebrow-dot"></span>Expenses for {monthLabel(year, month)}</h3>

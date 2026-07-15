@@ -1618,50 +1618,50 @@ function ExpensesView({
     className: "kpi-value"
   }, fmtMoney(yearTotal)), /*#__PURE__*/React.createElement("div", {
     className: "kpi-bar"
-  }))), /*#__PURE__*/React.createElement("div", {
+  }))), data.generatorLogs.length > 0 && /*#__PURE__*/React.createElement("div", {
     className: "panel-card",
     style: {
       marginBottom: 20
     }
   }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow-dot"
-  }), "Add New Expense — ", monthLabel(year, month)), /*#__PURE__*/React.createElement("form", {
-    onSubmit: submitForm
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "form-grid"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "form-field"
-  }, /*#__PURE__*/React.createElement("label", null, "Expense Type"), /*#__PURE__*/React.createElement("select", {
-    value: form.label,
-    onChange: e => setForm(f => ({
-      ...f,
-      label: e.target.value
-    }))
-  }, EXPENSE_CATEGORIES.map(c => /*#__PURE__*/React.createElement("option", {
-    key: c,
-    value: c
-  }, c)))), /*#__PURE__*/React.createElement("div", {
-    className: "form-field"
-  }, /*#__PURE__*/React.createElement("label", null, "Amount ($)"), /*#__PURE__*/React.createElement("input", {
-    type: "number",
-    value: form.amount,
-    onChange: e => setForm(f => ({
-      ...f,
-      amount: e.target.value
-    })),
-    required: true
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "form-field"
-  }, /*#__PURE__*/React.createElement("label", null, "Notes"), /*#__PURE__*/React.createElement("input", {
-    value: form.notes,
-    onChange: e => setForm(f => ({
-      ...f,
-      notes: e.target.value
-    }))
-  }))), /*#__PURE__*/React.createElement("button", {
-    className: "btn btn-dark",
-    type: "submit"
-  }, "Save Expense"))), /*#__PURE__*/React.createElement("div", {
+  }), "Generator Log History — ", year), /*#__PURE__*/React.createElement("div", {
+    className: "table-wrap"
+  }, /*#__PURE__*/React.createElement("table", {
+    className: "data-table"
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Month"), /*#__PURE__*/React.createElement("th", {
+    className: "num"
+  }, "Running Hours"), /*#__PURE__*/React.createElement("th", {
+    className: "num"
+  }, "Diesel $"), /*#__PURE__*/React.createElement("th", {
+    className: "num"
+  }, "Utilization"), /*#__PURE__*/React.createElement("th", null, "Notes"), /*#__PURE__*/React.createElement("th", null, "Edit"))), /*#__PURE__*/React.createElement("tbody", null, Array.from({
+    length: 12
+  }, (_, i) => i + 1).map(m => {
+    const g = data.generatorLogs.find(x => x.year === year && x.month === m);
+    const dieselExpenses = expensesForMonth(data, year, m).filter(e => e.label === "Diesel $");
+    const dieselCost = sumBy(dieselExpenses, e => e.amount);
+    return /*#__PURE__*/React.createElement("tr", {
+      key: m,
+      className: m === month ? "row-saved" : ""
+    }, /*#__PURE__*/React.createElement("td", null, monthLabel(year, m)), /*#__PURE__*/React.createElement("td", {
+      className: "num"
+    }, g ? g.hours : "—"), /*#__PURE__*/React.createElement("td", {
+      className: "num"
+    }, dieselExpenses.length > 0 ? fmtMoney2(dieselCost) : "—"), /*#__PURE__*/React.createElement("td", {
+      className: "num"
+    }, g ? Math.round((g.hours || 0) / (daysInMonth(year, m) * 24) * 100) + "%" : "—"), /*#__PURE__*/React.createElement("td", {
+      style: {
+        whiteSpace: "normal"
+      }
+    }, g ? g.notes : ""), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
+      className: "btn btn-sm",
+      onClick: () => {
+        setYear(year);
+        setMonth(m);
+      }
+    }, g ? "Edit" : "Add")));
+  }))))), /*#__PURE__*/React.createElement("div", {
     className: "kpi-grid",
     style: {
       gridTemplateColumns: "repeat(2, 1fr)"
@@ -1728,50 +1728,50 @@ function ExpensesView({
   }))), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-dark",
     type: "submit"
-  }, currentGenLog ? "Update Generator Log" : "Save Generator Log"))), data.generatorLogs.length > 0 && /*#__PURE__*/React.createElement("div", {
+  }, currentGenLog ? "Update Generator Log" : "Save Generator Log"))), /*#__PURE__*/React.createElement("div", {
     className: "panel-card",
     style: {
       marginBottom: 20
     }
   }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow-dot"
-  }), "Generator Log History — ", year), /*#__PURE__*/React.createElement("div", {
-    className: "table-wrap"
-  }, /*#__PURE__*/React.createElement("table", {
-    className: "data-table"
-  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Month"), /*#__PURE__*/React.createElement("th", {
-    className: "num"
-  }, "Running Hours"), /*#__PURE__*/React.createElement("th", {
-    className: "num"
-  }, "Diesel $"), /*#__PURE__*/React.createElement("th", {
-    className: "num"
-  }, "Utilization"), /*#__PURE__*/React.createElement("th", null, "Notes"), /*#__PURE__*/React.createElement("th", null, "Edit"))), /*#__PURE__*/React.createElement("tbody", null, Array.from({
-    length: 12
-  }, (_, i) => i + 1).map(m => {
-    const g = data.generatorLogs.find(x => x.year === year && x.month === m);
-    const dieselExpenses = expensesForMonth(data, year, m).filter(e => e.label === "Diesel $");
-    const dieselCost = sumBy(dieselExpenses, e => e.amount);
-    return /*#__PURE__*/React.createElement("tr", {
-      key: m,
-      className: m === month ? "row-saved" : ""
-    }, /*#__PURE__*/React.createElement("td", null, monthLabel(year, m)), /*#__PURE__*/React.createElement("td", {
-      className: "num"
-    }, g ? g.hours : "—"), /*#__PURE__*/React.createElement("td", {
-      className: "num"
-    }, dieselExpenses.length > 0 ? fmtMoney2(dieselCost) : "—"), /*#__PURE__*/React.createElement("td", {
-      className: "num"
-    }, g ? Math.round((g.hours || 0) / (daysInMonth(year, m) * 24) * 100) + "%" : "—"), /*#__PURE__*/React.createElement("td", {
-      style: {
-        whiteSpace: "normal"
-      }
-    }, g ? g.notes : ""), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
-      className: "btn btn-sm",
-      onClick: () => {
-        setYear(year);
-        setMonth(m);
-      }
-    }, g ? "Edit" : "Add")));
-  }))))), /*#__PURE__*/React.createElement("div", {
+  }), "Add New Expense — ", monthLabel(year, month)), /*#__PURE__*/React.createElement("form", {
+    onSubmit: submitForm
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "form-grid"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "form-field"
+  }, /*#__PURE__*/React.createElement("label", null, "Expense Type"), /*#__PURE__*/React.createElement("select", {
+    value: form.label,
+    onChange: e => setForm(f => ({
+      ...f,
+      label: e.target.value
+    }))
+  }, EXPENSE_CATEGORIES.map(c => /*#__PURE__*/React.createElement("option", {
+    key: c,
+    value: c
+  }, c)))), /*#__PURE__*/React.createElement("div", {
+    className: "form-field"
+  }, /*#__PURE__*/React.createElement("label", null, "Amount ($)"), /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    value: form.amount,
+    onChange: e => setForm(f => ({
+      ...f,
+      amount: e.target.value
+    })),
+    required: true
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "form-field"
+  }, /*#__PURE__*/React.createElement("label", null, "Notes"), /*#__PURE__*/React.createElement("input", {
+    value: form.notes,
+    onChange: e => setForm(f => ({
+      ...f,
+      notes: e.target.value
+    }))
+  }))), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-dark",
+    type: "submit"
+  }, "Save Expense"))), /*#__PURE__*/React.createElement("div", {
     className: "panel-card"
   }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow-dot"
