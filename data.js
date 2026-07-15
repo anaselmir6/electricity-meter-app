@@ -1467,16 +1467,6 @@ window.APP_DATA = {
       "amount": 62.5
     },
     {
-      "date": "2026-06-01",
-      "label": "Generator Consumption",
-      "amount": 750
-    },
-    {
-      "date": "2026-06-01",
-      "label": "Diesel",
-      "amount": 2184
-    },
-    {
       "date": "2025-01-01",
       "label": "Generator Maintenance Contract",
       "amount": 62.5,
@@ -1797,7 +1787,7 @@ window.APP_DATA = {
     {
       "date": "2026-06-01",
       "label": "Income Reconciliation (2026)",
-      "amount": -1434,
+      "amount": 1500,
       "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
@@ -2390,6 +2380,11 @@ window.APP_DATA = {
       "date": "2025-12-01",
       "label": "Salary – Fouad",
       "amount": 200
+    },
+    {
+      "date": "2026-06-01",
+      "label": "Diesel $",
+      "amount": 0
     }
   ],
   "incomeAdjustments": [
