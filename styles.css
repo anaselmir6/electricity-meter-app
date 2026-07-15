@@ -195,10 +195,13 @@ button:focus-visible, input:focus-visible, select:focus-visible, [tabindex]:focu
 @media (max-width: 1100px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
 .kpi-card {
   background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 18px 18px 16px;
-  position: relative; overflow: hidden;
+  position: relative; overflow: hidden; display: flex; flex-direction: column;
 }
 .kpi-card .kpi-label { font-size: 11.5px; color: var(--slate); margin-bottom: 8px; padding-right: 36px; }
-.kpi-card .kpi-value { font-family: "IBM Plex Mono", monospace; direction: ltr; text-align: right; font-size: 24px; font-weight: 700; }
+.kpi-card .kpi-value {
+  font-family: "IBM Plex Mono", monospace; direction: ltr; text-align: right; font-size: 24px; font-weight: 700;
+  margin-top: auto; padding-top: 10px;
+}
 .kpi-card.accent-filament .kpi-value { color: #146C3E; }
 .kpi-card.accent-teal .kpi-value { color: var(--teal); }
 .kpi-card.accent-rust .kpi-value { color: var(--rust); }
