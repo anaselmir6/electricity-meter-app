@@ -1233,23 +1233,8 @@ window.APP_DATA = {
     },
     {
       "date": "2026-05-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 750
-    },
-    {
-      "date": "2026-05-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
-      "date": "2026-05-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
-      "date": "2026-05-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
     },
     {
       "date": "2024-01-01",
@@ -1263,12 +1248,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-01-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
-      "date": "2024-01-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 1733
     },
     {
@@ -1283,12 +1263,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-02-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
-      "date": "2024-02-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 0
     },
     {
@@ -1303,12 +1278,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-03-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
-      "date": "2024-03-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 0
     },
     {
@@ -1323,12 +1293,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-04-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
-      "date": "2024-04-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 0
     },
     {
@@ -1343,18 +1308,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-05-01",
-      "label": "مصاريف أخرى",
-      "amount": 285
-    },
-    {
-      "date": "2024-05-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 0
-    },
-    {
-      "date": "2024-05-01",
-      "label": "مصاريف أخرى",
-      "amount": 50
     },
     {
       "date": "2024-06-01",
@@ -1368,17 +1323,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-06-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
-      "date": "2024-06-01",
-      "label": "مصاريف أخرى",
-      "amount": 597
-    },
-    {
-      "date": "2024-06-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 1500
     },
     {
@@ -1393,12 +1338,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-07-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
-      "date": "2024-07-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 4600
     },
     {
@@ -1413,12 +1353,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-08-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
-      "date": "2024-08-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 3000
     },
     {
@@ -1433,12 +1368,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-09-01",
-      "label": "مصاريف أخرى",
-      "amount": 86
-    },
-    {
-      "date": "2024-09-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 1500
     },
     {
@@ -1453,17 +1383,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-10-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
-      "date": "2024-10-01",
-      "label": "مصاريف أخرى",
-      "amount": 255
-    },
-    {
-      "date": "2024-10-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 1500
     },
     {
@@ -1478,12 +1398,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-11-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
-      "date": "2024-11-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 2500
     },
     {
@@ -1498,12 +1413,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-12-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
-      "date": "2024-12-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 3500
     },
     {
@@ -1517,16 +1427,6 @@ window.APP_DATA = {
       "amount": 62.5
     },
     {
-      "date": "2026-01-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
-      "date": "2026-01-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
       "date": "2026-02-01",
       "label": "Salary",
       "amount": 1100
@@ -1535,16 +1435,6 @@ window.APP_DATA = {
       "date": "2026-02-01",
       "label": "Generator Maintenance Contract",
       "amount": 62.5
-    },
-    {
-      "date": "2026-02-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
-      "date": "2026-02-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
     },
     {
       "date": "2026-03-01",
@@ -1557,16 +1447,6 @@ window.APP_DATA = {
       "amount": 62.5
     },
     {
-      "date": "2026-03-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
-      "date": "2026-03-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
       "date": "2026-04-01",
       "label": "Salary",
       "amount": 1100
@@ -1575,16 +1455,6 @@ window.APP_DATA = {
       "date": "2026-04-01",
       "label": "Generator Maintenance Contract",
       "amount": 62.5
-    },
-    {
-      "date": "2026-04-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
-      "date": "2026-04-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
     },
     {
       "date": "2026-06-01",
@@ -1603,93 +1473,11 @@ window.APP_DATA = {
     },
     {
       "date": "2026-06-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
-      "date": "2026-06-01",
-      "label": "مصاريف أخرى",
-      "amount": 0
-    },
-    {
-      "date": "2026-06-01",
       "label": "Diesel",
       "amount": 2184
     },
     {
       "date": "2025-01-01",
-      "label": "مصاريف أخرى",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-02-01",
-      "label": "مصاريف أخرى",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-03-01",
-      "label": "مصاريف أخرى",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-04-01",
-      "label": "مصاريف أخرى",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-05-01",
-      "label": "مصاريف أخرى",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-06-01",
-      "label": "مصاريف أخرى",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-07-01",
-      "label": "مصاريف أخرى",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-08-01",
-      "label": "مصاريف أخرى",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-09-01",
-      "label": "مصاريف أخرى",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-10-01",
-      "label": "مصاريف أخرى",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-11-01",
-      "label": "مصاريف أخرى",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-12-01",
-      "label": "مصاريف أخرى",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-01-01",
       "label": "Generator Maintenance Contract",
       "amount": 62.5,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
@@ -1834,146 +1622,74 @@ window.APP_DATA = {
     },
     {
       "date": "2025-01-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 2000,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-02-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 1000,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-03-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 500,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-04-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 0,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-05-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 0,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-06-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 900,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-07-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 3000,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-08-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 4500,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-09-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 1500,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-10-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 1500,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-11-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 1500,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-12-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 3000,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-01-01",
-      "label": "مصاريف أخرى",
-      "amount": 148,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-02-01",
-      "label": "مصاريف أخرى",
-      "amount": 0,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-03-01",
-      "label": "مصاريف أخرى",
-      "amount": 703,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-04-01",
-      "label": "مصاريف أخرى",
-      "amount": 126,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-05-01",
-      "label": "مصاريف أخرى",
-      "amount": 90,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-06-01",
-      "label": "مصاريف أخرى",
-      "amount": 40,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-07-01",
-      "label": "مصاريف أخرى",
-      "amount": 0,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-08-01",
-      "label": "مصاريف أخرى",
-      "amount": 116,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-09-01",
-      "label": "مصاريف أخرى",
-      "amount": 0,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-10-01",
-      "label": "مصاريف أخرى",
-      "amount": 0,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-11-01",
-      "label": "مصاريف أخرى",
-      "amount": 1220,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-12-01",
-      "label": "مصاريف أخرى",
-      "amount": 80,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
@@ -2086,34 +1802,23 @@ window.APP_DATA = {
     },
     {
       "date": "2026-01-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 3000
     },
     {
       "date": "2026-02-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 2000
     },
     {
       "date": "2026-03-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 4250
     },
     {
       "date": "2026-04-01",
-      "label": "استهلاك مازوت",
+      "label": "Diesel $",
       "amount": 2000
-    },
-    {
-      "date": "2026-04-01",
-      "label": "مصاريف أخرى",
-      "amount": 390
-    },
-    {
-      "date": "2026-05-01",
-      "label": "مصاريف أخرى",
-      "amount": 9460,
-      "notes": "PV solar system addition/maintenance"
     },
     {
       "date": "2024-01-01",
@@ -2282,6 +1987,169 @@ window.APP_DATA = {
       "date": "2025-12-01",
       "label": "Salary",
       "amount": 1100
+    },
+    {
+      "date": "2026-05-01",
+      "label": "Others",
+      "amount": 9460,
+      "notes": "PV solar system addition/maintenance"
+    },
+    {
+      "date": "2024-01-01",
+      "label": "Others",
+      "amount": 0
+    },
+    {
+      "date": "2024-02-01",
+      "label": "Others",
+      "amount": 0
+    },
+    {
+      "date": "2024-03-01",
+      "label": "Others",
+      "amount": 0
+    },
+    {
+      "date": "2024-04-01",
+      "label": "Others",
+      "amount": 0
+    },
+    {
+      "date": "2024-05-01",
+      "label": "Others",
+      "amount": 335
+    },
+    {
+      "date": "2024-06-01",
+      "label": "Others",
+      "amount": 597
+    },
+    {
+      "date": "2024-07-01",
+      "label": "Others",
+      "amount": 0
+    },
+    {
+      "date": "2024-08-01",
+      "label": "Others",
+      "amount": 0
+    },
+    {
+      "date": "2024-09-01",
+      "label": "Others",
+      "amount": 86
+    },
+    {
+      "date": "2024-10-01",
+      "label": "Others",
+      "amount": 255
+    },
+    {
+      "date": "2024-11-01",
+      "label": "Others",
+      "amount": 0
+    },
+    {
+      "date": "2024-12-01",
+      "label": "Others",
+      "amount": 0
+    },
+    {
+      "date": "2026-01-01",
+      "label": "Others",
+      "amount": 0
+    },
+    {
+      "date": "2026-02-01",
+      "label": "Others",
+      "amount": 0
+    },
+    {
+      "date": "2026-03-01",
+      "label": "Others",
+      "amount": 0
+    },
+    {
+      "date": "2026-04-01",
+      "label": "Others",
+      "amount": 390
+    },
+    {
+      "date": "2026-06-01",
+      "label": "Others",
+      "amount": 0
+    },
+    {
+      "date": "2025-01-01",
+      "label": "Others",
+      "amount": 898,
+      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
+    },
+    {
+      "date": "2025-02-01",
+      "label": "Others",
+      "amount": 750,
+      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
+    },
+    {
+      "date": "2025-03-01",
+      "label": "Others",
+      "amount": 1453,
+      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
+    },
+    {
+      "date": "2025-04-01",
+      "label": "Others",
+      "amount": 876,
+      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
+    },
+    {
+      "date": "2025-05-01",
+      "label": "Others",
+      "amount": 840,
+      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
+    },
+    {
+      "date": "2025-06-01",
+      "label": "Others",
+      "amount": 790,
+      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
+    },
+    {
+      "date": "2025-07-01",
+      "label": "Others",
+      "amount": 750,
+      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
+    },
+    {
+      "date": "2025-08-01",
+      "label": "Others",
+      "amount": 866,
+      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
+    },
+    {
+      "date": "2025-09-01",
+      "label": "Others",
+      "amount": 750,
+      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
+    },
+    {
+      "date": "2025-10-01",
+      "label": "Others",
+      "amount": 750,
+      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
+    },
+    {
+      "date": "2025-11-01",
+      "label": "Others",
+      "amount": 1970,
+      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
+    },
+    {
+      "date": "2025-12-01",
+      "label": "Others",
+      "amount": 830,
+      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     }
   ],
   "incomeAdjustments": [

@@ -1112,7 +1112,7 @@ function SubscribersView({ data, store }) {
 }
 // ==================== EXPENSES VIEW ====================
 const EXPENSE_CATEGORIES = [
-  "Salary", "Generator Maintenance Contract", "Solar Maintenance Contract", "استهلاك مازوت", "مصاريف أخرى",
+  "Salary", "Generator Maintenance Contract", "Solar Maintenance Contract", "Diesel $", "Others",
 ];
 
 function ExpensesView({ data, store }) {
@@ -1257,7 +1257,7 @@ function ExpensesView({ data, store }) {
               <tbody>
                 {Array.from({ length: 12 }, (_, i) => i + 1).map(m => {
                   const g = data.generatorLogs.find(x => x.year === year && x.month === m);
-                  const dieselExpenses = expensesForMonth(data, year, m).filter(e => e.label === "استهلاك مازوت");
+                  const dieselExpenses = expensesForMonth(data, year, m).filter(e => e.label === "Diesel $");
                   const dieselCost = sumBy(dieselExpenses, e => e.amount);
                   return (
                     <tr key={m} className={m === month ? "row-saved" : ""}>
