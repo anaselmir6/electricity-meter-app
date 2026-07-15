@@ -1929,66 +1929,6 @@ window.APP_DATA = {
       "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
     },
     {
-      "date": "2025-01-01",
-      "label": "Salary",
-      "amount": 1100
-    },
-    {
-      "date": "2025-02-01",
-      "label": "Salary",
-      "amount": 1100
-    },
-    {
-      "date": "2025-03-01",
-      "label": "Salary",
-      "amount": 1100
-    },
-    {
-      "date": "2025-04-01",
-      "label": "Salary",
-      "amount": 1100
-    },
-    {
-      "date": "2025-05-01",
-      "label": "Salary",
-      "amount": 1100
-    },
-    {
-      "date": "2025-06-01",
-      "label": "Salary",
-      "amount": 1100
-    },
-    {
-      "date": "2025-07-01",
-      "label": "Salary",
-      "amount": 1100
-    },
-    {
-      "date": "2025-08-01",
-      "label": "Salary",
-      "amount": 1100
-    },
-    {
-      "date": "2025-09-01",
-      "label": "Salary",
-      "amount": 1100
-    },
-    {
-      "date": "2025-10-01",
-      "label": "Salary",
-      "amount": 1100
-    },
-    {
-      "date": "2025-11-01",
-      "label": "Salary",
-      "amount": 1100
-    },
-    {
-      "date": "2025-12-01",
-      "label": "Salary",
-      "amount": 1100
-    },
-    {
       "date": "2026-05-01",
       "label": "Others",
       "amount": 9460,
@@ -2082,74 +2022,374 @@ window.APP_DATA = {
     {
       "date": "2025-01-01",
       "label": "Others",
-      "amount": 898,
+      "amount": 148,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-02-01",
       "label": "Others",
-      "amount": 750,
+      "amount": 0,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-03-01",
       "label": "Others",
-      "amount": 1453,
+      "amount": 703,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-04-01",
       "label": "Others",
-      "amount": 876,
+      "amount": 126,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-05-01",
       "label": "Others",
-      "amount": 840,
+      "amount": 90,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-06-01",
       "label": "Others",
-      "amount": 790,
+      "amount": 40,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-07-01",
       "label": "Others",
-      "amount": 750,
+      "amount": 0,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-08-01",
       "label": "Others",
-      "amount": 866,
+      "amount": 116,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-09-01",
       "label": "Others",
-      "amount": 750,
+      "amount": 0,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-10-01",
       "label": "Others",
-      "amount": 750,
+      "amount": 0,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-11-01",
       "label": "Others",
-      "amount": 1970,
+      "amount": 1220,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-12-01",
       "label": "Others",
-      "amount": 830,
+      "amount": 80,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
+    },
+    {
+      "date": "2025-01-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-01-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-01-01",
+      "label": "Salary – Anas",
+      "amount": 700
+    },
+    {
+      "date": "2025-01-01",
+      "label": "Salary – Wissam",
+      "amount": 200
+    },
+    {
+      "date": "2025-01-01",
+      "label": "Salary – Fouad",
+      "amount": 200
+    },
+    {
+      "date": "2025-02-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-02-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-02-01",
+      "label": "Salary – Anas",
+      "amount": 700
+    },
+    {
+      "date": "2025-02-01",
+      "label": "Salary – Wissam",
+      "amount": 200
+    },
+    {
+      "date": "2025-02-01",
+      "label": "Salary – Fouad",
+      "amount": 200
+    },
+    {
+      "date": "2025-03-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-03-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-03-01",
+      "label": "Salary – Anas",
+      "amount": 700
+    },
+    {
+      "date": "2025-03-01",
+      "label": "Salary – Wissam",
+      "amount": 200
+    },
+    {
+      "date": "2025-03-01",
+      "label": "Salary – Fouad",
+      "amount": 200
+    },
+    {
+      "date": "2025-04-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-04-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-04-01",
+      "label": "Salary – Anas",
+      "amount": 700
+    },
+    {
+      "date": "2025-04-01",
+      "label": "Salary – Wissam",
+      "amount": 200
+    },
+    {
+      "date": "2025-04-01",
+      "label": "Salary – Fouad",
+      "amount": 200
+    },
+    {
+      "date": "2025-05-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-05-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-05-01",
+      "label": "Salary – Anas",
+      "amount": 700
+    },
+    {
+      "date": "2025-05-01",
+      "label": "Salary – Wissam",
+      "amount": 200
+    },
+    {
+      "date": "2025-05-01",
+      "label": "Salary – Fouad",
+      "amount": 200
+    },
+    {
+      "date": "2025-06-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-06-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-06-01",
+      "label": "Salary – Anas",
+      "amount": 700
+    },
+    {
+      "date": "2025-06-01",
+      "label": "Salary – Wissam",
+      "amount": 200
+    },
+    {
+      "date": "2025-06-01",
+      "label": "Salary – Fouad",
+      "amount": 200
+    },
+    {
+      "date": "2025-07-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-07-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-07-01",
+      "label": "Salary – Anas",
+      "amount": 700
+    },
+    {
+      "date": "2025-07-01",
+      "label": "Salary – Wissam",
+      "amount": 200
+    },
+    {
+      "date": "2025-07-01",
+      "label": "Salary – Fouad",
+      "amount": 200
+    },
+    {
+      "date": "2025-08-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-08-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-08-01",
+      "label": "Salary – Anas",
+      "amount": 700
+    },
+    {
+      "date": "2025-08-01",
+      "label": "Salary – Wissam",
+      "amount": 200
+    },
+    {
+      "date": "2025-08-01",
+      "label": "Salary – Fouad",
+      "amount": 200
+    },
+    {
+      "date": "2025-09-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-09-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-09-01",
+      "label": "Salary – Anas",
+      "amount": 700
+    },
+    {
+      "date": "2025-09-01",
+      "label": "Salary – Wissam",
+      "amount": 200
+    },
+    {
+      "date": "2025-09-01",
+      "label": "Salary – Fouad",
+      "amount": 200
+    },
+    {
+      "date": "2025-10-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-10-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-10-01",
+      "label": "Salary – Anas",
+      "amount": 700
+    },
+    {
+      "date": "2025-10-01",
+      "label": "Salary – Wissam",
+      "amount": 200
+    },
+    {
+      "date": "2025-10-01",
+      "label": "Salary – Fouad",
+      "amount": 200
+    },
+    {
+      "date": "2025-11-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-11-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-11-01",
+      "label": "Salary – Anas",
+      "amount": 700
+    },
+    {
+      "date": "2025-11-01",
+      "label": "Salary – Wissam",
+      "amount": 200
+    },
+    {
+      "date": "2025-11-01",
+      "label": "Salary – Fouad",
+      "amount": 200
+    },
+    {
+      "date": "2025-12-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-12-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2025-12-01",
+      "label": "Salary – Anas",
+      "amount": 700
+    },
+    {
+      "date": "2025-12-01",
+      "label": "Salary – Wissam",
+      "amount": 200
+    },
+    {
+      "date": "2025-12-01",
+      "label": "Salary – Fouad",
+      "amount": 200
     }
   ],
   "incomeAdjustments": [
