@@ -2832,7 +2832,13 @@ window.APP_DATA = {
       "hours": 140,
       "liters": 0,
       "notes": ""
-    }
+    },
+    { "year": 2026, "month": 1, "hours": 104, "liters": 0, "notes": "" },
+    { "year": 2026, "month": 2, "hours": 57, "liters": 0, "notes": "" },
+    { "year": 2026, "month": 3, "hours": 44, "liters": 0, "notes": "" },
+    { "year": 2026, "month": 4, "hours": 44, "liters": 0, "notes": "" },
+    { "year": 2026, "month": 5, "hours": 26, "liters": 0, "notes": "" },
+    { "year": 2026, "month": 6, "hours": 28, "liters": 0, "notes": "" }
   ],
   "contracts": [
     {
