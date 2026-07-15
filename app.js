@@ -1523,7 +1523,7 @@ function SubscribersView({
   }, "Edit")))))))));
 }
 // ==================== EXPENSES VIEW ====================
-const EXPENSE_CATEGORIES = ["Fixed Salaries", "Generator Maintenance Contract", "استهلاك مازوت", "Electrical Maintenance", "Generator Maintenance (Repairs)", "Solar Power System Consumption", "Diesel (Purchase)", "Panel Washing", "Camera Installation", "Miscellaneous Expenses", "Other"];
+const EXPENSE_CATEGORIES = ["Salary", "Generator Maintenance Contract", "Solar Maintenance Contract", "استهلاك مازوت", "مصاريف أخرى"];
 function ExpensesView({
   data,
   store

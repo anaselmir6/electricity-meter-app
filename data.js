@@ -1223,7 +1223,7 @@ window.APP_DATA = {
   "expenses": [
     {
       "date": "2026-05-01",
-      "label": "Fixed Salaries",
+      "label": "Salary",
       "amount": 1200
     },
     {
@@ -1238,27 +1238,22 @@ window.APP_DATA = {
     },
     {
       "date": "2026-05-01",
-      "label": "Electrical Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
     },
     {
       "date": "2026-05-01",
-      "label": "Generator Maintenance (Repairs)",
+      "label": "مصاريف أخرى",
       "amount": 0
     },
     {
       "date": "2026-05-01",
-      "label": "Solar Power System Consumption",
-      "amount": 750
-    },
-    {
-      "date": "2026-05-01",
-      "label": "Diesel (Purchase)",
+      "label": "مصاريف أخرى",
       "amount": 0
     },
     {
       "date": "2024-01-01",
-      "label": "Fixed Salaries",
+      "label": "Salary",
       "amount": 1100
     },
     {
@@ -1268,18 +1263,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-01-01",
-      "label": "Generator Consumption",
-      "amount": 750
-    },
-    {
-      "date": "2024-01-01",
-      "label": "Generator Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
-    },
-    {
-      "date": "2024-01-01",
-      "label": "Solar Power Consumption",
-      "amount": 750
     },
     {
       "date": "2024-01-01",
@@ -1288,7 +1273,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-02-01",
-      "label": "Fixed Salaries",
+      "label": "Salary",
       "amount": 1100
     },
     {
@@ -1298,18 +1283,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-02-01",
-      "label": "Generator Consumption",
-      "amount": 750
-    },
-    {
-      "date": "2024-02-01",
-      "label": "Generator Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
-    },
-    {
-      "date": "2024-02-01",
-      "label": "Solar Power Consumption",
-      "amount": 750
     },
     {
       "date": "2024-02-01",
@@ -1318,7 +1293,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-03-01",
-      "label": "Fixed Salaries",
+      "label": "Salary",
       "amount": 1100
     },
     {
@@ -1328,18 +1303,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-03-01",
-      "label": "Generator Consumption",
-      "amount": 750
-    },
-    {
-      "date": "2024-03-01",
-      "label": "Generator Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
-    },
-    {
-      "date": "2024-03-01",
-      "label": "Solar Power Consumption",
-      "amount": 750
     },
     {
       "date": "2024-03-01",
@@ -1348,7 +1313,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-04-01",
-      "label": "Fixed Salaries",
+      "label": "Salary",
       "amount": 1100
     },
     {
@@ -1358,18 +1323,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-04-01",
-      "label": "Generator Consumption",
-      "amount": 750
-    },
-    {
-      "date": "2024-04-01",
-      "label": "Generator Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
-    },
-    {
-      "date": "2024-04-01",
-      "label": "Solar Power Consumption",
-      "amount": 750
     },
     {
       "date": "2024-04-01",
@@ -1378,7 +1333,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-05-01",
-      "label": "Fixed Salaries",
+      "label": "Salary",
       "amount": 1100
     },
     {
@@ -1388,32 +1343,22 @@ window.APP_DATA = {
     },
     {
       "date": "2024-05-01",
-      "label": "Generator Consumption",
-      "amount": 750
-    },
-    {
-      "date": "2024-05-01",
-      "label": "Generator Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 285
     },
     {
       "date": "2024-05-01",
-      "label": "Solar Power Consumption",
-      "amount": 750
-    },
-    {
-      "date": "2024-05-01",
       "label": "استهلاك مازوت",
       "amount": 0
     },
     {
       "date": "2024-05-01",
-      "label": "Meter Error",
+      "label": "مصاريف أخرى",
       "amount": 50
     },
     {
       "date": "2024-06-01",
-      "label": "Fixed Salaries",
+      "label": "Salary",
       "amount": 1100
     },
     {
@@ -1423,22 +1368,12 @@ window.APP_DATA = {
     },
     {
       "date": "2024-06-01",
-      "label": "Generator Consumption",
-      "amount": 750
-    },
-    {
-      "date": "2024-06-01",
-      "label": "Generator Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
     },
     {
       "date": "2024-06-01",
-      "label": "Solar Power Consumption",
-      "amount": 750
-    },
-    {
-      "date": "2024-06-01",
-      "label": "Panel Washing",
+      "label": "مصاريف أخرى",
       "amount": 597
     },
     {
@@ -1448,7 +1383,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-07-01",
-      "label": "Fixed Salaries",
+      "label": "Salary",
       "amount": 1100
     },
     {
@@ -1458,18 +1393,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-07-01",
-      "label": "Generator Consumption",
-      "amount": 750
-    },
-    {
-      "date": "2024-07-01",
-      "label": "Generator Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
-    },
-    {
-      "date": "2024-07-01",
-      "label": "Solar Power Consumption",
-      "amount": 750
     },
     {
       "date": "2024-07-01",
@@ -1478,7 +1403,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-08-01",
-      "label": "Fixed Salaries",
+      "label": "Salary",
       "amount": 1100
     },
     {
@@ -1488,18 +1413,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-08-01",
-      "label": "Generator Consumption",
-      "amount": 750
-    },
-    {
-      "date": "2024-08-01",
-      "label": "Generator Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
-    },
-    {
-      "date": "2024-08-01",
-      "label": "Solar Power Consumption",
-      "amount": 750
     },
     {
       "date": "2024-08-01",
@@ -1508,7 +1423,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-09-01",
-      "label": "Fixed Salaries",
+      "label": "Salary",
       "amount": 1100
     },
     {
@@ -1518,18 +1433,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-09-01",
-      "label": "Generator Consumption",
-      "amount": 750
-    },
-    {
-      "date": "2024-09-01",
-      "label": "Generator Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 86
-    },
-    {
-      "date": "2024-09-01",
-      "label": "Solar Power Consumption",
-      "amount": 750
     },
     {
       "date": "2024-09-01",
@@ -1538,7 +1443,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-10-01",
-      "label": "Fixed Salaries",
+      "label": "Salary",
       "amount": 1100
     },
     {
@@ -1548,22 +1453,12 @@ window.APP_DATA = {
     },
     {
       "date": "2024-10-01",
-      "label": "Generator Consumption",
-      "amount": 750
-    },
-    {
-      "date": "2024-10-01",
-      "label": "Generator Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
     },
     {
       "date": "2024-10-01",
-      "label": "Solar Power Consumption",
-      "amount": 750
-    },
-    {
-      "date": "2024-10-01",
-      "label": "Miscellaneous Expenses",
+      "label": "مصاريف أخرى",
       "amount": 255
     },
     {
@@ -1573,7 +1468,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-11-01",
-      "label": "Fixed Salaries",
+      "label": "Salary",
       "amount": 1100
     },
     {
@@ -1583,18 +1478,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-11-01",
-      "label": "Generator Consumption",
-      "amount": 750
-    },
-    {
-      "date": "2024-11-01",
-      "label": "Generator Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
-    },
-    {
-      "date": "2024-11-01",
-      "label": "Solar Power Consumption",
-      "amount": 750
     },
     {
       "date": "2024-11-01",
@@ -1603,7 +1488,7 @@ window.APP_DATA = {
     },
     {
       "date": "2024-12-01",
-      "label": "Fixed Salaries",
+      "label": "Salary",
       "amount": 1100
     },
     {
@@ -1613,18 +1498,8 @@ window.APP_DATA = {
     },
     {
       "date": "2024-12-01",
-      "label": "Generator Consumption",
-      "amount": 750
-    },
-    {
-      "date": "2024-12-01",
-      "label": "Generator Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
-    },
-    {
-      "date": "2024-12-01",
-      "label": "Solar Power Consumption",
-      "amount": 750
     },
     {
       "date": "2024-12-01",
@@ -1633,7 +1508,7 @@ window.APP_DATA = {
     },
     {
       "date": "2026-01-01",
-      "label": "Fixed Salaries",
+      "label": "Salary",
       "amount": 1100
     },
     {
@@ -1643,22 +1518,17 @@ window.APP_DATA = {
     },
     {
       "date": "2026-01-01",
-      "label": "Electrical Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
     },
     {
       "date": "2026-01-01",
-      "label": "Generator Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
     },
     {
-      "date": "2026-01-01",
-      "label": "Solar Power Consumption",
-      "amount": 750
-    },
-    {
       "date": "2026-02-01",
-      "label": "Fixed Salaries",
+      "label": "Salary",
       "amount": 1100
     },
     {
@@ -1668,22 +1538,17 @@ window.APP_DATA = {
     },
     {
       "date": "2026-02-01",
-      "label": "Electrical Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
     },
     {
       "date": "2026-02-01",
-      "label": "Generator Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
-    },
-    {
-      "date": "2026-02-01",
-      "label": "Solar Power Consumption",
-      "amount": 750
     },
     {
       "date": "2026-03-01",
-      "label": "Fixed Salaries",
+      "label": "Salary",
       "amount": 1100
     },
     {
@@ -1693,22 +1558,17 @@ window.APP_DATA = {
     },
     {
       "date": "2026-03-01",
-      "label": "Electrical Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
     },
     {
       "date": "2026-03-01",
-      "label": "Generator Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
-    },
-    {
-      "date": "2026-03-01",
-      "label": "Solar Power Consumption",
-      "amount": 750
     },
     {
       "date": "2026-04-01",
-      "label": "Fixed Salaries",
+      "label": "Salary",
       "amount": 1100
     },
     {
@@ -1718,22 +1578,17 @@ window.APP_DATA = {
     },
     {
       "date": "2026-04-01",
-      "label": "Electrical Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
     },
     {
       "date": "2026-04-01",
-      "label": "Generator Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
-    },
-    {
-      "date": "2026-04-01",
-      "label": "Solar Power Consumption",
-      "amount": 750
     },
     {
       "date": "2026-06-01",
-      "label": "Fixed Salaries",
+      "label": "Salary",
       "amount": 1200
     },
     {
@@ -1748,18 +1603,13 @@ window.APP_DATA = {
     },
     {
       "date": "2026-06-01",
-      "label": "Electrical Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
     },
     {
       "date": "2026-06-01",
-      "label": "Generator Maintenance",
+      "label": "مصاريف أخرى",
       "amount": 0
-    },
-    {
-      "date": "2026-06-01",
-      "label": "Solar Power Consumption",
-      "amount": 750
     },
     {
       "date": "2026-06-01",
@@ -1768,145 +1618,73 @@ window.APP_DATA = {
     },
     {
       "date": "2025-01-01",
-      "label": "Generator Depreciation",
+      "label": "مصاريف أخرى",
       "amount": 750,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-02-01",
-      "label": "Generator Depreciation",
+      "label": "مصاريف أخرى",
       "amount": 750,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-03-01",
-      "label": "Generator Depreciation",
+      "label": "مصاريف أخرى",
       "amount": 750,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-04-01",
-      "label": "Generator Depreciation",
+      "label": "مصاريف أخرى",
       "amount": 750,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-05-01",
-      "label": "Generator Depreciation",
+      "label": "مصاريف أخرى",
       "amount": 750,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-06-01",
-      "label": "Generator Depreciation",
+      "label": "مصاريف أخرى",
       "amount": 750,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-07-01",
-      "label": "Generator Depreciation",
+      "label": "مصاريف أخرى",
       "amount": 750,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-08-01",
-      "label": "Generator Depreciation",
+      "label": "مصاريف أخرى",
       "amount": 750,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-09-01",
-      "label": "Generator Depreciation",
+      "label": "مصاريف أخرى",
       "amount": 750,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-10-01",
-      "label": "Generator Depreciation",
+      "label": "مصاريف أخرى",
       "amount": 750,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-11-01",
-      "label": "Generator Depreciation",
+      "label": "مصاريف أخرى",
       "amount": 750,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-12-01",
-      "label": "Generator Depreciation",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-01-01",
-      "label": "Solar System Depreciation",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-02-01",
-      "label": "Solar System Depreciation",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-03-01",
-      "label": "Solar System Depreciation",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-04-01",
-      "label": "Solar System Depreciation",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-05-01",
-      "label": "Solar System Depreciation",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-06-01",
-      "label": "Solar System Depreciation",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-07-01",
-      "label": "Solar System Depreciation",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-08-01",
-      "label": "Solar System Depreciation",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-09-01",
-      "label": "Solar System Depreciation",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-10-01",
-      "label": "Solar System Depreciation",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-11-01",
-      "label": "Solar System Depreciation",
-      "amount": 750,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-12-01",
-      "label": "Solar System Depreciation",
+      "label": "مصاريف أخرى",
       "amount": 750,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
@@ -2052,222 +1830,6 @@ window.APP_DATA = {
       "date": "2025-12-01",
       "label": "Solar Maintenance Contract",
       "amount": 333.33,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-01-01",
-      "label": "Salary – Anas",
-      "amount": 700,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-02-01",
-      "label": "Salary – Anas",
-      "amount": 700,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-03-01",
-      "label": "Salary – Anas",
-      "amount": 700,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-04-01",
-      "label": "Salary – Anas",
-      "amount": 700,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-05-01",
-      "label": "Salary – Anas",
-      "amount": 700,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-06-01",
-      "label": "Salary – Anas",
-      "amount": 700,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-07-01",
-      "label": "Salary – Anas",
-      "amount": 700,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-08-01",
-      "label": "Salary – Anas",
-      "amount": 700,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-09-01",
-      "label": "Salary – Anas",
-      "amount": 700,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-10-01",
-      "label": "Salary – Anas",
-      "amount": 700,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-11-01",
-      "label": "Salary – Anas",
-      "amount": 700,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-12-01",
-      "label": "Salary – Anas",
-      "amount": 700,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-01-01",
-      "label": "Salary – Wissam",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-02-01",
-      "label": "Salary – Wissam",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-03-01",
-      "label": "Salary – Wissam",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-04-01",
-      "label": "Salary – Wissam",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-05-01",
-      "label": "Salary – Wissam",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-06-01",
-      "label": "Salary – Wissam",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-07-01",
-      "label": "Salary – Wissam",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-08-01",
-      "label": "Salary – Wissam",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-09-01",
-      "label": "Salary – Wissam",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-10-01",
-      "label": "Salary – Wissam",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-11-01",
-      "label": "Salary – Wissam",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-12-01",
-      "label": "Salary – Wissam",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-01-01",
-      "label": "Salary – Fouad",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-02-01",
-      "label": "Salary – Fouad",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-03-01",
-      "label": "Salary – Fouad",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-04-01",
-      "label": "Salary – Fouad",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-05-01",
-      "label": "Salary – Fouad",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-06-01",
-      "label": "Salary – Fouad",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-07-01",
-      "label": "Salary – Fouad",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-08-01",
-      "label": "Salary – Fouad",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-09-01",
-      "label": "Salary – Fouad",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-10-01",
-      "label": "Salary – Fouad",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-11-01",
-      "label": "Salary – Fouad",
-      "amount": 200,
-      "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
-    },
-    {
-      "date": "2025-12-01",
-      "label": "Salary – Fouad",
-      "amount": 200,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
@@ -2344,182 +1906,182 @@ window.APP_DATA = {
     },
     {
       "date": "2025-01-01",
-      "label": "Other Expenses",
+      "label": "مصاريف أخرى",
       "amount": 148,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-02-01",
-      "label": "Other Expenses",
+      "label": "مصاريف أخرى",
       "amount": 0,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-03-01",
-      "label": "Other Expenses",
+      "label": "مصاريف أخرى",
       "amount": 703,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-04-01",
-      "label": "Other Expenses",
+      "label": "مصاريف أخرى",
       "amount": 126,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-05-01",
-      "label": "Other Expenses",
+      "label": "مصاريف أخرى",
       "amount": 90,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-06-01",
-      "label": "Other Expenses",
+      "label": "مصاريف أخرى",
       "amount": 40,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-07-01",
-      "label": "Other Expenses",
+      "label": "مصاريف أخرى",
       "amount": 0,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-08-01",
-      "label": "Other Expenses",
+      "label": "مصاريف أخرى",
       "amount": 116,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-09-01",
-      "label": "Other Expenses",
+      "label": "مصاريف أخرى",
       "amount": 0,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-10-01",
-      "label": "Other Expenses",
+      "label": "مصاريف أخرى",
       "amount": 0,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-11-01",
-      "label": "Other Expenses",
+      "label": "مصاريف أخرى",
       "amount": 1220,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2025-12-01",
-      "label": "Other Expenses",
+      "label": "مصاريف أخرى",
       "amount": 80,
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
       "date": "2024-01-01",
       "label": "Income Reconciliation (2024)",
-      "amount": -449.3,
+      "amount": 717.37,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2024-02-01",
       "label": "Income Reconciliation (2024)",
-      "amount": 993.3,
+      "amount": 2159.97,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2024-03-01",
       "label": "Income Reconciliation (2024)",
-      "amount": 244.2,
+      "amount": 1410.87,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2024-04-01",
       "label": "Income Reconciliation (2024)",
-      "amount": 396,
+      "amount": 1562.67,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2024-05-01",
       "label": "Income Reconciliation (2024)",
-      "amount": 70.95,
+      "amount": 1237.62,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2024-06-01",
       "label": "Income Reconciliation (2024)",
-      "amount": -1245.9,
+      "amount": -79.23,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2024-07-01",
       "label": "Income Reconciliation (2024)",
-      "amount": -2346.1,
+      "amount": -1179.43,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2024-08-01",
       "label": "Income Reconciliation (2024)",
-      "amount": 2025.9,
+      "amount": 3192.57,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2024-09-01",
       "label": "Income Reconciliation (2024)",
-      "amount": 2235.6,
+      "amount": 3402.27,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2024-10-01",
       "label": "Income Reconciliation (2024)",
-      "amount": 669.75,
+      "amount": 1836.42,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2024-11-01",
       "label": "Income Reconciliation (2024)",
-      "amount": 402.35,
+      "amount": 1569.02,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2024-12-01",
       "label": "Income Reconciliation (2024)",
-      "amount": -934.25,
+      "amount": 232.42,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2026-01-01",
       "label": "Income Reconciliation (2026)",
-      "amount": 1183.33,
+      "amount": 1600,
       "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2026-02-01",
       "label": "Income Reconciliation (2026)",
-      "amount": 1183.33,
+      "amount": 1600,
       "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2026-03-01",
       "label": "Income Reconciliation (2026)",
-      "amount": 1183.33,
+      "amount": 1600,
       "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2026-04-01",
       "label": "Income Reconciliation (2026)",
-      "amount": 1183.33,
+      "amount": 1600,
       "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2026-05-01",
       "label": "Income Reconciliation (2026)",
-      "amount": 333.33,
+      "amount": 750,
       "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2026-06-01",
       "label": "Income Reconciliation (2026)",
-      "amount": -1850.67,
+      "amount": -1434,
       "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
@@ -2552,6 +2114,174 @@ window.APP_DATA = {
       "label": "مصاريف أخرى",
       "amount": 9460,
       "notes": "PV solar system addition/maintenance"
+    },
+    {
+      "date": "2024-01-01",
+      "label": "Solar Maintenance Contract",
+      "amount": 333.33,
+      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
+    },
+    {
+      "date": "2024-02-01",
+      "label": "Solar Maintenance Contract",
+      "amount": 333.33,
+      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
+    },
+    {
+      "date": "2024-03-01",
+      "label": "Solar Maintenance Contract",
+      "amount": 333.33,
+      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
+    },
+    {
+      "date": "2024-04-01",
+      "label": "Solar Maintenance Contract",
+      "amount": 333.33,
+      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
+    },
+    {
+      "date": "2024-05-01",
+      "label": "Solar Maintenance Contract",
+      "amount": 333.33,
+      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
+    },
+    {
+      "date": "2024-06-01",
+      "label": "Solar Maintenance Contract",
+      "amount": 333.33,
+      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
+    },
+    {
+      "date": "2024-07-01",
+      "label": "Solar Maintenance Contract",
+      "amount": 333.33,
+      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
+    },
+    {
+      "date": "2024-08-01",
+      "label": "Solar Maintenance Contract",
+      "amount": 333.33,
+      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
+    },
+    {
+      "date": "2024-09-01",
+      "label": "Solar Maintenance Contract",
+      "amount": 333.33,
+      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
+    },
+    {
+      "date": "2024-10-01",
+      "label": "Solar Maintenance Contract",
+      "amount": 333.33,
+      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
+    },
+    {
+      "date": "2024-11-01",
+      "label": "Solar Maintenance Contract",
+      "amount": 333.33,
+      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
+    },
+    {
+      "date": "2024-12-01",
+      "label": "Solar Maintenance Contract",
+      "amount": 333.33,
+      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
+    },
+    {
+      "date": "2026-01-01",
+      "label": "Solar Maintenance Contract",
+      "amount": 333.33,
+      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
+    },
+    {
+      "date": "2026-02-01",
+      "label": "Solar Maintenance Contract",
+      "amount": 333.33,
+      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
+    },
+    {
+      "date": "2026-03-01",
+      "label": "Solar Maintenance Contract",
+      "amount": 333.33,
+      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
+    },
+    {
+      "date": "2026-04-01",
+      "label": "Solar Maintenance Contract",
+      "amount": 333.33,
+      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
+    },
+    {
+      "date": "2026-05-01",
+      "label": "Solar Maintenance Contract",
+      "amount": 333.33,
+      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
+    },
+    {
+      "date": "2026-06-01",
+      "label": "Solar Maintenance Contract",
+      "amount": 333.33,
+      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
+    },
+    {
+      "date": "2025-01-01",
+      "label": "Salary",
+      "amount": 1100
+    },
+    {
+      "date": "2025-02-01",
+      "label": "Salary",
+      "amount": 1100
+    },
+    {
+      "date": "2025-03-01",
+      "label": "Salary",
+      "amount": 1100
+    },
+    {
+      "date": "2025-04-01",
+      "label": "Salary",
+      "amount": 1100
+    },
+    {
+      "date": "2025-05-01",
+      "label": "Salary",
+      "amount": 1100
+    },
+    {
+      "date": "2025-06-01",
+      "label": "Salary",
+      "amount": 1100
+    },
+    {
+      "date": "2025-07-01",
+      "label": "Salary",
+      "amount": 1100
+    },
+    {
+      "date": "2025-08-01",
+      "label": "Salary",
+      "amount": 1100
+    },
+    {
+      "date": "2025-09-01",
+      "label": "Salary",
+      "amount": 1100
+    },
+    {
+      "date": "2025-10-01",
+      "label": "Salary",
+      "amount": 1100
+    },
+    {
+      "date": "2025-11-01",
+      "label": "Salary",
+      "amount": 1100
+    },
+    {
+      "date": "2025-12-01",
+      "label": "Salary",
+      "amount": 1100
     }
   ],
   "incomeAdjustments": [
@@ -2833,12 +2563,48 @@ window.APP_DATA = {
       "liters": 0,
       "notes": ""
     },
-    { "year": 2026, "month": 1, "hours": 104, "liters": 0, "notes": "" },
-    { "year": 2026, "month": 2, "hours": 57, "liters": 0, "notes": "" },
-    { "year": 2026, "month": 3, "hours": 44, "liters": 0, "notes": "" },
-    { "year": 2026, "month": 4, "hours": 44, "liters": 0, "notes": "" },
-    { "year": 2026, "month": 5, "hours": 26, "liters": 0, "notes": "" },
-    { "year": 2026, "month": 6, "hours": 28, "liters": 0, "notes": "" }
+    {
+      "year": 2026,
+      "month": 1,
+      "hours": 104,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2026,
+      "month": 2,
+      "hours": 57,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "hours": 44,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "hours": 44,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "hours": 26,
+      "liters": 0,
+      "notes": ""
+    },
+    {
+      "year": 2026,
+      "month": 6,
+      "hours": 28,
+      "liters": 0,
+      "notes": ""
+    }
   ],
   "contracts": [
     {
@@ -2849,6 +2615,15 @@ window.APP_DATA = {
       "monthlyCost": 62.5,
       "status": "Active",
       "notes": "Includes periodic generator maintenance"
+    },
+    {
+      "name": "Solar Maintenance Contract",
+      "provider": "Maintenance Provider",
+      "start": "2026-04-01",
+      "end": "2027-03-31",
+      "monthlyCost": 333.33,
+      "status": "Active",
+      "notes": "$4,000/year, renews annually every April 1"
     }
   ],
   "readings": [
