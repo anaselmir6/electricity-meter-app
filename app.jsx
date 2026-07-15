@@ -274,7 +274,7 @@ function BreakerPanel({ user, view, setView, onLogout }) {
             <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="var(--filament)" stroke="var(--filament)" strokeWidth="1" strokeLinejoin="round" />
           </svg>
         </div>
-        <div>
+        <div className="brand-text">
           <div className="brand-mark">METER · 224</div>
           <div className="brand-name">Electricity Meter System</div>
         </div>

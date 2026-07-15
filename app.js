@@ -401,7 +401,9 @@ function BreakerPanel({
     stroke: "var(--filament)",
     strokeWidth: "1",
     strokeLinejoin: "round"
-  }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "brand-text"
+  }, /*#__PURE__*/React.createElement("div", {
     className: "brand-mark"
   }, "METER · 224"), /*#__PURE__*/React.createElement("div", {
     className: "brand-name"
