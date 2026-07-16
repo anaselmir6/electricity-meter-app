@@ -985,7 +985,7 @@ window.APP_DATA = {
       "A": "10",
       "fixedFee": 7.5,
       "status": "External",
-      "active": "Active",
+      "active": "Inactive",
       "panel": "90",
       "meter": "90",
       "notes": "Added from LASeR_Financial_Report_2025_EN_2 (1).xlsx — subscription category assumed as default (10A); please verify with the owner."
@@ -996,7 +996,7 @@ window.APP_DATA = {
       "A": "10",
       "fixedFee": 7.5,
       "status": "External",
-      "active": "Active",
+      "active": "Inactive",
       "panel": "91",
       "meter": "91",
       "notes": "Added from LASeR_Financial_Report_2025_EN_2 (1).xlsx — subscription category assumed as default (10A); please verify with the owner."
@@ -1007,7 +1007,7 @@ window.APP_DATA = {
       "A": "10",
       "fixedFee": 7.5,
       "status": "External",
-      "active": "Active",
+      "active": "Inactive",
       "panel": "92",
       "meter": "92",
       "notes": "Added from LASeR_Financial_Report_2025_EN_2 (1).xlsx — subscription category assumed as default (10A); please verify with the owner."
@@ -1018,7 +1018,7 @@ window.APP_DATA = {
       "A": "10",
       "fixedFee": 7.5,
       "status": "External",
-      "active": "Active",
+      "active": "Inactive",
       "panel": "93",
       "meter": "93",
       "notes": "Added from LASeR_Financial_Report_2025_EN_2 (1).xlsx — subscription category assumed as default (10A); please verify with the owner."
@@ -1029,7 +1029,7 @@ window.APP_DATA = {
       "A": "10",
       "fixedFee": 7.5,
       "status": "External",
-      "active": "Active",
+      "active": "Inactive",
       "panel": "94",
       "meter": "94",
       "notes": "Added from LASeR_Financial_Report_2025_EN_2 (1).xlsx — subscription category assumed as default (10A); please verify with the owner."
@@ -1040,7 +1040,7 @@ window.APP_DATA = {
       "A": "10",
       "fixedFee": 7.5,
       "status": "External",
-      "active": "Active",
+      "active": "Inactive",
       "panel": "95",
       "meter": "95",
       "notes": "Added from LASeR_Financial_Report_2025_EN_2 (1).xlsx — subscription category assumed as default (10A); please verify with the owner."
@@ -1051,7 +1051,7 @@ window.APP_DATA = {
       "A": "10",
       "fixedFee": 7.5,
       "status": "External",
-      "active": "Active",
+      "active": "Inactive",
       "panel": "96",
       "meter": "96",
       "notes": "Added from LASeR_Financial_Report_2025_EN_2 (1).xlsx — subscription category assumed as default (10A); please verify with the owner."
