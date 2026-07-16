@@ -1757,7 +1757,7 @@ window.APP_DATA = {
     {
       "date": "2024-09-01",
       "label": "Others",
-      "amount": 86
+      "amount": 43
     },
     {
       "date": "2024-10-01",
