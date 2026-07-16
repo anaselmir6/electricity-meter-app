@@ -1813,93 +1813,93 @@ window.APP_DATA = {
     {
       "date": "2026-05-01",
       "label": "Others",
-      "amount": 10210,
+      "amount": 9460,
       "notes": "PV solar system addition/maintenance"
     },
     {
       "date": "2024-01-01",
       "label": "Others",
-      "amount": 1175.17
+      "amount": 0
     },
     {
       "date": "2024-02-01",
       "label": "Others",
-      "amount": 2159.97
+      "amount": 0
     },
     {
       "date": "2024-03-01",
       "label": "Others",
-      "amount": 1410.87
+      "amount": 0
     },
     {
       "date": "2024-04-01",
       "label": "Others",
-      "amount": 1562.67
+      "amount": 0
     },
     {
       "date": "2024-05-01",
       "label": "Others",
-      "amount": 1572.62
+      "amount": 335
     },
     {
       "date": "2024-06-01",
       "label": "Others",
-      "amount": 1763.17
+      "amount": 597
     },
     {
       "date": "2024-07-01",
       "label": "Others",
-      "amount": 1166.67
+      "amount": 0
     },
     {
       "date": "2024-08-01",
       "label": "Others",
-      "amount": 1166.67
+      "amount": 0
     },
     {
       "date": "2024-09-01",
       "label": "Others",
-      "amount": 1209.67
+      "amount": 86
     },
     {
       "date": "2024-10-01",
       "label": "Others",
-      "amount": 1421.67
+      "amount": 255
     },
     {
       "date": "2024-11-01",
       "label": "Others",
-      "amount": 1166.67
+      "amount": 0
     },
     {
       "date": "2024-12-01",
       "label": "Others",
-      "amount": 1166.67
+      "amount": 0
     },
     {
       "date": "2026-01-01",
       "label": "Others",
-      "amount": 1600
+      "amount": 0
     },
     {
       "date": "2026-02-01",
       "label": "Others",
-      "amount": 1600
+      "amount": 0
     },
     {
       "date": "2026-03-01",
       "label": "Others",
-      "amount": 1600
+      "amount": 0
     },
     {
       "date": "2026-04-01",
       "label": "Others",
-      "amount": 1990
+      "amount": 390
     },
     {
       "date": "2026-06-01",
       "label": "Others",
-      "amount": 1500
+      "amount": 0
     },
     {
       "date": "2025-01-01",
@@ -2459,116 +2459,7 @@ window.APP_DATA = {
       "amount": 750
     }
   ],
-  "incomeAdjustments": [
-    {
-      "year": 2024,
-      "month": 1,
-      "paid": 327.5,
-      "unpaid": 0.5
-    },
-    {
-      "year": 2024,
-      "month": 2,
-      "paid": 390,
-      "unpaid": 0
-    },
-    {
-      "year": 2024,
-      "month": 3,
-      "paid": 341.5,
-      "unpaid": 0
-    },
-    {
-      "year": 2024,
-      "month": 4,
-      "paid": 356,
-      "unpaid": 0
-    },
-    {
-      "year": 2024,
-      "month": 5,
-      "paid": 387,
-      "unpaid": 0
-    },
-    {
-      "year": 2024,
-      "month": 6,
-      "paid": 413.5,
-      "unpaid": 0
-    },
-    {
-      "year": 2024,
-      "month": 7,
-      "paid": 455,
-      "unpaid": 0
-    },
-    {
-      "year": 2024,
-      "month": 8,
-      "paid": 499.5,
-      "unpaid": 1
-    },
-    {
-      "year": 2024,
-      "month": 9,
-      "paid": 482,
-      "unpaid": 0.5
-    },
-    {
-      "year": 2024,
-      "month": 10,
-      "paid": 443.5,
-      "unpaid": 0.5
-    },
-    {
-      "year": 2024,
-      "month": 11,
-      "paid": 425,
-      "unpaid": 1
-    },
-    {
-      "year": 2024,
-      "month": 12,
-      "paid": 455.5,
-      "unpaid": 1
-    },
-    {
-      "year": 2026,
-      "month": 1,
-      "paid": 22.97,
-      "unpaid": 1
-    },
-    {
-      "year": 2026,
-      "month": 2,
-      "paid": 23.47,
-      "unpaid": 1
-    },
-    {
-      "year": 2026,
-      "month": 3,
-      "paid": 20.13,
-      "unpaid": 0
-    },
-    {
-      "year": 2026,
-      "month": 4,
-      "paid": 35.27,
-      "unpaid": 0.8
-    },
-    {
-      "year": 2026,
-      "month": 5,
-      "paid": -3296.23,
-      "unpaid": -21.6
-    },
-    {
-      "year": 2026,
-      "month": 6,
-      "paid": 37.77,
-      "unpaid": 0.9
-    }
-  ],
+  "incomeAdjustments": [],
   "generatorLogs": [
     {
       "year": 2025,
