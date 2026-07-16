@@ -1229,7 +1229,7 @@ window.APP_DATA = {
     {
       "date": "2026-05-01",
       "label": "Diesel $",
-      "amount": 750
+      "amount": 0
     },
     {
       "date": "2024-01-01",
@@ -1671,78 +1671,6 @@ window.APP_DATA = {
       "date": "2026-04-01",
       "label": "Diesel $",
       "amount": 2000
-    },
-    {
-      "date": "2024-01-01",
-      "label": "Solar Maintenance Contract",
-      "amount": 333.33,
-      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
-    },
-    {
-      "date": "2024-02-01",
-      "label": "Solar Maintenance Contract",
-      "amount": 333.33,
-      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
-    },
-    {
-      "date": "2024-03-01",
-      "label": "Solar Maintenance Contract",
-      "amount": 333.33,
-      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
-    },
-    {
-      "date": "2024-04-01",
-      "label": "Solar Maintenance Contract",
-      "amount": 333.33,
-      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
-    },
-    {
-      "date": "2024-05-01",
-      "label": "Solar Maintenance Contract",
-      "amount": 333.33,
-      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
-    },
-    {
-      "date": "2024-06-01",
-      "label": "Solar Maintenance Contract",
-      "amount": 333.33,
-      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
-    },
-    {
-      "date": "2024-07-01",
-      "label": "Solar Maintenance Contract",
-      "amount": 333.33,
-      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
-    },
-    {
-      "date": "2024-08-01",
-      "label": "Solar Maintenance Contract",
-      "amount": 333.33,
-      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
-    },
-    {
-      "date": "2024-09-01",
-      "label": "Solar Maintenance Contract",
-      "amount": 333.33,
-      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
-    },
-    {
-      "date": "2024-10-01",
-      "label": "Solar Maintenance Contract",
-      "amount": 333.33,
-      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
-    },
-    {
-      "date": "2024-11-01",
-      "label": "Solar Maintenance Contract",
-      "amount": 333.33,
-      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
-    },
-    {
-      "date": "2024-12-01",
-      "label": "Solar Maintenance Contract",
-      "amount": 333.33,
-      "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
     },
     {
       "date": "2026-01-01",
