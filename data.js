@@ -1685,7 +1685,7 @@ window.APP_DATA = {
     {
       "date": "2024-01-01",
       "label": "Income Reconciliation (2024)",
-      "amount": 717.37,
+      "amount": 1175.17,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
@@ -1715,43 +1715,43 @@ window.APP_DATA = {
     {
       "date": "2024-06-01",
       "label": "Income Reconciliation (2024)",
-      "amount": -79.23,
+      "amount": 1166.17,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2024-07-01",
       "label": "Income Reconciliation (2024)",
-      "amount": -1179.43,
+      "amount": 1166.67,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2024-08-01",
       "label": "Income Reconciliation (2024)",
-      "amount": 3192.57,
+      "amount": 1166.67,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2024-09-01",
       "label": "Income Reconciliation (2024)",
-      "amount": 3402.27,
+      "amount": 1123.67,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2024-10-01",
       "label": "Income Reconciliation (2024)",
-      "amount": 1836.42,
+      "amount": 1166.67,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2024-11-01",
       "label": "Income Reconciliation (2024)",
-      "amount": 1569.02,
+      "amount": 1166.67,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
       "date": "2024-12-01",
       "label": "Income Reconciliation (2024)",
-      "amount": 232.42,
+      "amount": 1166.67,
       "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
     },
     {
