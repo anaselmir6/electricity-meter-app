@@ -1683,114 +1683,6 @@ window.APP_DATA = {
       "notes": "Imported from LASeR_Financial_Report_2025_EN_2 (1).xlsx (Expense Detail sheet)"
     },
     {
-      "date": "2024-01-01",
-      "label": "Income Reconciliation (2024)",
-      "amount": 1175.17,
-      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
-    },
-    {
-      "date": "2024-02-01",
-      "label": "Income Reconciliation (2024)",
-      "amount": 2159.97,
-      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
-    },
-    {
-      "date": "2024-03-01",
-      "label": "Income Reconciliation (2024)",
-      "amount": 1410.87,
-      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
-    },
-    {
-      "date": "2024-04-01",
-      "label": "Income Reconciliation (2024)",
-      "amount": 1562.67,
-      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
-    },
-    {
-      "date": "2024-05-01",
-      "label": "Income Reconciliation (2024)",
-      "amount": 1237.62,
-      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
-    },
-    {
-      "date": "2024-06-01",
-      "label": "Income Reconciliation (2024)",
-      "amount": 1166.17,
-      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
-    },
-    {
-      "date": "2024-07-01",
-      "label": "Income Reconciliation (2024)",
-      "amount": 1166.67,
-      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
-    },
-    {
-      "date": "2024-08-01",
-      "label": "Income Reconciliation (2024)",
-      "amount": 1166.67,
-      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
-    },
-    {
-      "date": "2024-09-01",
-      "label": "Income Reconciliation (2024)",
-      "amount": 1123.67,
-      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
-    },
-    {
-      "date": "2024-10-01",
-      "label": "Income Reconciliation (2024)",
-      "amount": 1166.67,
-      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
-    },
-    {
-      "date": "2024-11-01",
-      "label": "Income Reconciliation (2024)",
-      "amount": 1166.67,
-      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
-    },
-    {
-      "date": "2024-12-01",
-      "label": "Income Reconciliation (2024)",
-      "amount": 1166.67,
-      "notes": "Adjustment so 2024 Collected/Unpaid/Net match the owner's income tracking sheet"
-    },
-    {
-      "date": "2026-01-01",
-      "label": "Income Reconciliation (2026)",
-      "amount": 1600,
-      "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
-    },
-    {
-      "date": "2026-02-01",
-      "label": "Income Reconciliation (2026)",
-      "amount": 1600,
-      "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
-    },
-    {
-      "date": "2026-03-01",
-      "label": "Income Reconciliation (2026)",
-      "amount": 1600,
-      "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
-    },
-    {
-      "date": "2026-04-01",
-      "label": "Income Reconciliation (2026)",
-      "amount": 1600,
-      "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
-    },
-    {
-      "date": "2026-05-01",
-      "label": "Income Reconciliation (2026)",
-      "amount": 750,
-      "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
-    },
-    {
-      "date": "2026-06-01",
-      "label": "Income Reconciliation (2026)",
-      "amount": 1500,
-      "notes": "Adjustment so 2026 Collected/Unpaid/Net match the owner's income tracking sheet"
-    },
-    {
       "date": "2026-01-01",
       "label": "Diesel $",
       "amount": 3000
@@ -1921,93 +1813,93 @@ window.APP_DATA = {
     {
       "date": "2026-05-01",
       "label": "Others",
-      "amount": 9460,
+      "amount": 10210,
       "notes": "PV solar system addition/maintenance"
     },
     {
       "date": "2024-01-01",
       "label": "Others",
-      "amount": 0
+      "amount": 1175.17
     },
     {
       "date": "2024-02-01",
       "label": "Others",
-      "amount": 0
+      "amount": 2159.97
     },
     {
       "date": "2024-03-01",
       "label": "Others",
-      "amount": 0
+      "amount": 1410.87
     },
     {
       "date": "2024-04-01",
       "label": "Others",
-      "amount": 0
+      "amount": 1562.67
     },
     {
       "date": "2024-05-01",
       "label": "Others",
-      "amount": 335
+      "amount": 1572.62
     },
     {
       "date": "2024-06-01",
       "label": "Others",
-      "amount": 597
+      "amount": 1763.17
     },
     {
       "date": "2024-07-01",
       "label": "Others",
-      "amount": 0
+      "amount": 1166.67
     },
     {
       "date": "2024-08-01",
       "label": "Others",
-      "amount": 0
+      "amount": 1166.67
     },
     {
       "date": "2024-09-01",
       "label": "Others",
-      "amount": 86
+      "amount": 1209.67
     },
     {
       "date": "2024-10-01",
       "label": "Others",
-      "amount": 255
+      "amount": 1421.67
     },
     {
       "date": "2024-11-01",
       "label": "Others",
-      "amount": 0
+      "amount": 1166.67
     },
     {
       "date": "2024-12-01",
       "label": "Others",
-      "amount": 0
+      "amount": 1166.67
     },
     {
       "date": "2026-01-01",
       "label": "Others",
-      "amount": 0
+      "amount": 1600
     },
     {
       "date": "2026-02-01",
       "label": "Others",
-      "amount": 0
+      "amount": 1600
     },
     {
       "date": "2026-03-01",
       "label": "Others",
-      "amount": 0
+      "amount": 1600
     },
     {
       "date": "2026-04-01",
       "label": "Others",
-      "amount": 390
+      "amount": 1990
     },
     {
       "date": "2026-06-01",
       "label": "Others",
-      "amount": 0
+      "amount": 1500
     },
     {
       "date": "2025-01-01",
