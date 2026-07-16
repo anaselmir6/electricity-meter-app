@@ -129,6 +129,9 @@ function useStore() {
       incomeAdjustments: (seed.incomeAdjustments || []).map(a => ({
         ...a
       })),
+      assets: (seed.assets || []).map(a => ({
+        ...a
+      })),
       tariff: {
         ...seed.tariff
       }
@@ -154,6 +157,13 @@ function useStore() {
     setData(prev => ({
       ...prev,
       expenses: [...prev.expenses, expense]
+    }));
+  }, []);
+  const addAsset = React.useCallback(asset => {
+    // FIREBASE: addDoc(collection(db, "assets"), asset)
+    setData(prev => ({
+      ...prev,
+      assets: [...prev.assets, asset]
     }));
   }, []);
   const addContract = React.useCallback(contract => {
@@ -222,6 +232,7 @@ function useStore() {
     data,
     addOrUpdateReading,
     addExpense,
+    addAsset,
     addContract,
     addSubscriber,
     updateSubscriber,
@@ -374,6 +385,9 @@ const NAV_ITEMS = {
   }, {
     id: "expenses",
     label: "Expenses"
+  }, {
+    id: "assets",
+    label: "Assets"
   }, {
     id: "contracts",
     label: "Maintenance Contracts"
@@ -1795,6 +1809,138 @@ function ExpensesView({
     }
   }, e.notes))))))));
 }
+// ==================== ASSETS VIEW ====================
+function AssetsView({
+  data,
+  store
+}) {
+  const [showForm, setShowForm] = React.useState(false);
+  const [form, setForm] = React.useState({
+    date: "",
+    label: "",
+    amount: "",
+    notes: ""
+  });
+  const total = sumBy(data.assets, a => a.amount);
+  const sorted = React.useMemo(() => [...data.assets].sort((a, b) => a.date < b.date ? 1 : -1), [data.assets]);
+  function submitForm(e) {
+    e.preventDefault();
+    if (!form.date || !form.label || !form.amount || isNaN(form.amount)) return;
+    store.addAsset({
+      date: form.date,
+      label: form.label,
+      amount: Number(form.amount),
+      notes: form.notes
+    });
+    setForm({
+      date: "",
+      label: "",
+      amount: "",
+      notes: ""
+    });
+    setShowForm(false);
+  }
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "page-header"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "page-eyebrow"
+  }, "ASSETS"), /*#__PURE__*/React.createElement("div", {
+    className: "page-title"
+  }, "Assets"), /*#__PURE__*/React.createElement("div", {
+    className: "page-desc"
+  }, "One-time equipment purchases and additions — tracked separately from monthly operating expenses")), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-dark",
+    onClick: () => setShowForm(s => !s)
+  }, showForm ? "Close" : "+ Add Asset")), /*#__PURE__*/React.createElement("div", {
+    className: "kpi-grid",
+    style: {
+      gridTemplateColumns: "repeat(1, 1fr)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "kpi-card accent-ink"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "kpi-label"
+  }, "Total Assets"), /*#__PURE__*/React.createElement("div", {
+    className: "kpi-value"
+  }, fmtMoney(total)), /*#__PURE__*/React.createElement("div", {
+    className: "kpi-bar"
+  }))), showForm && /*#__PURE__*/React.createElement("div", {
+    className: "panel-card",
+    style: {
+      marginBottom: 20
+    }
+  }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("span", {
+    className: "eyebrow-dot"
+  }), "New Asset"), /*#__PURE__*/React.createElement("form", {
+    onSubmit: submitForm
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "form-grid"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "form-field"
+  }, /*#__PURE__*/React.createElement("label", null, "Date"), /*#__PURE__*/React.createElement("input", {
+    type: "date",
+    value: form.date,
+    onChange: e => setForm(f => ({
+      ...f,
+      date: e.target.value
+    })),
+    required: true
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "form-field"
+  }, /*#__PURE__*/React.createElement("label", null, "Asset Name"), /*#__PURE__*/React.createElement("input", {
+    value: form.label,
+    onChange: e => setForm(f => ({
+      ...f,
+      label: e.target.value
+    })),
+    required: true
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "form-field"
+  }, /*#__PURE__*/React.createElement("label", null, "Amount ($)"), /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    value: form.amount,
+    onChange: e => setForm(f => ({
+      ...f,
+      amount: e.target.value
+    })),
+    required: true
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "form-field"
+  }, /*#__PURE__*/React.createElement("label", null, "Notes"), /*#__PURE__*/React.createElement("input", {
+    value: form.notes,
+    onChange: e => setForm(f => ({
+      ...f,
+      notes: e.target.value
+    }))
+  }))), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-dark",
+    type: "submit"
+  }, "Save Asset"))), /*#__PURE__*/React.createElement("div", {
+    className: "panel-card"
+  }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("span", {
+    className: "eyebrow-dot"
+  }), "All Assets"), sorted.length === 0 ? /*#__PURE__*/React.createElement("div", {
+    className: "empty-state"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "icon"
+  }, "—"), "No assets recorded yet") : /*#__PURE__*/React.createElement("div", {
+    className: "table-wrap"
+  }, /*#__PURE__*/React.createElement("table", {
+    className: "data-table"
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Date"), /*#__PURE__*/React.createElement("th", null, "Asset"), /*#__PURE__*/React.createElement("th", {
+    className: "num"
+  }, "Amount"), /*#__PURE__*/React.createElement("th", null, "Notes"))), /*#__PURE__*/React.createElement("tbody", null, sorted.map((a, i) => /*#__PURE__*/React.createElement("tr", {
+    key: i
+  }, /*#__PURE__*/React.createElement("td", {
+    className: "num"
+  }, a.date), /*#__PURE__*/React.createElement("td", null, a.label), /*#__PURE__*/React.createElement("td", {
+    className: "num"
+  }, fmtMoney2(a.amount)), /*#__PURE__*/React.createElement("td", {
+    style: {
+      whiteSpace: "normal"
+    }
+  }, a.notes))))))));
+}
 // ==================== CONTRACTS VIEW ====================
 function ContractsView({
   data,
@@ -2296,6 +2442,9 @@ function App() {
     data: store.data,
     store: store
   });else if (view === "expenses" && user.role === "owner") body = /*#__PURE__*/React.createElement(ExpensesView, {
+    data: store.data,
+    store: store
+  });else if (view === "assets" && user.role === "owner") body = /*#__PURE__*/React.createElement(AssetsView, {
     data: store.data,
     store: store
   });else if (view === "contracts" && user.role === "owner") body = /*#__PURE__*/React.createElement(ContractsView, {

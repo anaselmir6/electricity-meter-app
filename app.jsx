@@ -104,6 +104,7 @@ function useStore() {
       prices: seed.prices.map(p => ({ ...p })),
       generatorLogs: (seed.generatorLogs || []).map(g => ({ ...g })),
       incomeAdjustments: (seed.incomeAdjustments || []).map(a => ({ ...a })),
+      assets: (seed.assets || []).map(a => ({ ...a })),
       tariff: { ...seed.tariff },
     };
   });
@@ -122,6 +123,11 @@ function useStore() {
   const addExpense = React.useCallback((expense) => {
     // FIREBASE: addDoc(collection(db, "expenses"), expense)
     setData(prev => ({ ...prev, expenses: [...prev.expenses, expense] }));
+  }, []);
+
+  const addAsset = React.useCallback((asset) => {
+    // FIREBASE: addDoc(collection(db, "assets"), asset)
+    setData(prev => ({ ...prev, assets: [...prev.assets, asset] }));
   }, []);
 
   const addContract = React.useCallback((contract) => {
@@ -168,6 +174,7 @@ function useStore() {
     data,
     addOrUpdateReading,
     addExpense,
+    addAsset,
     addContract,
     addSubscriber,
     updateSubscriber,
@@ -260,6 +267,7 @@ const NAV_ITEMS = {
     { id: "entry", label: "Enter Readings" },
     { id: "subscribers", label: "Subscribers" },
     { id: "expenses", label: "Expenses" },
+    { id: "assets", label: "Assets" },
     { id: "contracts", label: "Maintenance Contracts" },
     { id: "receipts", label: "Receipts" },
   ],
@@ -1302,6 +1310,88 @@ function ExpensesView({ data, store }) {
     </div>
   );
 }
+// ==================== ASSETS VIEW ====================
+function AssetsView({ data, store }) {
+  const [showForm, setShowForm] = React.useState(false);
+  const [form, setForm] = React.useState({ date: "", label: "", amount: "", notes: "" });
+
+  const total = sumBy(data.assets, a => a.amount);
+  const sorted = React.useMemo(() => [...data.assets].sort((a, b) => (a.date < b.date ? 1 : -1)), [data.assets]);
+
+  function submitForm(e) {
+    e.preventDefault();
+    if (!form.date || !form.label || !form.amount || isNaN(form.amount)) return;
+    store.addAsset({
+      date: form.date,
+      label: form.label,
+      amount: Number(form.amount),
+      notes: form.notes,
+    });
+    setForm({ date: "", label: "", amount: "", notes: "" });
+    setShowForm(false);
+  }
+
+  return (
+    <div>
+      <div className="page-header">
+        <div>
+          <div className="page-eyebrow">ASSETS</div>
+          <div className="page-title">Assets</div>
+          <div className="page-desc">One-time equipment purchases and additions — tracked separately from monthly operating expenses</div>
+        </div>
+        <button className="btn btn-dark" onClick={() => setShowForm(s => !s)}>
+          {showForm ? "Close" : "+ Add Asset"}
+        </button>
+      </div>
+
+      <div className="kpi-grid" style={{ gridTemplateColumns: "repeat(1, 1fr)" }}>
+        <div className="kpi-card accent-ink">
+          <div className="kpi-label">Total Assets</div>
+          <div className="kpi-value">{fmtMoney(total)}</div>
+          <div className="kpi-bar"></div>
+        </div>
+      </div>
+
+      {showForm && (
+        <div className="panel-card" style={{ marginBottom: 20 }}>
+          <h3><span className="eyebrow-dot"></span>New Asset</h3>
+          <form onSubmit={submitForm}>
+            <div className="form-grid">
+              <div className="form-field"><label>Date</label><input type="date" value={form.date} onChange={e => setForm(f => ({ ...f, date: e.target.value }))} required /></div>
+              <div className="form-field"><label>Asset Name</label><input value={form.label} onChange={e => setForm(f => ({ ...f, label: e.target.value }))} required /></div>
+              <div className="form-field"><label>Amount ($)</label><input type="number" value={form.amount} onChange={e => setForm(f => ({ ...f, amount: e.target.value }))} required /></div>
+              <div className="form-field"><label>Notes</label><input value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))} /></div>
+            </div>
+            <button className="btn btn-dark" type="submit">Save Asset</button>
+          </form>
+        </div>
+      )}
+
+      <div className="panel-card">
+        <h3><span className="eyebrow-dot"></span>All Assets</h3>
+        {sorted.length === 0 ? (
+          <div className="empty-state"><div className="icon">—</div>No assets recorded yet</div>
+        ) : (
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead><tr><th>Date</th><th>Asset</th><th className="num">Amount</th><th>Notes</th></tr></thead>
+              <tbody>
+                {sorted.map((a, i) => (
+                  <tr key={i}>
+                    <td className="num">{a.date}</td>
+                    <td>{a.label}</td>
+                    <td className="num">{fmtMoney2(a.amount)}</td>
+                    <td style={{ whiteSpace: "normal" }}>{a.notes}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 // ==================== CONTRACTS VIEW ====================
 function ContractsView({ data, store }) {
   const [showForm, setShowForm] = React.useState(false);
@@ -1628,6 +1718,7 @@ function App() {
   else if (view === "entry") body = <EntryView data={store.data} store={store} user={user} />;
   else if (view === "subscribers") body = <SubscribersView data={store.data} store={store} />;
   else if (view === "expenses" && user.role === "owner") body = <ExpensesView data={store.data} store={store} />;
+  else if (view === "assets" && user.role === "owner") body = <AssetsView data={store.data} store={store} />;
   else if (view === "contracts" && user.role === "owner") body = <ContractsView data={store.data} store={store} />;
   else if (view === "receipts" && user.role === "owner") body = <ReceiptsView data={store.data} store={store} />;
   else body = <EntryView data={store.data} store={store} user={user} />;

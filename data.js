@@ -1709,12 +1709,6 @@ window.APP_DATA = {
       "notes": "$4,000/year contract, accrued monthly (cycle starts April 1)"
     },
     {
-      "date": "2026-05-01",
-      "label": "Others",
-      "amount": 9460,
-      "notes": "PV solar system addition/maintenance"
-    },
-    {
       "date": "2024-01-01",
       "label": "Others",
       "amount": 0
@@ -37481,6 +37475,14 @@ window.APP_DATA = {
       "receiptNo": "",
       "paid": "Paid",
       "payMethod": "Cash"
+    }
+  ],
+  "assets": [
+    {
+      "date": "2026-05-01",
+      "label": "PV Solar System Addition/Maintenance",
+      "amount": 9460,
+      "notes": ""
     }
   ]
 };
