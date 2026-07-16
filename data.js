@@ -2277,6 +2277,186 @@ window.APP_DATA = {
       "date": "2026-06-01",
       "label": "Diesel $",
       "amount": 0
+    },
+    {
+      "date": "2024-01-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-01-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-02-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-02-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-03-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-03-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-04-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-04-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-05-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-05-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-06-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-06-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-07-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-07-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-08-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-08-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-09-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-09-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-10-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-10-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-11-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-11-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-12-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2024-12-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2026-01-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2026-01-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2026-02-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2026-02-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2026-03-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2026-03-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2026-04-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2026-04-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2026-05-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2026-05-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2026-06-01",
+      "label": "Generator Depreciation",
+      "amount": 750
+    },
+    {
+      "date": "2026-06-01",
+      "label": "Solar System Depreciation",
+      "amount": 750
     }
   ],
   "incomeAdjustments": [

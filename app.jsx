@@ -1113,7 +1113,8 @@ function SubscribersView({ data, store }) {
 }
 // ==================== EXPENSES VIEW ====================
 const EXPENSE_CATEGORIES = [
-  "Salary", "Generator Maintenance Contract", "Solar Maintenance Contract", "Diesel $", "Others",
+  "Salary", "Generator Maintenance Contract", "Solar Maintenance Contract", "Diesel $",
+  "Generator Depreciation", "Solar System Depreciation", "Others",
 ];
 
 function ExpensesView({ data, store }) {
