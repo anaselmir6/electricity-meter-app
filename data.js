@@ -37490,6 +37490,13 @@ window.APP_DATA = {
       "amount": 9380,
       "notes": "",
       "id": 1
+    },
+    {
+      "id": 2,
+      "date": "2026-06-01",
+      "label": "24 Batteries",
+      "amount": 24950,
+      "notes": ""
     }
   ]
 };
