@@ -2439,6 +2439,12 @@ window.APP_DATA = {
       "date": "2026-06-01",
       "label": "Salary – Fouad",
       "amount": 250
+    },
+    {
+      "date": "2026-05-01",
+      "label": "Others",
+      "amount": 80,
+      "notes": ""
     }
   ],
   "incomeAdjustments": [
@@ -37481,8 +37487,9 @@ window.APP_DATA = {
     {
       "date": "2026-05-01",
       "label": "PV Solar System Addition/Maintenance",
-      "amount": 9460,
-      "notes": ""
+      "amount": 9380,
+      "notes": "",
+      "id": 1
     }
   ]
 };

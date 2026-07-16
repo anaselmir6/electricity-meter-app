@@ -166,6 +166,16 @@ function useStore() {
       assets: [...prev.assets, asset]
     }));
   }, []);
+  const updateAsset = React.useCallback((id, patch) => {
+    // FIREBASE: updateDoc(doc(db, "assets", String(id)), patch)
+    setData(prev => ({
+      ...prev,
+      assets: prev.assets.map(a => a.id === id ? {
+        ...a,
+        ...patch
+      } : a)
+    }));
+  }, []);
   const addContract = React.useCallback(contract => {
     // FIREBASE: addDoc(collection(db, "contracts"), contract)
     setData(prev => ({
@@ -233,6 +243,7 @@ function useStore() {
     addOrUpdateReading,
     addExpense,
     addAsset,
+    updateAsset,
     addContract,
     addSubscriber,
     updateSubscriber,
@@ -1815,30 +1826,52 @@ function AssetsView({
   store
 }) {
   const [showForm, setShowForm] = React.useState(false);
-  const [form, setForm] = React.useState({
+  const [editingId, setEditingId] = React.useState(null);
+  const blankForm = {
     date: "",
     label: "",
     amount: "",
     notes: ""
-  });
+  };
+  const [form, setForm] = React.useState(blankForm);
   const total = sumBy(data.assets, a => a.amount);
   const sorted = React.useMemo(() => [...data.assets].sort((a, b) => a.date < b.date ? 1 : -1), [data.assets]);
+  function closeForm() {
+    setShowForm(false);
+    setEditingId(null);
+    setForm(blankForm);
+  }
+  function startEdit(a) {
+    setEditingId(a.id);
+    setForm({
+      date: a.date,
+      label: a.label,
+      amount: String(a.amount),
+      notes: a.notes || ""
+    });
+    setShowForm(true);
+  }
   function submitForm(e) {
     e.preventDefault();
     if (!form.date || !form.label || !form.amount || isNaN(form.amount)) return;
-    store.addAsset({
-      date: form.date,
-      label: form.label,
-      amount: Number(form.amount),
-      notes: form.notes
-    });
-    setForm({
-      date: "",
-      label: "",
-      amount: "",
-      notes: ""
-    });
-    setShowForm(false);
+    if (editingId != null) {
+      store.updateAsset(editingId, {
+        date: form.date,
+        label: form.label,
+        amount: Number(form.amount),
+        notes: form.notes
+      });
+    } else {
+      const nextId = Math.max(0, ...data.assets.map(a => a.id || 0)) + 1;
+      store.addAsset({
+        id: nextId,
+        date: form.date,
+        label: form.label,
+        amount: Number(form.amount),
+        notes: form.notes
+      });
+    }
+    closeForm();
   }
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "page-header"
@@ -1850,7 +1883,7 @@ function AssetsView({
     className: "page-desc"
   }, "One-time equipment purchases and additions — tracked separately from monthly operating expenses")), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-dark",
-    onClick: () => setShowForm(s => !s)
+    onClick: () => showForm ? closeForm() : setShowForm(true)
   }, showForm ? "Close" : "+ Add Asset")), /*#__PURE__*/React.createElement("div", {
     className: "kpi-grid",
     style: {
@@ -1871,7 +1904,7 @@ function AssetsView({
     }
   }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow-dot"
-  }), "New Asset"), /*#__PURE__*/React.createElement("form", {
+  }), editingId != null ? "Edit Asset" : "New Asset"), /*#__PURE__*/React.createElement("form", {
     onSubmit: submitForm
   }, /*#__PURE__*/React.createElement("div", {
     className: "form-grid"
@@ -1915,7 +1948,14 @@ function AssetsView({
   }))), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-dark",
     type: "submit"
-  }, "Save Asset"))), /*#__PURE__*/React.createElement("div", {
+  }, editingId != null ? "Save Changes" : "Save Asset"), editingId != null && /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "btn btn-sm",
+    style: {
+      marginInlineStart: 8
+    },
+    onClick: closeForm
+  }, "Cancel"))), /*#__PURE__*/React.createElement("div", {
     className: "panel-card"
   }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow-dot"
@@ -1929,8 +1969,8 @@ function AssetsView({
     className: "data-table"
   }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Date"), /*#__PURE__*/React.createElement("th", null, "Asset"), /*#__PURE__*/React.createElement("th", {
     className: "num"
-  }, "Amount"), /*#__PURE__*/React.createElement("th", null, "Notes"))), /*#__PURE__*/React.createElement("tbody", null, sorted.map((a, i) => /*#__PURE__*/React.createElement("tr", {
-    key: i
+  }, "Amount"), /*#__PURE__*/React.createElement("th", null, "Notes"), /*#__PURE__*/React.createElement("th", null, "Edit"))), /*#__PURE__*/React.createElement("tbody", null, sorted.map((a, i) => /*#__PURE__*/React.createElement("tr", {
+    key: a.id != null ? a.id : i
   }, /*#__PURE__*/React.createElement("td", {
     className: "num"
   }, a.date), /*#__PURE__*/React.createElement("td", null, a.label), /*#__PURE__*/React.createElement("td", {
@@ -1939,7 +1979,10 @@ function AssetsView({
     style: {
       whiteSpace: "normal"
     }
-  }, a.notes))))))));
+  }, a.notes), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-sm",
+    onClick: () => startEdit(a)
+  }, "Edit")))))))));
 }
 // ==================== CONTRACTS VIEW ====================
 function ContractsView({

@@ -130,6 +130,14 @@ function useStore() {
     setData(prev => ({ ...prev, assets: [...prev.assets, asset] }));
   }, []);
 
+  const updateAsset = React.useCallback((id, patch) => {
+    // FIREBASE: updateDoc(doc(db, "assets", String(id)), patch)
+    setData(prev => ({
+      ...prev,
+      assets: prev.assets.map(a => a.id === id ? { ...a, ...patch } : a),
+    }));
+  }, []);
+
   const addContract = React.useCallback((contract) => {
     // FIREBASE: addDoc(collection(db, "contracts"), contract)
     setData(prev => ({ ...prev, contracts: [...prev.contracts, contract] }));
@@ -175,6 +183,7 @@ function useStore() {
     addOrUpdateReading,
     addExpense,
     addAsset,
+    updateAsset,
     addContract,
     addSubscriber,
     updateSubscriber,
@@ -1313,22 +1322,46 @@ function ExpensesView({ data, store }) {
 // ==================== ASSETS VIEW ====================
 function AssetsView({ data, store }) {
   const [showForm, setShowForm] = React.useState(false);
-  const [form, setForm] = React.useState({ date: "", label: "", amount: "", notes: "" });
+  const [editingId, setEditingId] = React.useState(null);
+  const blankForm = { date: "", label: "", amount: "", notes: "" };
+  const [form, setForm] = React.useState(blankForm);
 
   const total = sumBy(data.assets, a => a.amount);
   const sorted = React.useMemo(() => [...data.assets].sort((a, b) => (a.date < b.date ? 1 : -1)), [data.assets]);
 
+  function closeForm() {
+    setShowForm(false);
+    setEditingId(null);
+    setForm(blankForm);
+  }
+
+  function startEdit(a) {
+    setEditingId(a.id);
+    setForm({ date: a.date, label: a.label, amount: String(a.amount), notes: a.notes || "" });
+    setShowForm(true);
+  }
+
   function submitForm(e) {
     e.preventDefault();
     if (!form.date || !form.label || !form.amount || isNaN(form.amount)) return;
-    store.addAsset({
-      date: form.date,
-      label: form.label,
-      amount: Number(form.amount),
-      notes: form.notes,
-    });
-    setForm({ date: "", label: "", amount: "", notes: "" });
-    setShowForm(false);
+    if (editingId != null) {
+      store.updateAsset(editingId, {
+        date: form.date,
+        label: form.label,
+        amount: Number(form.amount),
+        notes: form.notes,
+      });
+    } else {
+      const nextId = Math.max(0, ...data.assets.map(a => a.id || 0)) + 1;
+      store.addAsset({
+        id: nextId,
+        date: form.date,
+        label: form.label,
+        amount: Number(form.amount),
+        notes: form.notes,
+      });
+    }
+    closeForm();
   }
 
   return (
@@ -1339,7 +1372,7 @@ function AssetsView({ data, store }) {
           <div className="page-title">Assets</div>
           <div className="page-desc">One-time equipment purchases and additions — tracked separately from monthly operating expenses</div>
         </div>
-        <button className="btn btn-dark" onClick={() => setShowForm(s => !s)}>
+        <button className="btn btn-dark" onClick={() => (showForm ? closeForm() : setShowForm(true))}>
           {showForm ? "Close" : "+ Add Asset"}
         </button>
       </div>
@@ -1354,7 +1387,7 @@ function AssetsView({ data, store }) {
 
       {showForm && (
         <div className="panel-card" style={{ marginBottom: 20 }}>
-          <h3><span className="eyebrow-dot"></span>New Asset</h3>
+          <h3><span className="eyebrow-dot"></span>{editingId != null ? "Edit Asset" : "New Asset"}</h3>
           <form onSubmit={submitForm}>
             <div className="form-grid">
               <div className="form-field"><label>Date</label><input type="date" value={form.date} onChange={e => setForm(f => ({ ...f, date: e.target.value }))} required /></div>
@@ -1362,7 +1395,8 @@ function AssetsView({ data, store }) {
               <div className="form-field"><label>Amount ($)</label><input type="number" value={form.amount} onChange={e => setForm(f => ({ ...f, amount: e.target.value }))} required /></div>
               <div className="form-field"><label>Notes</label><input value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))} /></div>
             </div>
-            <button className="btn btn-dark" type="submit">Save Asset</button>
+            <button className="btn btn-dark" type="submit">{editingId != null ? "Save Changes" : "Save Asset"}</button>
+            {editingId != null && <button type="button" className="btn btn-sm" style={{ marginInlineStart: 8 }} onClick={closeForm}>Cancel</button>}
           </form>
         </div>
       )}
@@ -1374,14 +1408,15 @@ function AssetsView({ data, store }) {
         ) : (
           <div className="table-wrap">
             <table className="data-table">
-              <thead><tr><th>Date</th><th>Asset</th><th className="num">Amount</th><th>Notes</th></tr></thead>
+              <thead><tr><th>Date</th><th>Asset</th><th className="num">Amount</th><th>Notes</th><th>Edit</th></tr></thead>
               <tbody>
                 {sorted.map((a, i) => (
-                  <tr key={i}>
+                  <tr key={a.id != null ? a.id : i}>
                     <td className="num">{a.date}</td>
                     <td>{a.label}</td>
                     <td className="num">{fmtMoney2(a.amount)}</td>
                     <td style={{ whiteSpace: "normal" }}>{a.notes}</td>
+                    <td><button className="btn btn-sm" onClick={() => startEdit(a)}>Edit</button></td>
                   </tr>
                 ))}
               </tbody>
