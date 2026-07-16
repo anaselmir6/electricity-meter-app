@@ -1223,11 +1223,6 @@ window.APP_DATA = {
   "expenses": [
     {
       "date": "2026-05-01",
-      "label": "Salary",
-      "amount": 1200
-    },
-    {
-      "date": "2026-05-01",
       "label": "Generator Maintenance Contract",
       "amount": 62.5
     },
@@ -1418,18 +1413,8 @@ window.APP_DATA = {
     },
     {
       "date": "2026-01-01",
-      "label": "Salary",
-      "amount": 1100
-    },
-    {
-      "date": "2026-01-01",
       "label": "Generator Maintenance Contract",
       "amount": 62.5
-    },
-    {
-      "date": "2026-02-01",
-      "label": "Salary",
-      "amount": 1100
     },
     {
       "date": "2026-02-01",
@@ -1438,28 +1423,13 @@ window.APP_DATA = {
     },
     {
       "date": "2026-03-01",
-      "label": "Salary",
-      "amount": 1100
-    },
-    {
-      "date": "2026-03-01",
       "label": "Generator Maintenance Contract",
       "amount": 62.5
     },
     {
       "date": "2026-04-01",
-      "label": "Salary",
-      "amount": 1100
-    },
-    {
-      "date": "2026-04-01",
       "label": "Generator Maintenance Contract",
       "amount": 62.5
-    },
-    {
-      "date": "2026-06-01",
-      "label": "Salary",
-      "amount": 1200
     },
     {
       "date": "2026-06-01",
@@ -2457,6 +2427,96 @@ window.APP_DATA = {
       "date": "2026-06-01",
       "label": "Solar System Depreciation",
       "amount": 750
+    },
+    {
+      "date": "2026-01-01",
+      "label": "Salary – Wissam",
+      "amount": 250
+    },
+    {
+      "date": "2026-01-01",
+      "label": "Salary – Anas",
+      "amount": 700
+    },
+    {
+      "date": "2026-01-01",
+      "label": "Salary – Fouad",
+      "amount": 250
+    },
+    {
+      "date": "2026-02-01",
+      "label": "Salary – Wissam",
+      "amount": 250
+    },
+    {
+      "date": "2026-02-01",
+      "label": "Salary – Anas",
+      "amount": 700
+    },
+    {
+      "date": "2026-02-01",
+      "label": "Salary – Fouad",
+      "amount": 250
+    },
+    {
+      "date": "2026-03-01",
+      "label": "Salary – Wissam",
+      "amount": 250
+    },
+    {
+      "date": "2026-03-01",
+      "label": "Salary – Anas",
+      "amount": 700
+    },
+    {
+      "date": "2026-03-01",
+      "label": "Salary – Fouad",
+      "amount": 250
+    },
+    {
+      "date": "2026-04-01",
+      "label": "Salary – Wissam",
+      "amount": 250
+    },
+    {
+      "date": "2026-04-01",
+      "label": "Salary – Anas",
+      "amount": 700
+    },
+    {
+      "date": "2026-04-01",
+      "label": "Salary – Fouad",
+      "amount": 250
+    },
+    {
+      "date": "2026-05-01",
+      "label": "Salary – Wissam",
+      "amount": 250
+    },
+    {
+      "date": "2026-05-01",
+      "label": "Salary – Anas",
+      "amount": 700
+    },
+    {
+      "date": "2026-05-01",
+      "label": "Salary – Fouad",
+      "amount": 250
+    },
+    {
+      "date": "2026-06-01",
+      "label": "Salary – Wissam",
+      "amount": 250
+    },
+    {
+      "date": "2026-06-01",
+      "label": "Salary – Anas",
+      "amount": 700
+    },
+    {
+      "date": "2026-06-01",
+      "label": "Salary – Fouad",
+      "amount": 250
     }
   ],
   "incomeAdjustments": [],
