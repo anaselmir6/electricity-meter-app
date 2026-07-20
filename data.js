@@ -3906,20 +3906,6 @@ window.APP_DATA = {
     },
     {
       "date": "2026-05-01",
-      "subId": 81,
-      "prev": 684,
-      "curr": 739,
-      "consumption": 55,
-      "price": 0.7,
-      "fixedFee": 7.5,
-      "total": 7.5,
-      "totalRounded": 8,
-      "receiptNo": "0946203",
-      "paid": "Unpaid",
-      "payMethod": "Cash"
-    },
-    {
-      "date": "2026-05-01",
       "subId": 82,
       "prev": 577,
       "curr": 599,
