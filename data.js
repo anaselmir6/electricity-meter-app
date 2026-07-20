@@ -37464,20 +37464,6 @@ window.APP_DATA = {
     },
     {
       "date": "2025-01-01",
-      "subId": 35,
-      "prev": 10152,
-      "curr": 10687,
-      "consumption": 535,
-      "price": 0.5,
-      "fixedFee": 29,
-      "total": 296.5,
-      "totalRounded": 297,
-      "receiptNo": "40038-3945686",
-      "paid": "Paid",
-      "payMethod": "Cash"
-    },
-    {
-      "date": "2025-01-01",
       "subId": 87,
       "prev": 9959,
       "curr": 11234,
@@ -37489,6 +37475,21 @@ window.APP_DATA = {
       "receiptNo": "1601245686",
       "paid": "Unpaid",
       "payMethod": "Cash"
+    },
+    {
+      "date": "2025-01-01",
+      "subId": 88,
+      "prev": 3792,
+      "curr": 3792,
+      "consumption": 0,
+      "price": 0.5,
+      "fixedFee": 14.5,
+      "total": 0,
+      "totalRounded": 0,
+      "receiptNo": "004145686",
+      "paid": "Paid",
+      "payMethod": "Cash",
+      "notes": "Cancelled (ملغى)"
     }
   ],
   "assets": [
