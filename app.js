@@ -893,9 +893,9 @@ function DashboardView({
     className: "kpi-icon"
   }, /*#__PURE__*/React.createElement(KpiArrowIcon, null)), /*#__PURE__*/React.createElement("div", {
     className: "kpi-label"
-  }, "Consumption ", periodLabel), /*#__PURE__*/React.createElement("div", {
+  }, "Consumption ", periodLabel, " (kWh)"), /*#__PURE__*/React.createElement("div", {
     className: "kpi-value"
-  }, Math.round(kwhTotal).toLocaleString("en-US"), " kWh"), /*#__PURE__*/React.createElement("div", {
+  }, Math.round(kwhTotal).toLocaleString("en-US")), /*#__PURE__*/React.createElement("div", {
     className: "kpi-bar"
   })), /*#__PURE__*/React.createElement("div", {
     className: "kpi-card accent-rust"

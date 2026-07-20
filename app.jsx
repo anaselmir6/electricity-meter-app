@@ -615,8 +615,8 @@ function DashboardView({ data }) {
         </div>
         <div className="kpi-card accent-teal">
           <div className="kpi-icon"><KpiArrowIcon /></div>
-          <div className="kpi-label">Consumption {periodLabel}</div>
-          <div className="kpi-value">{Math.round(kwhTotal).toLocaleString("en-US")} kWh</div>
+          <div className="kpi-label">Consumption {periodLabel} (kWh)</div>
+          <div className="kpi-value">{Math.round(kwhTotal).toLocaleString("en-US")}</div>
           <div className="kpi-bar"></div>
         </div>
         <div className="kpi-card accent-rust">
