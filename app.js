@@ -1106,6 +1106,7 @@ function EntryView({
     });
   }, [subs, data, dateStr, drafts, feeDrafts, year, month]);
   const enteredCount = rows.filter(r => r.existing).length;
+  const enteredTotal = sumBy(rows.filter(r => r.existing), r => r.existing.totalRounded);
   const displayRows = React.useMemo(() => {
     const q = search.trim().toLowerCase();
     return rows.filter(row => {
@@ -1230,7 +1231,7 @@ function EntryView({
     }
   }, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow-dot"
-  }), monthLabel(year, month), " — ", enteredCount, "/", rows.length, " entered"), /*#__PURE__*/React.createElement("input", {
+  }), monthLabel(year, month), " — ", enteredCount, "/", rows.length, " entered — Total ", fmtMoney(enteredTotal)), /*#__PURE__*/React.createElement("input", {
     className: "search-input",
     placeholder: "Search by name, panel or meter...",
     value: search,
@@ -2251,6 +2252,7 @@ function ReceiptsView({
   }, [monthReadings, data]);
   const paidCount = allRows.filter(r => r.reading.paid === "Paid").length;
   const unpaidCount = allRows.length - paidCount;
+  const allTotal = sumBy(allRows, r => r.reading.totalRounded);
   const rows = React.useMemo(() => {
     return allRows.filter(r => {
       if (payFilter === "paid") return r.reading.paid === "Paid";
@@ -2353,7 +2355,7 @@ function ReceiptsView({
     }
   }, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow-dot"
-  }), monthLabel(year, month), " — ", rows.length, " receipts available"), /*#__PURE__*/React.createElement("button", {
+  }), monthLabel(year, month), " — ", rows.length, " receipts available — Total ", fmtMoney(allTotal)), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-dark",
     onClick: downloadAll,
     disabled: busy || !rows.length

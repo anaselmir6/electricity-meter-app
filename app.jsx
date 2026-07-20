@@ -772,6 +772,7 @@ function EntryView({ data, store, user }) {
   }, [subs, data, dateStr, drafts, feeDrafts, year, month]);
 
   const enteredCount = rows.filter(r => r.existing).length;
+  const enteredTotal = sumBy(rows.filter(r => r.existing), r => r.existing.totalRounded);
 
   const displayRows = React.useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -867,7 +868,7 @@ function EntryView({ data, store, user }) {
       <div className="panel-card">
         <h3 style={{ justifyContent: "space-between", flexWrap: "wrap", gap: 10 }}>
           <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span className="eyebrow-dot"></span>{monthLabel(year, month)} — {enteredCount}/{rows.length} entered
+            <span className="eyebrow-dot"></span>{monthLabel(year, month)} — {enteredCount}/{rows.length} entered — Total {fmtMoney(enteredTotal)}
           </span>
           <input
             className="search-input"
@@ -1588,6 +1589,7 @@ function ReceiptsView({ data, store }) {
   }, [monthReadings, data]);
   const paidCount = allRows.filter(r => r.reading.paid === "Paid").length;
   const unpaidCount = allRows.length - paidCount;
+  const allTotal = sumBy(allRows, r => r.reading.totalRounded);
   const rows = React.useMemo(() => {
     return allRows.filter(r => {
       if (payFilter === "paid") return r.reading.paid === "Paid";
@@ -1659,7 +1661,7 @@ function ReceiptsView({ data, store }) {
 
       <div className="panel-card" style={{ marginBottom: 20 }}>
         <h3 style={{ justifyContent: "space-between" }}>
-          <span style={{ display: "flex", alignItems: "center", gap: 8 }}><span className="eyebrow-dot"></span>{monthLabel(year, month)} — {rows.length} receipts available</span>
+          <span style={{ display: "flex", alignItems: "center", gap: 8 }}><span className="eyebrow-dot"></span>{monthLabel(year, month)} — {rows.length} receipts available — Total {fmtMoney(allTotal)}</span>
           <button className="btn btn-dark" onClick={downloadAll} disabled={busy || !rows.length}>Download All Receipts (Single PDF)</button>
         </h3>
         <div className="chip-row" style={{ marginBottom: 14 }}>
