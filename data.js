@@ -3753,7 +3753,7 @@ window.APP_DATA = {
       "total": 4,
       "totalRounded": 4,
       "receiptNo": "10053546203",
-      "paid": "Paid",
+      "paid": "Unpaid",
       "payMethod": "Cash"
     },
     {
@@ -20915,7 +20915,7 @@ window.APP_DATA = {
       "price": 0.7,
       "fixedFee": 7.5,
       "total": 29.2,
-      "totalRounded": 29,
+      "totalRounded": 30,
       "receiptNo": "10508646142.0416666667",
       "paid": "Unpaid",
       "payMethod": "Cash"
@@ -22091,7 +22091,7 @@ window.APP_DATA = {
       "price": 0.7,
       "fixedFee": 7.5,
       "total": 83.1,
-      "totalRounded": 83,
+      "totalRounded": 84,
       "receiptNo": "508646203",
       "paid": "Unpaid",
       "payMethod": "Cash"
