@@ -2230,360 +2230,91 @@ function ReceiptTemplate({
 }
 
 // ==================== RECEIPT WORD DOCUMENT BUILDER ====================
-const RC_GREEN = "146C3E";
-const RC_LINE = "10251C";
-function rcBox(label, value) {
-  const {
-    TableCell,
-    Paragraph,
-    TextRun,
-    BorderStyle,
-    WidthType,
-    AlignmentType,
-    VerticalAlign
-  } = window.docx;
-  return new TableCell({
-    verticalAlign: VerticalAlign.CENTER,
-    width: {
-      size: 33,
-      type: WidthType.PERCENTAGE
-    },
-    borders: {
-      top: {
-        style: BorderStyle.SINGLE,
-        size: 4,
-        color: RC_LINE
-      },
-      bottom: {
-        style: BorderStyle.SINGLE,
-        size: 4,
-        color: RC_LINE
-      },
-      left: {
-        style: BorderStyle.SINGLE,
-        size: 4,
-        color: RC_LINE
-      },
-      right: {
-        style: BorderStyle.SINGLE,
-        size: 4,
-        color: RC_LINE
+// Fills the owner's real Word receipt template (window.RECEIPT_TEMPLATE_B64) with live
+// subscriber/reading data, leaving 100% of the original document's formatting untouched -
+// only the cached MERGEFIELD result text is replaced, run by run.
+function base64ToUint8Array(b64) {
+  const binary = atob(b64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return bytes;
+}
+async function loadReceiptTemplateZip() {
+  return await JSZip.loadAsync(base64ToUint8Array(window.RECEIPT_TEMPLATE_B64));
+}
+function fillMergeFieldsInXml(xmlText, values) {
+  const doc = new DOMParser().parseFromString(xmlText, "application/xml");
+  const instrNodes = Array.from(doc.getElementsByTagName("w:instrText"));
+  for (let i = 0; i < instrNodes.length; i++) {
+    if ((instrNodes[i].textContent || "").trim() !== "MERGEFIELD") continue;
+    const nameNode = instrNodes[i + 1];
+    if (!nameNode) continue;
+    const fieldName = (nameNode.textContent || "").trim();
+    if (!(fieldName in values)) continue; // skips AutoMergeField and anything we don't set
+
+    const nameRun = nameNode.parentNode; // enclosing <w:r>
+    let sibling = nameRun.nextElementSibling;
+    let inResult = false;
+    const resultRuns = [];
+    while (sibling) {
+      const fldChar = sibling.getElementsByTagName("w:fldChar")[0];
+      if (fldChar) {
+        const type = fldChar.getAttribute("w:fldCharType");
+        if (type === "separate") {
+          inResult = true;
+          sibling = sibling.nextElementSibling;
+          continue;
+        }
+        if (type === "end") break;
       }
-    },
-    margins: {
-      top: 100,
-      bottom: 100,
-      left: 120,
-      right: 120
-    },
-    children: [new Paragraph({
-      alignment: AlignmentType.CENTER,
-      bidirectional: true,
-      children: [new TextRun({
-        text: String(value),
-        bold: true,
-        size: 26,
-        font: "Consolas"
-      })]
-    }), new Paragraph({
-      alignment: AlignmentType.CENTER,
-      bidirectional: true,
-      children: [new TextRun({
-        text: label,
-        size: 16,
-        color: "4B5563",
-        rightToLeft: true,
-        font: "Arial"
-      })]
-    })]
-  });
+      if (inResult) resultRuns.push(sibling);
+      sibling = sibling.nextElementSibling;
+    }
+    let assigned = false;
+    resultRuns.forEach(r => {
+      Array.from(r.getElementsByTagName("w:t")).forEach(t => {
+        if (!assigned) {
+          t.textContent = String(values[fieldName]);
+          assigned = true;
+        } else {
+          t.textContent = "";
+        }
+      });
+    });
+  }
+  return new XMLSerializer().serializeToString(doc);
 }
-function rcLabelCell(children, opts) {
-  const {
-    TableCell,
-    WidthType,
-    VerticalAlign
-  } = window.docx;
-  return new TableCell({
-    verticalAlign: VerticalAlign.CENTER,
-    width: {
-      size: opts && opts.width || 67,
-      type: WidthType.PERCENTAGE
-    },
-    borders: {
-      top: {
-        style: "none"
-      },
-      bottom: {
-        style: "none"
-      },
-      left: {
-        style: "none"
-      },
-      right: {
-        style: "none"
-      }
-    },
-    margins: {
-      top: 100,
-      bottom: 100,
-      left: 120,
-      right: 120
-    },
-    columnSpan: opts && opts.span || 1,
-    children
-  });
-}
-function rcLine(label, value) {
-  const {
-    Paragraph,
-    TextRun,
-    AlignmentType
-  } = window.docx;
-  return new Paragraph({
-    alignment: AlignmentType.RIGHT,
-    bidirectional: true,
-    children: [new TextRun({
-      text: label + " ",
-      size: 20,
-      rightToLeft: true,
-      font: "Arial"
-    }), new TextRun({
-      text: String(value),
-      bold: true,
-      size: 20,
-      rightToLeft: true,
-      font: "Arial"
-    })]
-  });
-}
-function buildReceiptSection(sub, reading, receiptNo, isFirst) {
-  const {
-    Table,
-    TableRow,
-    Paragraph,
-    TextRun,
-    BorderStyle,
-    WidthType,
-    AlignmentType,
-    VerticalAlign
-  } = window.docx;
+async function fillReceiptDocxBlob(sub, reading, receiptNo) {
+  const zip = await loadReceiptTemplateZip();
+  const xmlText = await zip.file("word/document.xml").async("string");
   const y = Number(reading.date.slice(0, 4));
   const m = Number(reading.date.slice(5, 7));
   const today = new Date();
-  const printedDate = `${today.getFullYear()}/${today.getDate()}/${today.getMonth() + 1}`;
-  const payMethodArabic = reading.payMethod === "Cash" || !reading.payMethod ? "نقداً" : reading.payMethod;
-  const noBorder = {
-    top: {
-      style: "none"
-    },
-    bottom: {
-      style: "none"
-    },
-    left: {
-      style: "none"
-    },
-    right: {
-      style: "none"
-    }
+  const printedDate = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
+  const values = {
+    "رقم_الإيصال": receiptNo,
+    "بلا_أعشار_مجموع": String(reading.totalRounded),
+    "اسم_المستأجر": sub.name,
+    "رقم_الساعة": String(sub.panel),
+    "المبلغ_كتابة": amountInWords(reading.totalRounded),
+    "عن": "تسديد إشتراك الكهرباء عن شهر " + monthLabelArabic(y, m),
+    "الاشتراك_الثابت": String(reading.fixedFee),
+    "العداد_السابق": String(reading.prev),
+    "العداد_الحالي": String(reading.curr),
+    "المسحوب": String(reading.consumption),
+    "تاريخ_الإيصال": printedDate
   };
-  const titleRow = new TableRow({
-    children: [rcLabelCell([new Paragraph({
-      alignment: AlignmentType.RIGHT,
-      bidirectional: true,
-      children: [new TextRun({
-        text: "إيصال قبض ",
-        bold: true,
-        size: 32,
-        rightToLeft: true,
-        font: "Arial",
-        color: RC_GREEN
-      }), new TextRun({
-        text: receiptNo,
-        bold: true,
-        size: 24,
-        font: "Consolas"
-      })]
-    })], {
-      width: 67
-    }), function () {
-      const {
-        TableCell
-      } = window.docx;
-      return new TableCell({
-        verticalAlign: VerticalAlign.CENTER,
-        width: {
-          size: 33,
-          type: WidthType.PERCENTAGE
-        },
-        borders: {
-          top: {
-            style: BorderStyle.SINGLE,
-            size: 6,
-            color: RC_GREEN
-          },
-          bottom: {
-            style: BorderStyle.SINGLE,
-            size: 6,
-            color: RC_GREEN
-          },
-          left: {
-            style: BorderStyle.SINGLE,
-            size: 6,
-            color: RC_GREEN
-          },
-          right: {
-            style: BorderStyle.SINGLE,
-            size: 6,
-            color: RC_GREEN
-          }
-        },
-        shading: {
-          fill: "E9EEEB"
-        },
-        margins: {
-          top: 100,
-          bottom: 100,
-          left: 120,
-          right: 120
-        },
-        children: [new Paragraph({
-          alignment: AlignmentType.CENTER,
-          bidirectional: true,
-          children: [new TextRun({
-            text: "المبلغ",
-            size: 16,
-            color: "4B5563",
-            rightToLeft: true,
-            font: "Arial"
-          })]
-        }), new Paragraph({
-          alignment: AlignmentType.CENTER,
-          bidirectional: true,
-          children: [new TextRun({
-            text: "USD ",
-            size: 20,
-            font: "Arial",
-            color: RC_GREEN
-          }), new TextRun({
-            text: String(reading.totalRounded),
-            bold: true,
-            size: 32,
-            font: "Consolas",
-            color: RC_GREEN
-          })]
-        })]
-      });
-    }()]
+  zip.file("word/document.xml", fillMergeFieldsInXml(xmlText, values));
+  return await zip.generateAsync({
+    type: "blob",
+    mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    compression: "DEFLATE",
+    compressionOptions: {
+      level: 6
+    }
   });
-  const fromRow = new TableRow({
-    children: [rcLabelCell([rcLine("وصلنا من السيد:", sub.name)], {
-      width: 67
-    }), rcBox("رقم الساعة", sub.panel)]
-  });
-  const tariffRow = new TableRow({
-    children: [rcLabelCell([new Paragraph({
-      children: [new TextRun({
-        text: ""
-      })]
-    })], {
-      width: 67
-    }), rcBox("تعرفة الوحدة", reading.price)]
-  });
-  const wordsRow = new TableRow({
-    children: [rcLabelCell([rcLine("مبلغاً وقدره:", amountInWords(reading.totalRounded))], {
-      width: 100,
-      span: 2
-    })]
-  });
-  const forRow = new TableRow({
-    children: [rcLabelCell([rcLine("وذلك عن:", "تسديد إشتراك الكهرباء عن شهر " + monthLabelArabic(y, m))], {
-      width: 67
-    }), rcBox("مبلغ مقطوع", reading.fixedFee)]
-  });
-  const payRow = new TableRow({
-    children: [rcLabelCell([rcLine("طريقة الدفع:", payMethodArabic)], {
-      width: 100,
-      span: 2
-    })]
-  });
-  const metersRow = new TableRow({
-    children: [rcBox("العداد السابق", reading.prev), rcBox("العداد الحالي", reading.curr), rcBox("إجمالي المسحوب", reading.consumption)]
-  });
-  const footerRow = new TableRow({
-    children: [rcLabelCell([rcLine("المستلم:", "LASeR")], {
-      width: 50
-    }), rcLabelCell([rcLine("التاريخ:", printedDate)], {
-      width: 50
-    })]
-  });
-  const table = new Table({
-    width: {
-      size: 100,
-      type: WidthType.PERCENTAGE
-    },
-    borders: {
-      top: noBorder.top,
-      bottom: noBorder.bottom,
-      left: noBorder.left,
-      right: noBorder.right,
-      insideHorizontal: noBorder.top,
-      insideVertical: noBorder.top
-    },
-    rows: [titleRow, fromRow, tariffRow, wordsRow, forRow, payRow]
-  });
-  const metersTable = new Table({
-    width: {
-      size: 100,
-      type: WidthType.PERCENTAGE
-    },
-    rows: [metersRow]
-  });
-  const footerTable = new Table({
-    width: {
-      size: 100,
-      type: WidthType.PERCENTAGE
-    },
-    borders: {
-      top: noBorder.top,
-      bottom: noBorder.bottom,
-      left: noBorder.left,
-      right: noBorder.right,
-      insideHorizontal: noBorder.top,
-      insideVertical: noBorder.top
-    },
-    rows: [footerRow]
-  });
-  const spacer = new Paragraph({
-    children: [new TextRun({
-      text: ""
-    })],
-    pageBreakBefore: !isFirst
-  });
-  const spacer2 = new Paragraph({
-    children: [new TextRun({
-      text: ""
-    })]
-  });
-  const spacer3 = new Paragraph({
-    children: [new TextRun({
-      text: ""
-    })]
-  });
-  return [spacer, table, spacer2, metersTable, spacer3, footerTable];
 }
-async function saveReceiptDoc(sections, filename) {
-  const {
-    Document,
-    Packer
-  } = window.docx;
-  const doc = new Document({
-    sections: [{
-      properties: {},
-      children: sections
-    }]
-  });
-  const blob = await Packer.toBlob(doc);
+function downloadBlob(blob, filename) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -2632,22 +2363,30 @@ function ReceiptsView({
     setBusy(true);
     setProgress("Generating receipt for " + row.sub.name + " ...");
     const receiptNo = row.reading.receiptNo || row.sub.meter + "-" + row.reading.date.replace(/-/g, "");
-    const sections = buildReceiptSection(row.sub, row.reading, receiptNo, true);
-    await saveReceiptDoc(sections, "Receipt_" + row.sub.name + "_" + row.reading.date + ".docx");
+    const blob = await fillReceiptDocxBlob(row.sub, row.reading, receiptNo);
+    downloadBlob(blob, "Receipt_" + row.sub.name + "_" + row.reading.date + ".docx");
     setBusy(false);
     setProgress("");
   }
   async function downloadAll() {
     if (!rows.length) return;
     setBusy(true);
-    let sections = [];
+    const zip = new JSZip();
     for (let i = 0; i < rows.length; i++) {
       const row = rows[i];
       setProgress(`Generating receipt ${i + 1} of ${rows.length} — ${row.sub.name}`);
       const receiptNo = row.reading.receiptNo || row.sub.meter + "-" + row.reading.date.replace(/-/g, "");
-      sections = sections.concat(buildReceiptSection(row.sub, row.reading, receiptNo, i === 0));
+      const blob = await fillReceiptDocxBlob(row.sub, row.reading, receiptNo);
+      zip.file("Receipt_" + row.sub.name + "_" + row.reading.date + ".docx", blob);
     }
-    await saveReceiptDoc(sections, `Receipts_${monthLabel(year, month)}.docx`);
+    const zipBlob = await zip.generateAsync({
+      type: "blob",
+      compression: "DEFLATE",
+      compressionOptions: {
+        level: 6
+      }
+    });
+    downloadBlob(zipBlob, `Receipts_${monthLabel(year, month)}.zip`);
     setBusy(false);
     setProgress("");
   }
@@ -2685,7 +2424,7 @@ function ReceiptsView({
     className: "btn btn-dark",
     onClick: downloadAll,
     disabled: busy || !rows.length
-  }, "Download All Receipts (Single Word Doc)")), /*#__PURE__*/React.createElement("div", {
+  }, "Download All Receipts (ZIP of Word Docs)")), /*#__PURE__*/React.createElement("div", {
     className: "chip-row",
     style: {
       marginBottom: 14
