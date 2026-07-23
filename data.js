@@ -2519,6 +2519,42 @@ window.APP_DATA = {
       "month": 12,
       "paid": 455.5,
       "unpaid": 1
+    },
+    {
+      "year": 2026,
+      "month": 1,
+      "paid": 87,
+      "unpaid": 0
+    },
+    {
+      "year": 2026,
+      "month": 2,
+      "paid": 61,
+      "unpaid": 0
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "paid": 21,
+      "unpaid": 0
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "paid": -29,
+      "unpaid": 0
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "paid": -81,
+      "unpaid": 0
+    },
+    {
+      "year": 2026,
+      "month": 6,
+      "paid": -58,
+      "unpaid": 0
     }
   ],
   "generatorLogs": [
