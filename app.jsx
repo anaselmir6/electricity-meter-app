@@ -34,6 +34,13 @@ function amountInWords(n) {
   return "Only " + numToWords(n) + " USD";
 }
 
+function exportToExcel(rowsOut, filename, sheetName) {
+  const ws = XLSX.utils.json_to_sheet(rowsOut);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, sheetName || "Sheet1");
+  XLSX.writeFile(wb, filename);
+}
+
 // tariff / calculation helpers, given the shared app data object
 function getPrice(data, year, month) {
   const row = data.prices.find(p => p.year === year && p.month === month);
@@ -847,6 +854,22 @@ function EntryView({ data, store, user }) {
     setTimeout(() => setToast(""), 2500);
   }
 
+  function exportEntries() {
+    const rowsOut = displayRows.map(row => ({
+      "#": row.sub.id,
+      "Name": row.sub.name,
+      "Panel No.": row.sub.panel,
+      "Meter No.": row.sub.meter,
+      "Previous Reading": row.prev,
+      "Current Reading": row.curr === "" ? "" : Number(row.curr),
+      "Consumption": row.consumption !== null ? row.consumption : "",
+      "Amp": row.sub.A,
+      "Fixed Fee": row.fixedFee,
+      "Total": row.total !== null ? Math.ceil(row.total) : "",
+    }));
+    exportToExcel(rowsOut, `Readings_${monthLabel(year, month)}.xlsx`, "Readings");
+  }
+
   return (
     <div>
       <div className="page-header">
@@ -955,7 +978,8 @@ function EntryView({ data, store, user }) {
             </tbody>
           </table>
         </div>
-        <div style={{ marginTop: 16, display: "flex", justifyContent: "flex-end" }}>
+        <div style={{ marginTop: 16, display: "flex", justifyContent: "flex-end", gap: 10 }}>
+          <button className="btn btn-sm" onClick={exportEntries}>Export to Excel</button>
           <button className="btn btn-dark" onClick={saveAll}>Save All New Readings</button>
         </div>
       </div>
@@ -1717,6 +1741,20 @@ function ReceiptsView({ data, store }) {
     setProgress("");
   }
 
+  function exportReceipts() {
+    const rowsOut = rows.map(row => ({
+      "Name": row.sub.name,
+      "Panel No.": row.sub.panel,
+      "Meter No.": row.sub.meter,
+      "Consumption (kWh)": row.reading.consumption,
+      "Fixed Fee": row.reading.fixedFee,
+      "Total": row.reading.total,
+      "Status": row.reading.paid,
+      "Receipt No.": row.reading.receiptNo || (row.sub.meter + "-" + row.reading.date.replace(/-/g, "")),
+    }));
+    exportToExcel(rowsOut, `Receipts_${monthLabel(year, month)}.xlsx`, "Receipts");
+  }
+
   return (
     <div>
       <div className="page-header">
@@ -1775,6 +1813,11 @@ function ReceiptsView({ data, store }) {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+        {rows.length > 0 && (
+          <div style={{ marginTop: 16, display: "flex", justifyContent: "flex-end" }}>
+            <button className="btn btn-sm" onClick={exportReceipts}>Export to Excel</button>
           </div>
         )}
       </div>

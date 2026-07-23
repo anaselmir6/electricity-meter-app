@@ -44,6 +44,12 @@ function numToWords(n) {
 function amountInWords(n) {
   return "Only " + numToWords(n) + " USD";
 }
+function exportToExcel(rowsOut, filename, sheetName) {
+  const ws = XLSX.utils.json_to_sheet(rowsOut);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, sheetName || "Sheet1");
+  XLSX.writeFile(wb, filename);
+}
 
 // tariff / calculation helpers, given the shared app data object
 function getPrice(data, year, month) {
@@ -1188,6 +1194,21 @@ function EntryView({
     setToast(count > 0 ? `Saved ${count} new readings` : "No new readings to save");
     setTimeout(() => setToast(""), 2500);
   }
+  function exportEntries() {
+    const rowsOut = displayRows.map(row => ({
+      "#": row.sub.id,
+      "Name": row.sub.name,
+      "Panel No.": row.sub.panel,
+      "Meter No.": row.sub.meter,
+      "Previous Reading": row.prev,
+      "Current Reading": row.curr === "" ? "" : Number(row.curr),
+      "Consumption": row.consumption !== null ? row.consumption : "",
+      "Amp": row.sub.A,
+      "Fixed Fee": row.fixedFee,
+      "Total": row.total !== null ? Math.ceil(row.total) : ""
+    }));
+    exportToExcel(rowsOut, `Readings_${monthLabel(year, month)}.xlsx`, "Readings");
+  }
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "page-header"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
@@ -1317,9 +1338,13 @@ function EntryView({
     style: {
       marginTop: 16,
       display: "flex",
-      justifyContent: "flex-end"
+      justifyContent: "flex-end",
+      gap: 10
     }
   }, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-sm",
+    onClick: exportEntries
+  }, "Export to Excel"), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-dark",
     onClick: saveAll
   }, "Save All New Readings"))), toast && /*#__PURE__*/React.createElement("div", {
@@ -2390,6 +2415,19 @@ function ReceiptsView({
     setBusy(false);
     setProgress("");
   }
+  function exportReceipts() {
+    const rowsOut = rows.map(row => ({
+      "Name": row.sub.name,
+      "Panel No.": row.sub.panel,
+      "Meter No.": row.sub.meter,
+      "Consumption (kWh)": row.reading.consumption,
+      "Fixed Fee": row.reading.fixedFee,
+      "Total": row.reading.total,
+      "Status": row.reading.paid,
+      "Receipt No.": row.reading.receiptNo || row.sub.meter + "-" + row.reading.date.replace(/-/g, "")
+    }));
+    exportToExcel(rowsOut, `Receipts_${monthLabel(year, month)}.xlsx`, "Receipts");
+  }
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "page-header"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
@@ -2484,7 +2522,16 @@ function ReceiptsView({
     className: "btn btn-sm",
     disabled: busy,
     onClick: () => downloadSingle(row)
-  }, "Word")))))))), previewSub && /*#__PURE__*/React.createElement("div", {
+  }, "Word"))))))), rows.length > 0 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 16,
+      display: "flex",
+      justifyContent: "flex-end"
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-sm",
+    onClick: exportReceipts
+  }, "Export to Excel"))), previewSub && /*#__PURE__*/React.createElement("div", {
     className: "panel-card",
     style: {
       maxWidth: 640
