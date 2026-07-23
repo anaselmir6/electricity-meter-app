@@ -1569,6 +1569,193 @@ function ReceiptTemplate({ sub, reading, receiptNo }) {
   );
 }
 
+// ==================== RECEIPT WORD DOCUMENT BUILDER ====================
+const RC_GREEN = "146C3E";
+const RC_LINE = "10251C";
+
+function rcBox(label, value) {
+  const { TableCell, Paragraph, TextRun, BorderStyle, WidthType, AlignmentType, VerticalAlign } = window.docx;
+  return new TableCell({
+    verticalAlign: VerticalAlign.CENTER,
+    width: { size: 33, type: WidthType.PERCENTAGE },
+    borders: {
+      top: { style: BorderStyle.SINGLE, size: 4, color: RC_LINE },
+      bottom: { style: BorderStyle.SINGLE, size: 4, color: RC_LINE },
+      left: { style: BorderStyle.SINGLE, size: 4, color: RC_LINE },
+      right: { style: BorderStyle.SINGLE, size: 4, color: RC_LINE },
+    },
+    margins: { top: 100, bottom: 100, left: 120, right: 120 },
+    children: [
+      new Paragraph({
+        alignment: AlignmentType.CENTER, bidirectional: true,
+        children: [new TextRun({ text: String(value), bold: true, size: 26, font: "Consolas" })],
+      }),
+      new Paragraph({
+        alignment: AlignmentType.CENTER, bidirectional: true,
+        children: [new TextRun({ text: label, size: 16, color: "4B5563", rightToLeft: true, font: "Arial" })],
+      }),
+    ],
+  });
+}
+
+function rcLabelCell(children, opts) {
+  const { TableCell, WidthType, VerticalAlign } = window.docx;
+  return new TableCell({
+    verticalAlign: VerticalAlign.CENTER,
+    width: { size: (opts && opts.width) || 67, type: WidthType.PERCENTAGE },
+    borders: { top: { style: "none" }, bottom: { style: "none" }, left: { style: "none" }, right: { style: "none" } },
+    margins: { top: 100, bottom: 100, left: 120, right: 120 },
+    columnSpan: (opts && opts.span) || 1,
+    children,
+  });
+}
+
+function rcLine(label, value) {
+  const { Paragraph, TextRun, AlignmentType } = window.docx;
+  return new Paragraph({
+    alignment: AlignmentType.RIGHT, bidirectional: true,
+    children: [
+      new TextRun({ text: label + " ", size: 20, rightToLeft: true, font: "Arial" }),
+      new TextRun({ text: String(value), bold: true, size: 20, rightToLeft: true, font: "Arial" }),
+    ],
+  });
+}
+
+function buildReceiptSection(sub, reading, receiptNo, isFirst) {
+  const { Table, TableRow, Paragraph, TextRun, BorderStyle, WidthType, AlignmentType, VerticalAlign } = window.docx;
+  const y = Number(reading.date.slice(0, 4));
+  const m = Number(reading.date.slice(5, 7));
+  const today = new Date();
+  const printedDate = `${today.getFullYear()}/${today.getDate()}/${today.getMonth() + 1}`;
+  const payMethodArabic = reading.payMethod === "Cash" || !reading.payMethod ? "نقداً" : reading.payMethod;
+  const noBorder = { top: { style: "none" }, bottom: { style: "none" }, left: { style: "none" }, right: { style: "none" } };
+
+  const titleRow = new TableRow({
+    children: [
+      rcLabelCell([
+        new Paragraph({
+          alignment: AlignmentType.RIGHT, bidirectional: true,
+          children: [
+            new TextRun({ text: "إيصال قبض ", bold: true, size: 32, rightToLeft: true, font: "Arial", color: RC_GREEN }),
+            new TextRun({ text: receiptNo, bold: true, size: 24, font: "Consolas" }),
+          ],
+        }),
+      ], { width: 67 }),
+      (function () {
+        const { TableCell } = window.docx;
+        return new TableCell({
+          verticalAlign: VerticalAlign.CENTER,
+          width: { size: 33, type: WidthType.PERCENTAGE },
+          borders: {
+            top: { style: BorderStyle.SINGLE, size: 6, color: RC_GREEN },
+            bottom: { style: BorderStyle.SINGLE, size: 6, color: RC_GREEN },
+            left: { style: BorderStyle.SINGLE, size: 6, color: RC_GREEN },
+            right: { style: BorderStyle.SINGLE, size: 6, color: RC_GREEN },
+          },
+          shading: { fill: "E9EEEB" },
+          margins: { top: 100, bottom: 100, left: 120, right: 120 },
+          children: [
+            new Paragraph({
+              alignment: AlignmentType.CENTER, bidirectional: true,
+              children: [new TextRun({ text: "المبلغ", size: 16, color: "4B5563", rightToLeft: true, font: "Arial" })],
+            }),
+            new Paragraph({
+              alignment: AlignmentType.CENTER, bidirectional: true,
+              children: [
+                new TextRun({ text: "USD ", size: 20, font: "Arial", color: RC_GREEN }),
+                new TextRun({ text: String(reading.totalRounded), bold: true, size: 32, font: "Consolas", color: RC_GREEN }),
+              ],
+            }),
+          ],
+        });
+      })(),
+    ],
+  });
+
+  const fromRow = new TableRow({
+    children: [
+      rcLabelCell([rcLine("وصلنا من السيد:", sub.name)], { width: 67 }),
+      rcBox("رقم الساعة", sub.panel),
+    ],
+  });
+
+  const tariffRow = new TableRow({
+    children: [
+      rcLabelCell([new Paragraph({ children: [new TextRun({ text: "" })] })], { width: 67 }),
+      rcBox("تعرفة الوحدة", reading.price),
+    ],
+  });
+
+  const wordsRow = new TableRow({
+    children: [rcLabelCell([rcLine("مبلغاً وقدره:", amountInWords(reading.totalRounded))], { width: 100, span: 2 })],
+  });
+
+  const forRow = new TableRow({
+    children: [
+      rcLabelCell([rcLine("وذلك عن:", "تسديد إشتراك الكهرباء عن شهر " + monthLabelArabic(y, m))], { width: 67 }),
+      rcBox("مبلغ مقطوع", reading.fixedFee),
+    ],
+  });
+
+  const payRow = new TableRow({
+    children: [rcLabelCell([rcLine("طريقة الدفع:", payMethodArabic)], { width: 100, span: 2 })],
+  });
+
+  const metersRow = new TableRow({
+    children: [
+      rcBox("العداد السابق", reading.prev),
+      rcBox("العداد الحالي", reading.curr),
+      rcBox("إجمالي المسحوب", reading.consumption),
+    ],
+  });
+
+  const footerRow = new TableRow({
+    children: [
+      rcLabelCell([rcLine("المستلم:", "LASeR")], { width: 50 }),
+      rcLabelCell([rcLine("التاريخ:", printedDate)], { width: 50 }),
+    ],
+  });
+
+  const table = new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    borders: { top: noBorder.top, bottom: noBorder.bottom, left: noBorder.left, right: noBorder.right, insideHorizontal: noBorder.top, insideVertical: noBorder.top },
+    rows: [titleRow, fromRow, tariffRow, wordsRow, forRow, payRow],
+  });
+
+  const metersTable = new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    rows: [metersRow],
+  });
+
+  const footerTable = new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    borders: { top: noBorder.top, bottom: noBorder.bottom, left: noBorder.left, right: noBorder.right, insideHorizontal: noBorder.top, insideVertical: noBorder.top },
+    rows: [footerRow],
+  });
+
+  const spacer = new Paragraph({ children: [new TextRun({ text: "" })], pageBreakBefore: !isFirst });
+  const spacer2 = new Paragraph({ children: [new TextRun({ text: "" })] });
+  const spacer3 = new Paragraph({ children: [new TextRun({ text: "" })] });
+
+  return [spacer, table, spacer2, metersTable, spacer3, footerTable];
+}
+
+async function saveReceiptDoc(sections, filename) {
+  const { Document, Packer } = window.docx;
+  const doc = new Document({
+    sections: [{ properties: {}, children: sections }],
+  });
+  const blob = await Packer.toBlob(doc);
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+}
+
 // ==================== RECEIPTS VIEW ====================
 function ReceiptsView({ data, store }) {
   const [year, setYear] = React.useState(2026);
@@ -1577,8 +1764,6 @@ function ReceiptsView({ data, store }) {
   const [previewSub, setPreviewSub] = React.useState(null);
   const [busy, setBusy] = React.useState(false);
   const [progress, setProgress] = React.useState("");
-  const hiddenRef = React.useRef(null);
-  const [renderTarget, setRenderTarget] = React.useState(null); // { sub, reading, receiptNo }
 
   const monthReadings = React.useMemo(() => readingsForMonth(data, year, month), [data, year, month]);
   const allRows = React.useMemo(() => {
@@ -1602,27 +1787,12 @@ function ReceiptsView({ data, store }) {
     store.addOrUpdateReading({ ...reading, paid: reading.paid === "Paid" ? "Unpaid" : "Paid" });
   }
 
-  function waitFrame() {
-    return new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-  }
-
-  async function captureReceipt(sub, reading, receiptNo) {
-    setRenderTarget({ sub, reading, receiptNo });
-    await waitFrame();
-    const canvas = await html2canvas(hiddenRef.current, { scale: 2, backgroundColor: "#ffffff" });
-    return canvas;
-  }
-
   async function downloadSingle(row) {
     setBusy(true);
     setProgress("Generating receipt for " + row.sub.name + " ...");
     const receiptNo = row.reading.receiptNo || (row.sub.meter + "-" + row.reading.date.replace(/-/g, ""));
-    const canvas = await captureReceipt(row.sub, row.reading, receiptNo);
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF({ unit: "px", format: [canvas.width / 2, canvas.height / 2] });
-    pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, canvas.width / 2, canvas.height / 2);
-    pdf.save("Receipt_" + row.sub.name + "_" + row.reading.date + ".pdf");
-    setRenderTarget(null);
+    const sections = buildReceiptSection(row.sub, row.reading, receiptNo, true);
+    await saveReceiptDoc(sections, "Receipt_" + row.sub.name + "_" + row.reading.date + ".docx");
     setBusy(false);
     setProgress("");
   }
@@ -1630,20 +1800,14 @@ function ReceiptsView({ data, store }) {
   async function downloadAll() {
     if (!rows.length) return;
     setBusy(true);
-    const { jsPDF } = window.jspdf;
-    let pdf = null;
+    let sections = [];
     for (let i = 0; i < rows.length; i++) {
       const row = rows[i];
       setProgress(`Generating receipt ${i + 1} of ${rows.length} — ${row.sub.name}`);
       const receiptNo = row.reading.receiptNo || (row.sub.meter + "-" + row.reading.date.replace(/-/g, ""));
-      const canvas = await captureReceipt(row.sub, row.reading, receiptNo);
-      const w = canvas.width / 2, h = canvas.height / 2;
-      if (!pdf) pdf = new jsPDF({ unit: "px", format: [w, h] });
-      else pdf.addPage([w, h]);
-      pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, w, h);
+      sections = sections.concat(buildReceiptSection(row.sub, row.reading, receiptNo, i === 0));
     }
-    pdf.save(`Receipts_${monthLabel(year, month)}.pdf`);
-    setRenderTarget(null);
+    await saveReceiptDoc(sections, `Receipts_${monthLabel(year, month)}.docx`);
     setBusy(false);
     setProgress("");
   }
@@ -1654,7 +1818,7 @@ function ReceiptsView({ data, store }) {
         <div>
           <div className="page-eyebrow">RECEIPTS</div>
           <div className="page-title">Receipts</div>
-          <div className="page-desc">Generate PDF receipts for each subscriber — individually or all at once for the month</div>
+          <div className="page-desc">Generate Word receipts for each subscriber — individually or all at once for the month</div>
         </div>
         <MonthPicker year={year} month={month} setYear={setYear} setMonth={setMonth} />
       </div>
@@ -1662,7 +1826,7 @@ function ReceiptsView({ data, store }) {
       <div className="panel-card" style={{ marginBottom: 20 }}>
         <h3 style={{ justifyContent: "space-between" }}>
           <span style={{ display: "flex", alignItems: "center", gap: 8 }}><span className="eyebrow-dot"></span>{monthLabel(year, month)} — {rows.length} receipts available — Total {fmtMoney(allTotal)}</span>
-          <button className="btn btn-dark" onClick={downloadAll} disabled={busy || !rows.length}>Download All Receipts (Single PDF)</button>
+          <button className="btn btn-dark" onClick={downloadAll} disabled={busy || !rows.length}>Download All Receipts (Single Word Doc)</button>
         </h3>
         <div className="chip-row" style={{ marginBottom: 14 }}>
           <button className={"chip" + (payFilter === "all" ? " active" : "")} onClick={() => setPayFilter("all")}>All ({allRows.length})</button>
@@ -1700,7 +1864,7 @@ function ReceiptsView({ data, store }) {
                     </td>
                     <td style={{ display: "flex", gap: 6 }}>
                       <button className="btn btn-sm" onClick={() => setPreviewSub(row)}>Preview</button>
-                      <button className="btn btn-sm" disabled={busy} onClick={() => downloadSingle(row)}>PDF</button>
+                      <button className="btn btn-sm" disabled={busy} onClick={() => downloadSingle(row)}>Word</button>
                     </td>
                   </tr>
                 ))}
@@ -1719,13 +1883,6 @@ function ReceiptsView({ data, store }) {
           <ReceiptTemplate sub={previewSub.sub} reading={previewSub.reading} receiptNo={previewSub.reading.receiptNo || (previewSub.sub.meter + "-" + previewSub.reading.date.replace(/-/g, ""))} />
         </div>
       )}
-
-      {/* off-screen render target used for PDF capture */}
-      <div style={{ position: "fixed", top: -9999, left: -9999 }}>
-        <div ref={hiddenRef}>
-          {renderTarget && <ReceiptTemplate sub={renderTarget.sub} reading={renderTarget.reading} receiptNo={renderTarget.receiptNo} />}
-        </div>
-      </div>
 
       {busy && <div className="toast">{progress}</div>}
     </div>
