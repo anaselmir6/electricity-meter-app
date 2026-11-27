@@ -111,6 +111,9 @@ function useStore() {
       prices: seed.prices.map(p => ({ ...p })),
       generatorLogs: (seed.generatorLogs || []).map(g => ({ ...g })),
       incomeAdjustments: (seed.incomeAdjustments || []).map(a => ({ ...a })),
+      otherIncome: (seed.otherIncome || []).map(a => ({ ...a })),
+      transfers: (seed.transfers || []).map(a => ({ ...a })),
+      advances: (seed.advances || []).map(a => ({ ...a })),
       assets: (seed.assets || []).map(a => ({ ...a })),
       tariff: { ...seed.tariff },
     };
@@ -130,6 +133,12 @@ function useStore() {
   const addExpense = React.useCallback((expense) => {
     // FIREBASE: addDoc(collection(db, "expenses"), expense)
     setData(prev => ({ ...prev, expenses: [...prev.expenses, expense] }));
+  }, []);
+
+  // generic add for the cash-flow lists: "expenses" | "transfers" | "advances" | "otherIncome"
+  const addEntry = React.useCallback((listName, entry) => {
+    // FIREBASE: addDoc(collection(db, listName), entry)
+    setData(prev => ({ ...prev, [listName]: [...(prev[listName] || []), entry] }));
   }, []);
 
   const addAsset = React.useCallback((asset) => {
@@ -189,6 +198,7 @@ function useStore() {
     data,
     addOrUpdateReading,
     addExpense,
+    addEntry,
     addAsset,
     updateAsset,
     addContract,
@@ -348,7 +358,7 @@ function BreakerPanel({ user, view, setView, onLogout }) {
   );
 }
 // ==================== MONTH PICKER ====================
-function MonthPicker({ year, month, setYear, setMonth, minYear = 2024, maxYear = 2026, allowAllYears = false, allowAllMonths = false }) {
+function MonthPicker({ year, month, setYear, setMonth, minYear = 2024, maxYear = Math.max(2026, new Date().getFullYear()), allowAllYears = false, allowAllMonths = false }) {
   const years = [];
   for (let y = minYear; y <= maxYear; y++) years.push(y);
   return (
@@ -448,8 +458,8 @@ function MeterDial({ value, max, label, unit = "kWh" }) {
 // ==================== DASHBOARD ====================
 function DashboardView({ data }) {
   const now = new Date();
-  const [year, setYear] = React.useState(2026);
-  const [month, setMonth] = React.useState(6);
+  const [year, setYear] = React.useState(() => cfLatestMonth(data, ["readings"]).year);
+  const [month, setMonth] = React.useState(() => cfLatestMonth(data, ["readings"]).month);
   const [search, setSearch] = React.useState("");
   const [chartYear, setChartYear] = React.useState("all");
   const chartRef = React.useRef(null);
@@ -465,23 +475,14 @@ function DashboardView({ data }) {
     if (isAllMonths) return data.readings.filter(r => r.date.startsWith(String(year)));
     return readingsForMonth(data, year, month);
   }, [data, year, month, isAllYears, isAllMonths]);
-  const monthExpenses = React.useMemo(() => {
-    if (isAllYears) return data.expenses;
-    if (isAllMonths) return data.expenses.filter(e => e.date.startsWith(String(year)));
-    return expensesForMonth(data, year, month);
-  }, [data, year, month, isAllYears, isAllMonths]);
-
   const activeCount = activeSubscribers(data).length;
   const totalCount = data.subscribers.length;
-  const periodAdjustments = React.useMemo(() => {
-    if (isAllYears) return data.incomeAdjustments;
-    if (isAllMonths) return incomeAdjustmentsFor(data, year);
-    return incomeAdjustmentsFor(data, year, month);
-  }, [data, year, month, isAllYears, isAllMonths]);
-  const collected = sumBy(monthReadings.filter(r => r.paid === "Paid"), r => r.total) + sumBy(periodAdjustments, a => a.paid);
-  const unpaid = sumBy(monthReadings.filter(r => r.paid !== "Paid"), r => r.total) + sumBy(periodAdjustments, a => a.unpaid);
-  const expensesTotal = sumBy(monthExpenses, e => e.amount);
-  const net = collected - expensesTotal;
+  // all money figures come from periodFinance() (cashflow.js): paid invoices + arrears/other income
+  // (+ legacy incomeAdjustments for 2024–2025); expenses exclude transfers to LASeR and advances
+  const finance = React.useMemo(() => periodFinance(data, year, month), [data, year, month]);
+  const collected = finance.collected;
+  const expensesTotal = finance.expenses;
+  const net = finance.net;
   const kwhTotal = sumBy(monthReadings, r => r.consumption);
 
   const genLogs = React.useMemo(() => {
@@ -494,21 +495,9 @@ function DashboardView({ data }) {
 
   const yearlyBreakdown = React.useMemo(() => {
     const years = [2024, 2025, 2026];
-    const rows = years.map(y => {
-      const yReadings = data.readings.filter(r => r.date.startsWith(String(y)));
-      const yExpenses = data.expenses.filter(e => e.date.startsWith(String(y)));
-      const yAdjustments = incomeAdjustmentsFor(data, y);
-      const yCollected = sumBy(yReadings.filter(r => r.paid === "Paid"), r => r.total) + sumBy(yAdjustments, a => a.paid);
-      const yUnpaid = sumBy(yReadings.filter(r => r.paid !== "Paid"), r => r.total) + sumBy(yAdjustments, a => a.unpaid);
-      const yExpensesTotal = sumBy(yExpenses, e => e.amount);
-      return { year: y, collected: yCollected, unpaid: yUnpaid, expenses: yExpensesTotal, net: yCollected - yExpensesTotal };
-    });
-    const total = {
-      collected: sumBy(rows, r => r.collected),
-      unpaid: sumBy(rows, r => r.unpaid),
-      expenses: sumBy(rows, r => r.expenses),
-      net: sumBy(rows, r => r.net),
-    };
+    const rows = years.map(y => ({ year: y, ...periodFinance(data, y, "all") }));
+    const total = {};
+    YEARLY_METRICS.forEach(m => { total[m.key] = sumBy(rows, r => r[m.key]); });
     return { rows, total };
   }, [data]);
 
@@ -523,11 +512,11 @@ function DashboardView({ data }) {
     }
     return months.map(ym => {
       const [y, m] = ym.split("-").map(Number);
-      const adj = incomeAdjustmentsFor(data, y, m);
+      const f = periodFinance(data, y, m);
       return {
         label: MONTHS_AR[m - 1].slice(0, 3) + " " + String(y).slice(2),
-        income: sumBy(readingsForMonth(data, y, m), r => r.total) + sumBy(adj, a => a.paid + a.unpaid),
-        expense: sumBy(expensesForMonth(data, y, m), e => e.amount),
+        income: f.collected,
+        expense: f.expenses,
       };
     });
   }, [data, chartYear]);
@@ -640,6 +629,8 @@ function DashboardView({ data }) {
         </div>
       </div>
 
+      <CashflowKpis data={data} year={year} month={month} />
+
       <div className="panel-card" style={{ marginBottom: 24 }}>
         <h3><span className="eyebrow-dot"></span>Totals by Year</h3>
         <div className="table-wrap">
@@ -654,12 +645,7 @@ function DashboardView({ data }) {
               </tr>
             </thead>
             <tbody>
-              {[
-                { key: "collected", label: "Collected" },
-                { key: "unpaid", label: "Unpaid" },
-                { key: "expenses", label: "Expenses" },
-                { key: "net", label: "Net" },
-              ].map(m => (
+              {YEARLY_METRICS.map(m => (
                 <tr key={m.key}>
                   <td>{m.label}</td>
                   {yearlyBreakdown.rows.map(r => (
@@ -672,6 +658,8 @@ function DashboardView({ data }) {
           </table>
         </div>
       </div>
+
+      <OtherIncomePanel data={data} year={year} month={month} />
 
       <div className="grid-2">
         <div className="panel-card">
@@ -748,8 +736,9 @@ function DashboardView({ data }) {
 }
 // ==================== ENTRY VIEW (Wissam) ====================
 function EntryView({ data, store, user }) {
-  const [year, setYear] = React.useState(2026);
-  const [month, setMonth] = React.useState(7);
+  // default to the month after the latest recorded readings (the next month to enter)
+  const [year, setYear] = React.useState(() => cfNextMonth(cfLatestMonth(data, ["readings"])).year);
+  const [month, setMonth] = React.useState(() => cfNextMonth(cfLatestMonth(data, ["readings"])).month);
   const [drafts, setDrafts] = React.useState({});
   const [feeDrafts, setFeeDrafts] = React.useState({});
   const [toast, setToast] = React.useState("");
@@ -1154,196 +1143,7 @@ function SubscribersView({ data, store }) {
   );
 }
 // ==================== EXPENSES VIEW ====================
-const EXPENSE_CATEGORIES = [
-  "Salary", "Generator Maintenance Contract", "Solar Maintenance Contract", "Diesel $",
-  "Generator Depreciation", "Solar System Depreciation", "Others",
-];
-
-function ExpensesView({ data, store }) {
-  const [year, setYear] = React.useState(2026);
-  const [month, setMonth] = React.useState(6);
-  const [form, setForm] = React.useState({ label: EXPENSE_CATEGORIES[0], amount: "", notes: "" });
-  const [genForm, setGenForm] = React.useState({ hours: "", liters: "", notes: "" });
-
-  const monthExpenses = React.useMemo(() => expensesForMonth(data, year, month), [data, year, month]);
-  const total = sumBy(monthExpenses, e => e.amount);
-
-  const yearTotal = React.useMemo(() => {
-    return sumBy(data.expenses.filter(e => e.date.startsWith(String(year))), e => e.amount);
-  }, [data, year]);
-
-  const currentGenLog = React.useMemo(() => {
-    return data.generatorLogs.find(g => g.year === year && g.month === month);
-  }, [data, year, month]);
-
-  const yearGenLogs = React.useMemo(() => data.generatorLogs.filter(g => g.year === year), [data, year]);
-  const yearGenHours = sumBy(yearGenLogs, g => g.hours || 0);
-  const yearGenPossibleHours = sumBy(yearGenLogs, g => daysInMonth(g.year, g.month) * 24);
-  const yearGenRate = yearGenPossibleHours > 0 ? Math.round((yearGenHours / yearGenPossibleHours) * 100) : 0;
-
-  React.useEffect(() => {
-    setGenForm({
-      hours: currentGenLog && currentGenLog.hours !== undefined ? String(currentGenLog.hours) : "",
-      liters: currentGenLog && currentGenLog.liters !== undefined ? String(currentGenLog.liters) : "",
-      notes: currentGenLog ? (currentGenLog.notes || "") : "",
-    });
-  }, [year, month, currentGenLog]);
-
-  function submitForm(e) {
-    e.preventDefault();
-    if (!form.amount || isNaN(form.amount)) return;
-    store.addExpense({
-      date: year + "-" + pad2(month) + "-01",
-      label: form.label,
-      amount: Number(form.amount),
-      notes: form.notes,
-    });
-    setForm({ label: EXPENSE_CATEGORIES[0], amount: "", notes: "" });
-  }
-
-  function submitGenForm(e) {
-    e.preventDefault();
-    if (genForm.hours === "" && genForm.liters === "") return;
-    store.setGeneratorLog(year, month, {
-      hours: genForm.hours === "" ? 0 : Number(genForm.hours),
-      liters: genForm.liters === "" ? 0 : Number(genForm.liters),
-      notes: genForm.notes,
-    });
-  }
-
-  return (
-    <div>
-      <div className="page-header">
-        <div>
-          <div className="page-eyebrow">EXPENSES</div>
-          <div className="page-title">Monthly Expenses</div>
-          <div className="page-desc">Salaries, maintenance, diesel costs, and generator running hours — by month</div>
-        </div>
-        <MonthPicker year={year} month={month} setYear={setYear} setMonth={setMonth} />
-      </div>
-
-      <div className="kpi-grid" style={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
-        <div className="kpi-card accent-rust">
-          <div className="kpi-label">Expenses {monthLabel(year, month)}</div>
-          <div className="kpi-value">{fmtMoney(total)}</div>
-          <div className="kpi-bar"></div>
-        </div>
-        <div className="kpi-card accent-ink">
-          <div className="kpi-label">Total Expenses for {year}</div>
-          <div className="kpi-value">{fmtMoney(yearTotal)}</div>
-          <div className="kpi-bar"></div>
-        </div>
-      </div>
-
-      {data.generatorLogs.length > 0 && (
-        <div className="panel-card" style={{ marginBottom: 20 }}>
-          <h3><span className="eyebrow-dot"></span>Generator Log History — {year}</h3>
-          <div className="table-wrap">
-            <table className="data-table">
-              <thead><tr><th>Month</th><th className="num">Running Hours</th><th className="num">Diesel $</th><th className="num">Utilization</th><th>Notes</th><th>Edit</th></tr></thead>
-              <tbody>
-                {Array.from({ length: 12 }, (_, i) => i + 1).map(m => {
-                  const g = data.generatorLogs.find(x => x.year === year && x.month === m);
-                  const dieselExpenses = expensesForMonth(data, year, m).filter(e => e.label === "Diesel $");
-                  const dieselCost = sumBy(dieselExpenses, e => e.amount);
-                  return (
-                    <tr key={m} className={m === month ? "row-saved" : ""}>
-                      <td>{monthLabel(year, m)}</td>
-                      <td className="num">{g ? g.hours : "—"}</td>
-                      <td className="num">{dieselExpenses.length > 0 ? fmtMoney2(dieselCost) : "—"}</td>
-                      <td className="num">{g ? Math.round((g.hours || 0) / (daysInMonth(year, m) * 24) * 100) + "%" : "—"}</td>
-                      <td style={{ whiteSpace: "normal" }}>{g ? g.notes : ""}</td>
-                      <td><button className="btn btn-sm" onClick={() => { setYear(year); setMonth(m); }}>{g ? "Edit" : "Add"}</button></td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
-
-      <div className="kpi-grid" style={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
-        <div className="kpi-card accent-teal">
-          <div className="kpi-label">Generator Hours {year}</div>
-          <div className="kpi-value">{yearGenHours.toLocaleString("en-US")}</div>
-          <div className="kpi-bar"></div>
-        </div>
-        <div className="kpi-card accent-teal">
-          <div className="kpi-label">Utilization Rate {year}</div>
-          <div className="kpi-value">{yearGenRate}%</div>
-          <div className="kpi-bar"></div>
-        </div>
-      </div>
-
-      <div className="panel-card" style={{ marginBottom: 20 }}>
-        <h3><span className="eyebrow-dot"></span>Generator Log — {monthLabel(year, month)}</h3>
-        <form onSubmit={submitGenForm}>
-          <div className="form-grid">
-            <div className="form-field">
-              <label>Running Hours</label>
-              <input type="number" step="0.1" min="0" value={genForm.hours} onChange={e => setGenForm(f => ({ ...f, hours: e.target.value }))} placeholder="e.g. 210" />
-            </div>
-            <div className="form-field">
-              <label>Diesel Consumed (Liters)</label>
-              <input type="number" step="0.1" min="0" value={genForm.liters} onChange={e => setGenForm(f => ({ ...f, liters: e.target.value }))} placeholder="e.g. 480" />
-            </div>
-            <div className="form-field">
-              <label>Notes</label>
-              <input value={genForm.notes} onChange={e => setGenForm(f => ({ ...f, notes: e.target.value }))} />
-            </div>
-          </div>
-          <button className="btn btn-dark" type="submit">{currentGenLog ? "Update Generator Log" : "Save Generator Log"}</button>
-        </form>
-      </div>
-
-      <div className="panel-card" style={{ marginBottom: 20 }}>
-        <h3><span className="eyebrow-dot"></span>Add New Expense — {monthLabel(year, month)}</h3>
-        <form onSubmit={submitForm}>
-          <div className="form-grid">
-            <div className="form-field">
-              <label>Expense Type</label>
-              <select value={form.label} onChange={e => setForm(f => ({ ...f, label: e.target.value }))}>
-                {EXPENSE_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
-              </select>
-            </div>
-            <div className="form-field">
-              <label>Amount ($)</label>
-              <input type="number" value={form.amount} onChange={e => setForm(f => ({ ...f, amount: e.target.value }))} required />
-            </div>
-            <div className="form-field">
-              <label>Notes</label>
-              <input value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))} />
-            </div>
-          </div>
-          <button className="btn btn-dark" type="submit">Save Expense</button>
-        </form>
-      </div>
-
-      <div className="panel-card">
-        <h3><span className="eyebrow-dot"></span>Expenses for {monthLabel(year, month)}</h3>
-        {monthExpenses.length === 0 ? (
-          <div className="empty-state"><div className="icon">—</div>No expenses recorded for this month yet</div>
-        ) : (
-          <div className="table-wrap">
-            <table className="data-table">
-              <thead><tr><th>Type</th><th className="num">Amount</th><th>Notes</th></tr></thead>
-              <tbody>
-                {monthExpenses.map((e, i) => (
-                  <tr key={i}>
-                    <td>{e.label}</td>
-                    <td className="num">{fmtMoney2(e.amount)}</td>
-                    <td style={{ whiteSpace: "normal" }}>{e.notes}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
+// ExpensesView (with receipt uploads) now lives in cashflow.js (plain JS, no build step).
 // ==================== ASSETS VIEW ====================
 function AssetsView({ data, store }) {
   const [showForm, setShowForm] = React.useState(false);
@@ -1685,8 +1485,8 @@ function downloadBlob(blob, filename) {
 
 // ==================== RECEIPTS VIEW ====================
 function ReceiptsView({ data, store }) {
-  const [year, setYear] = React.useState(2026);
-  const [month, setMonth] = React.useState(6);
+  const [year, setYear] = React.useState(() => cfLatestMonth(data, ["readings"]).year);
+  const [month, setMonth] = React.useState(() => cfLatestMonth(data, ["readings"]).month);
   const [payFilter, setPayFilter] = React.useState("all");
   const [previewSub, setPreviewSub] = React.useState(null);
   const [busy, setBusy] = React.useState(false);
